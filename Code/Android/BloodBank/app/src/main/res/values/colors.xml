@@ -3,4 +3,40 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorGrey">#EAEAEA</color>
+    <color name="colorGrey_login">#FAFAFA</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhite60">#8fffffff</color>
+    <color name="colorBlue_facebook">#3B5999</color>
+    <color name="colorBlue_facebook_click">#203080</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_700">#616161</color>
+    <color name="color_black_blur">#1b1a1a</color>
+    <color name="color_black">#000000</color>
+    <color name="blue_600">#1E88E5</color>
+    <color name="blue_app">#1BCCCC</color>
+    <color name="blue_app_blur">#0bb7b7</color>
+
+    <!-- Screens background color-->
+    <color name="bg_screen">#CD242A</color>
+    <color name="bg_screen_blur">#840705</color>
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen">#591218</color>
+    <!-- dots active colors -->
+    <color name="dot_light_screen">#fafafa</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
+        <item>@color/dot_light_screen</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
+        <item>@color/dot_dark_screen</item>
+    </array>
+
 </resources>

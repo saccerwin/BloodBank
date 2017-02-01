@@ -1,3 +1,302 @@
 <resources>
     <string name="app_name">BloodBank</string>
+    <string name="manager_club">CLB Ban Mai Xanh</string>
+    <string name="admin">Admin</string>
+    <string name="member">Member</string>
+    <string name="guest">Guest</string>
+    <string name="cancel">Thoát</string>
+    <string name="ok">Ok</string>
+
+
+    <!--Toobar-->
+    <string name="toolbar_search_member_group">Tìm kiếm nhóm máu thành viên</string>
+
+    <!--Dialog-->
+    <string name="title_join_group">Xác thực tham gia CLB</string>
+    <string name="hint_edt_join_club">Mã xác thực</string>
+
+    <!--Screen Introduction-->
+    <string name="next">Tiếp theo</string>
+    <string name="skip">Bỏ qua</string>
+    <string name="start">Hoàn Thành</string>
+
+    <string name="slide_1_title">Quản lý thành viên!</string>
+    <string name="slide_1_desc">Giúp người quản lý có thể quản lý và tương tác thành viên một cách hiệu quả!</string>
+
+    <string name="slide_2_title">Tìm kiếm nhóm máu</string>
+    <string name="slide_2_desc">Giúp tìm kiếm nhóm máu mà mình cần một cách nhanh chóng</string>
+
+    <string name="slide_3_title">Quản lý lịch sử hiến máu</string>
+    <string name="slide_3_desc">Giúp quản lý lịch sử một cách chi tiết! </string>
+
+    <string name="slide_4_title"> Gửi thông báo </string>
+    <string name="slide_4_desc">Dễ dành gửi thông báo khi có người cần máu đến các thành viên sớm nhất</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
+    <!--Screen Login-->
+    <string name="btn_login_facebook">Đăng nhập bằng Facebook</string>
+    <string name="btn_login"> Đăng nhập</string>
+    <string name="text_signup_or_login">Sign up or login with: </string>
+    <string name="text_forgot_password">Quên mật khẩu ?</string>
+    <string name="mobilenumber"> Mobile Number </string>
+    <string name="text_already_have_account">Bạn chưa có tài khoản?</string>
+    <string name="text_register">Đăng ký</string>
+    <string name="text_register_user">Đăng ký tài khoản</string>
+
+    <!--Screen Add Description User-->
+    <string name="description_title"> Thêm thông tin bản thân</string>
+    <string name="fullname"> Họ và tên</string>
+    <string name="hint_phone"> Nhập số điện thoại</string>
+    <string name="date_of_birth"> Nhập ngày sinh</string>
+    <string name="email"> Email</string>
+    <string name="email_forgot"> Nhập địa chỉ email</string>
+    <string name="btn_verify"> Xác thực gửi về email</string>
+    <string name="password"> Password</string>
+    <string name="hint_time_donation"> Thời gian cho máu</string>
+    <string name="hint_city">Thành Phố</string>
+    <string name="hint_district"> Quận/Huyện</string>
+    <string name="hint_blood_group">Nhóm máu</string>
+    <string name="hint_gender">Giới tính: </string>
+    <string name="gender_male"> Nam</string>
+    <string name="gender_female"> Nữ</string>
+    <string name="btn_add_desription"> Thêm thông tin</string>
+
+
+    <!--Screen Navigation drawer-->
+    <string name="nav_name"> Đặng Duy Hậu</string>
+    <string name="position"> Người dùng</string>
+
+
+    <!--Screen Home-->
+
+    <string name="name_club"> CLB Ban Mai Xanh Đà Nẵng</string>
+    <string name="time_post">15:30 - 10/01/2016</string>
+    <string name="detail_post">Chiều nay có một số bệnh nhân đang bị sốt xuất huyết rất nặng đang cần gấp 2 đơn vị tiểu cầu máy nhóm máu O và nhóm A để điều trị , bạn nào giúp được ll với mình qua số 0905944950
+Đợi tin từ mọi người
+P/s Đồng cảm đơn giản là sẻ chia</string>
+    <string name="count_register_donation_blood"> 10 người đăng ký</string>
+    <string name="register"> Đăng ký</string>
+    <string name="view_club">Xem chi tiết CLB</string>
+    <string name="comment"> Bình luận</string>
+    <string name="share"> Chia sẻ</string>
+
+    <!--Screen Search blood group-->
+    <string name="donateOnOne">Từng hiến máu ít nhất một lần!</string>
+    <string name="eligibleDonate">Đủ điều kiện hiến máu!</string>
+    <string name="search">Tìm kiếm</string>
+    <!--Screen Result Search blood group-->
+    <string name="list_search">Danh sách tìm kiếm</string>
+
+
+
+    <!--Screen Description club-->
+    <string name="club_description_club">Mục tiêu CLB:Ở đâu có nạn nhân cần tiếp máu ở đó có những con người tình nguyện.</string>
+
+    <!--Screen Result List Club-->
+    <string name="count_member_club"> Số lượng thành viên: 1024</string>
+    <string name="address_club"> Địa chỉ: Cẩm Lệ, Đà Nẵng</string>
+    <string name="facebook_club"> Facebook: CLB Ban Mai Xanh</string>
+
+    <!--Screen Filter Search Club-->
+    <string name="filter">Bộ lọc</string>
+    <string name="hint_count_member_club">Số lượng thành viên</string>
+
+
+    <!--Screen  profile-->
+    <string name="btn_call_admin">Gọi điện cho admin</string>
+    <string name="btn_call">Gọi điện</string>
+    <string name="btn_sms">Nhắn tin</string>
+    <string name="count_donate_blood">12 lần hiến máu</string>
+    <string name="phone">01228524778</string>
+    <string name="time_donation">Ngoài giờ hành chính</string>
+    <string name="address">Hòa Khánh, Đà Nẵng</string>
+
+
+    <!--Screen Profile-->
+    <string name="count_donation_blood"> 12 lần hiến máu </string>
+    
+    <!--Screen Edit profile-->
+    <string name="toobar_title_profile">Thay đổi thông tin tài khoản</string>
+    <string name="toobar_title_comment">Xem bình luận</string>
+
+    <!--Screen View detail Club-->
+
+    <string name="toobar_name_clb">CLB Ban Mai Xanh</string>
+    <string name="list_member_club">Danh sách thành viên CLB</string>
+    <!--Screen display Dialog-->
+    <string name="member_register"> Thành viên đăng ký</string>
+    <string name="post_new_discuss"> Đăng bài mới</string>
+    <string name="hint_edt_post_new_discuss"> Nhập nội dung vào</string>
+    <string name="btn_done"> OK</string>
+
+
+    <!--Screen comment-->
+    <string name="description_comment"> ad ơi mình là nhóm máu A, có gì liên hệ mình nhé</string>
+    <string name="hint_edt_comment">Nhập nội dung bình luận</string>
+
+    <!--Screen History Donation Blood-->
+    <string name="history_date">22/01/2016</string>
+    <string name="history_location_hospital">Tại: Bệnh viện Đa Khoa Đà Nẵng</string>
+    <string name="history_description">Bạn đã hiến 1 đơn vị tiểu cầu máu loại B+</string>
+    <string name="quality">Số lượng đơn vị hiến</string>
+
+
+
+
+    <!--Screen activity profile search-->
+
+    <string name="title_profile_search"> Thông tin chi tiết</string>
+
+
+    <!--Screen history donation blood-->
+    <string name="create_history"> Tạo lịch sử hiến máu</string>
+    <string name="name_hospital"> Tên bệnh viện</string>
+    <string name="units_donation">Đơn vị hiến</string>
+
+
+    <string-array name="navDrawerItemsUser">
+        <item>Trang chủ</item>
+        <item>Tìm kiếm nhóm máu</item>
+        <item>Tìm kiếm câu lạc bộ</item>
+        <item>Tài khoản</item>
+        <item>Đăng xuất</item>
+    </string-array>
+
+    <string-array name="navDrawerItemsMember">
+        <item>Trang chủ</item>
+        <item>Tìm kiếm nhóm máu</item>
+        <item>Tìm kiếm câu lạc bộ</item>
+        <item>Quản lý câu lạc bộ</item>
+        <item>Tài khoản</item>
+        <item>Lịch sử hiến máu</item>
+        <item>Đăng xuất</item>
+    </string-array>
+
+    <string-array name="navDrawerItemsAdmin">
+        <item>Trang chủ</item>
+        <item>Tìm kiếm nhóm máu</item>
+        <item>Tìm kiếm câu lạc bộ</item>
+        <item>Quản lý câu lạc bộ</item>
+        <item>Tài khoản</item>
+        <item>Lịch sử hiến máu</item>
+        <item>Thống kê</item>
+        <item>Đăng xuất</item>
+    </string-array>
+
+
+    <string-array name="array_item_profile">
+        <item>12 lần hiến máu</item>
+        <item>+840122852147</item>
+        <item>saccerwin101@gmail.com</item>
+        <item>Hòa Khánh, Đà Nẵng</item>
+        <item>20/12/1995</item>
+        <item>Nam</item>
+        <item>Ngoài giờ hành chính</item>
+    </string-array>
+
+
+
+    <string-array name="count_member">
+        <item>Từ 10 - 100 thành viên</item>
+        <item>Từ 100 - 500 thành viên</item>
+        <item>Từ 500 - 1000 thành viên</item>
+        <item>Trên 1000 thành viên</item>
+    </string-array>
+
+
+    <string-array name="time_donation">
+        <item>Toàn thời gian</item>
+        <item>Ngoài giờ hành chính</item>
+    </string-array>
+
+    <string-array name="units_donation_blood_items">
+        <item>Máu toàn phần</item>
+        <item>Tiểu cầu máu</item>
+    </string-array>
+
+
+    <string-array name="blood_group">
+        <item>A</item>
+        <item>B</item>
+        <item>O</item>
+        <item>AB</item>
+    </string-array>
+    <string-array name="district">
+        <item>Quận Thanh Khê - Đà Nẵng</item>
+        <item>Quận Liên Chiểu - Đà Nẵng</item>
+        <item>Quận Hải Châu - Đà Nẵng</item>
+        <item>Huyện Hòa Vang - Đà Nẵng</item>
+        <item>Quận Ngũ Hành Sơn- Đà Nẵng</item>
+        <item>Quận Sơn Trà - Đà Nẵng</item>
+        <item>Huyện Đảo Hoàng Sa - Đà Nẵng</item>
+    </string-array>
+
+    <string-array name="city">
+        <item> An Giang </item>
+        <item>Bà Rịa - Vũng Tàu</item>
+        <item> Bắc Giang</item>
+        <item> Bắc Kạn</item>
+        <item> Bạc Liêu</item>
+        <item>  Bắc Ninh</item>
+        <item> Bến Tre</item>
+        <item>  Bình Định</item>
+        <item> Bình Dương</item>
+        <item> Bình Phước</item>
+        <item> Bình Thuận</item>
+        <item> Cà Mau</item>
+        <item> Cao Bằng</item>
+        <item> Đắk Lắk</item>
+        <item> Đắk Nông</item>
+        <item> Điện Biên</item>
+        <item> Đồng Nai</item>
+        <item> Đồng Tháp</item>
+        <item> Gia Lai</item>
+        <item> Hà Giang</item>
+        <item> Hà Nam</item>
+        <item>  Hà Tĩnh</item>
+        <item> Hải Dương</item>
+        <item> Hậu Giang</item>
+        <item> Hòa Bình</item>
+        <item>Hưng Yên</item>
+        <item>Khánh Hòa</item>
+        <item> Kiên Giang</item>
+        <item> Kon Tum</item>
+        <item>Lai Châu</item>
+        <item>Lâm Đồng</item>
+        <item> Lạng Sơn</item>
+        <item> Lào Cai</item>
+        <item> Long An</item>
+        <item> Nam Định</item>
+        <item>Nghệ An</item>
+        <item> Ninh Bình</item>
+        <item> Ninh Thuận</item>
+        <item> Phú Thọ</item>
+        <item> Quảng Bình</item>
+        <item> Quảng Nam</item>
+        <item> Quảng Ngãi</item>
+        <item>Quảng Ninh</item>
+        <item> Quảng Trị</item>
+        <item> Sóc Trăng</item>
+        <item> Sơn La</item>
+        <item> Tây Ninh</item>
+        <item>Thái Bình</item>
+        <item>Thái Nguyên</item>
+        <item> Thanh Hóa</item>
+        <item>Thừa Thiên Huế</item>
+        <item>Tiền Giang</item>
+        <item> Trà Vinh</item>
+        <item> Tuyên Quang</item>
+        <item> Vĩnh Long</item>
+        <item>Vĩnh Phúc</item>
+        <item>Yên Bái</item>
+        <item>Phú Yên</item>
+        <item>Cần Thơ</item>
+        <item> Đà Nẵng</item>
+        <item>Hải Phòng</item>
+        <item>Hà Nội</item>
+        <item>TP HCM</item>
+    </string-array>
+
 </resources>

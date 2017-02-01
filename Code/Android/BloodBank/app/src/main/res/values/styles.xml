@@ -1,11 +1,41 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/bg_screen</item>
+        <item name="colorPrimaryDark">@color/bg_screen_blur</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="btnBorder_BgScreenBlur">
+        <item name="android:background">@drawable/textview_background_radius</item>
+        <item name="android:layout_margin">@dimen/padding_5</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/bg_screen</item>
+        <item name="colorPrimaryDark">@color/bg_screen_blur</item>
+        <item name="android:textColorHighlight">@color/bg_screen_blur</item>
+        <item name="colorControlActivated">@color/bg_screen</item>
+    </style>
+
+    <style name="RadioButtonMain" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorAccent">@color/bg_screen</item>
+        <item name="colorControlHighlight">@color/bg_screen</item>
+        <item name="colorPrimary">@color/bg_screen</item>
+        <item name="colorPrimaryDark">@color/bg_screen</item>
+        <item name="colorControlActivated">@color/bg_screen</item>
+        <item name="android:colorPressedHighlight">@color/bg_screen</item>
+
     </style>
 
 </resources>
