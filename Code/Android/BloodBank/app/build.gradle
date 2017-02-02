@@ -32,5 +32,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     compile 'com.google.android:multidex:0.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     testCompile 'junit:junit:4.12'
 }

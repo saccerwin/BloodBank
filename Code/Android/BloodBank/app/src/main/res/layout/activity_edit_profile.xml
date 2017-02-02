@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_fullname"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/fullname" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_phone_number"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:hint="@string/hint_phone" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:hint="@string/password" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_date_of_birth"
+                    android:inputType="date"
+                    android:imeOptions="actionNext"
+                    android:hint="@string/date_of_birth" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spinner_time_donation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:hint="@string/hint_time_donation"
+                app:met_floatingLabel="normal"/>
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spinner_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:hint="@string/hint_city"
+                app:met_floatingLabel="normal"/>
+
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spinner_district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:hint="@string/hint_district"
+                app:met_floatingLabel="normal"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_5"
+                    android:textSize="@dimen/text_size_15"
+                    android:text="@string/hint_gender"/>
+                <RadioGroup
+                    android:id="@+id/radio_group_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender_male"
+                        style="@style/RadioButtonMain"
+                        android:checked="true"
+                        android:id="@+id/radio_male"/>
+
+                    <RadioButton
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gender_female"
+                        style="@style/RadioButtonMain"
+                        android:id="@+id/radio_female"
+                        />
+
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/toolbar"/>
+
+</LinearLayout>

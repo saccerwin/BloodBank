@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="75dp"
+            android:id="@+id/view_divider_vetical"
+            android:layout_marginLeft="@dimen/padding_20"
+            android:layout_marginStart="@dimen/padding_20"
+            android:background="@color/grey_500" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/avatar"
+            android:id="@+id/img_avatar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/view_divider_vetical"
+        android:layout_toEndOf="@id/view_divider_vetical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/history_date"
+            android:textColor="@color/blue_app"
+            android:paddingLeft="30dp"
+            android:paddingStart="30dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:layout_marginBottom="@dimen/padding_5"
+            android:textStyle="bold"
+            android:id="@+id/tv_date" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingStart="30dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:layout_marginBottom="@dimen/padding_5"
+
+            android:text="@string/history_location_hospital"
+            android:id="@+id/tv_address_hospital" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/history_description"
+            android:paddingLeft="30dp"
+            android:paddingStart="30dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:id="@+id/tv_content"
+            android:layout_marginBottom="@dimen/padding_5"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_500"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@id/main.appbar"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <LinearLayout
+                android:id="@+id/viewA"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                app:layout_collapseMode="parallax"
+                android:background="@color/blue_app"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    android:gravity="center"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/text_size_20"
+                    android:id="@+id/tv_fullname"
+                    android:layout_marginBottom="@dimen/padding_10"
+                    android:text="@string/nav_name"/>
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:contentDescription="@string/app_name"
+                    android:layout_gravity="center"
+                    android:src="@drawable/cover_history_a_subtraction"
+                    android:layout_marginBottom="@dimen/text_size_20"
+                    app:layout_collapseMode="parallax"
+                    android:id="@+id/img_view_cover_blood" />
+            </LinearLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@id/recyclerView"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_new_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_anchor="@id/main.appbar"
+        app:backgroundTint="@color/blue_app"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+</android.support.design.widget.CoordinatorLayout>

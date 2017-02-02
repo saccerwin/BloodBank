@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/main_menu_group">
+        <item
+            android:id="@+id/action_search"
+            android:icon="@drawable/ic_seach"
+            android:title="Search"
+            app:showAsAction="ifRoom|collapseActionView" />
+        <item
+            android:id="@+id/menu_edit_profile"
+            android:icon="@drawable/ic_edit"
+            android:title="Edit profile"
+            app:showAsAction="ifRoom|collapseActionView" />
+        <item
+            android:id="@+id/search_member"
+            android:icon="@drawable/ic_serch_people"
+            android:title="Search"
+            app:showAsAction="ifRoom|collapseActionView" />
+    </group>
+</menu>

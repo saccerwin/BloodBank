@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:contentDescription="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:background="@color/colorGrey_login"
+            android:src="@drawable/background_landscape"
+            android:id="@+id/imageView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_10"
+            android:orientation="vertical">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10">
+
+                <EditText
+                    android:id="@+id/edt_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_email_red_500_24dp"
+                    android:drawableEnd="@drawable/ic_email_red_500_24dp"
+                    android:hint="@string/email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:imeOptions="actionGo"
+                    android:drawableRight="@drawable/ic_lock_outline_red_500_24dp"
+                    android:drawableEnd="@drawable/ic_lock_outline_red_500_24dp"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_forgot_password"
+                android:gravity="end"
+                android:paddingLeft="0dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/padding_30"
+                android:paddingRight="@dimen/padding_30"
+                android:textColor="@color/colorBlue_facebook"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:id="@+id/tv_forgot_password" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:background="@drawable/button_radius_mobile_number"
+                android:paddingLeft="@dimen/padding_20"
+                android:paddingStart="@dimen/padding_20"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
+                android:text="@string/btn_login"
+                android:textColor="@color/colorWhite"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_10"
+                android:layout_marginBottom="@dimen/padding_20"
+                android:layout_marginLeft="@dimen/padding_20"
+                android:layout_marginRight="@dimen/padding_20"
+                android:layout_marginStart="@dimen/padding_20"
+                android:layout_marginEnd="@dimen/padding_20"
+                android:id="@+id/btn_login" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:background="@drawable/button_radius_facebook"
+                android:drawableLeft="@drawable/ic_facebook"
+                android:drawableStart="@drawable/ic_facebook"
+                android:paddingLeft="@dimen/padding_20"
+                android:paddingStart="@dimen/padding_20"
+                android:paddingRight="0dp"
+                android:paddingEnd="0dp"
+                android:text="@string/btn_login_facebook"
+                android:textColor="@color/colorWhite"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_15"
+                android:layout_marginLeft="@dimen/padding_20"
+                android:layout_marginRight="@dimen/padding_20"
+                android:layout_marginStart="@dimen/padding_20"
+                android:layout_marginEnd="@dimen/padding_20"
+                android:id="@+id/btn_facebook" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/padding_5"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:layout_marginRight="@dimen/padding_10"
+                android:layout_marginEnd="@dimen/padding_10"
+                android:text="@string/text_already_have_account"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlue_facebook"
+                android:id="@+id/tv_register"
+                android:text="@string/register"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+

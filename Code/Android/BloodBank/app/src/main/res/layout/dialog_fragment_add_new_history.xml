@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_history"
+        android:textSize="@dimen/text_size_20"
+        android:background="@color/bg_screen"
+        android:padding="@dimen/padding_10"
+        android:textColor="@color/colorWhite"
+        android:gravity="center_horizontal"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/padding_10"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_10"
+        android:orientation="vertical">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_10">
+
+            <EditText
+                android:id="@+id/edt_name_hospital"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_hospital"
+                android:imeOptions="actionNext"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/spinner_units_donation_blood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_10"
+            android:hint="@string/units_donation"
+            app:met_floatingLabel="highlight" />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_10">
+
+            <EditText
+                android:id="@+id/edt_quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/quality"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/btn_cancel"
+                android:textColor="@color/colorWhite"
+                android:background="@color/grey_500"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"/>
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorWhite"
+                android:background="@color/blue_600"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_done"
+                android:text="@string/ok"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

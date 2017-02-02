@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/toolbar"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/padding_5"
+
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:imeOptions="actionGo"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/padding_5"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edt_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fullname"
+                android:imeOptions="actionNext"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/padding_5"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edt_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_phone"
+                android:imeOptions="actionNext"
+                android:inputType="phone" />
+        </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="@dimen/padding_5"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edt_date_of_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/date_of_birth"
+            android:imeOptions="actionNext"
+            android:focusable="false"
+            android:inputType="date" />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/spinner_time_donation"
+        android:paddingBottom="@dimen/padding_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_time_donation"
+        app:met_floatingLabel="normal" />
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/spinner_city"
+        android:paddingBottom="@dimen/padding_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_city"
+        app:met_floatingLabel="normal" />
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/spinner_district"
+        android:paddingBottom="@dimen/padding_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_district"
+        app:met_floatingLabel="normal" />
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/spinner_blood_group"
+        android:layout_width="match_parent"
+        android:paddingBottom="@dimen/padding_5"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_10"
+        android:hint="@string/hint_blood_group"
+        app:met_floatingLabel="highlight" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_5"
+            android:paddingBottom="@dimen/padding_5"
+            android:text="@string/hint_gender"
+            android:textSize="@dimen/text_size_15" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="20dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                style="@style/RadioButtonMain"
+                android:text="@string/gender_male" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/RadioButtonMain"
+                android:layout_weight="1"
+                android:text="@string/gender_female" />
+        </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_70"
+            android:layout_marginLeft="@dimen/padding_70"
+            android:layout_marginRight="@dimen/padding_70"
+            android:layout_marginStart="@dimen/padding_70"
+            android:layout_marginTop="@dimen/padding_15"
+            android:background="@drawable/textview_background_radius"
+            android:text="@string/register"
+            android:layout_marginBottom="@dimen/padding_10"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+
+    </ScrollView>
+
