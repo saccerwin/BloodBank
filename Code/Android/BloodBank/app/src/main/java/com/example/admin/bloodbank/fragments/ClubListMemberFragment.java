@@ -116,6 +116,11 @@ public class ClubListMemberFragment extends TemplateFragment {
                 Toast.makeText(getActivity().getBaseContext(),"nhan tin cho " + position,Toast.LENGTH_SHORT).show();
 
             }
+
+            @Override
+            public void onItemEditProfileLongClick(View view, int position) {
+
+            }
         });
 
     }

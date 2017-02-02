@@ -63,7 +63,7 @@ public class ProfileAdapter extends TemplateAdapter<TemplateViewHolder> {
         return title.length == 0 ? 0 : title.length + 2;
     }
 
-    private static class ViewHolderItems extends TemplateViewHolder implements View.OnClickListener {
+    private class ViewHolderItems extends TemplateViewHolder implements View.OnLongClickListener {
         TextView tvMenuItem;
         ImageView imgIconItem;
 
@@ -75,7 +75,7 @@ public class ProfileAdapter extends TemplateAdapter<TemplateViewHolder> {
         protected void initUI() {
             tvMenuItem = (TextView) itemView.findViewById(R.id.tv_name_menu);
             imgIconItem = (ImageView) itemView.findViewById(R.id.imgView_icon);
-            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         public void setData(String titleMenu, int itemIcon) {
@@ -83,9 +83,13 @@ public class ProfileAdapter extends TemplateAdapter<TemplateViewHolder> {
             imgIconItem.setImageResource(itemIcon);
         }
 
-        @Override
-        public void onClick(View view) {
 
+        @Override
+        public boolean onLongClick(View view) {
+            if(profileListenerInterface != null) {
+                profileListenerInterface.onItemEditProfileLongClick(view,getAdapterPosition());
+            }
+            return true;
         }
     }
 

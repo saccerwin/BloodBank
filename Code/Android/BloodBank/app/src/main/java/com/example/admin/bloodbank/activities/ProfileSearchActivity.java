@@ -74,6 +74,11 @@ public class ProfileSearchActivity extends TemplateActivity {
             public void onItemMessageClick(View view, int position) {
                 Toast.makeText(getContext(),"message",Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void onItemEditProfileLongClick(View view, int position) {
+
+            }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);

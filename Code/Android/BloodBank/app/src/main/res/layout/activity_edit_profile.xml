@@ -71,7 +71,6 @@
                     android:hint="@string/date_of_birth" />
             </android.support.design.widget.TextInputLayout>
 
-
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner_time_donation"
                 android:layout_width="match_parent"
@@ -80,6 +79,13 @@
                 android:hint="@string/hint_time_donation"
                 app:met_floatingLabel="normal"/>
 
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spinner_blood_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:hint="@string/hint_blood_group"
+                app:met_floatingLabel="highlight" />
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner_city"
                 android:layout_width="match_parent"

@@ -148,6 +148,11 @@ public class ViewDetailClubActivity extends TemplateActivity {
                 Toast.makeText(view.getContext(),"nhan tin cho ..."+ position,Toast.LENGTH_SHORT).show();
 
             }
+
+            @Override
+            public void onItemEditProfileLongClick(View view, int position) {
+
+            }
         });
     }
 }

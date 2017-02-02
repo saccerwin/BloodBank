@@ -19,7 +19,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
  */
 
 public class EditProfileActivity extends TemplateActivity {
-    MaterialBetterSpinner spinnerCity,spinnerDistrict,spinnerTimeDonation;
+    MaterialBetterSpinner spinnerCity,spinnerDistrict,spinnerTimeDonation,spinnerBloodGroup;
     RadioButton radioBtnMale, radioBtnFemale;
     private  Toolbar toolbar;
     private TextView toolbarTitle;
@@ -42,6 +42,7 @@ public class EditProfileActivity extends TemplateActivity {
         spinnerCity = (MaterialBetterSpinner)findViewById(R.id.spinner_city);
         spinnerDistrict = (MaterialBetterSpinner) findViewById(R.id.spinner_district);
         spinnerTimeDonation = (MaterialBetterSpinner) findViewById(R.id.spinner_time_donation);
+        spinnerBloodGroup = (MaterialBetterSpinner) findViewById(R.id.spinner_blood_group);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
@@ -104,6 +105,10 @@ public class EditProfileActivity extends TemplateActivity {
         String [] listCity = getResources().getStringArray(R.array.city);
         String [] listTimeDonation = getResources().getStringArray(R.array.time_donation);
         String [] listDistrict = getResources().getStringArray(R.array.district);
+        String[] listBloodGroup = getResources().getStringArray(R.array.blood_group);
+
+        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, listBloodGroup);
         ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, listCity);
         ArrayAdapter<String> adapterTimeDonation = new ArrayAdapter<String>(this,
@@ -113,5 +118,7 @@ public class EditProfileActivity extends TemplateActivity {
         spinnerCity.setAdapter(adapterCity);
         spinnerDistrict.setAdapter(adapterDistrict);
         spinnerTimeDonation.setAdapter(adapterTimeDonation);
+        spinnerBloodGroup.setAdapter(adapterBloodGroup);
+
     }
 }

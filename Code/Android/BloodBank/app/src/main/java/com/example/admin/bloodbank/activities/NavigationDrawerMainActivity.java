@@ -22,6 +22,7 @@ import com.example.admin.bloodbank.fragments.MainFragment;
 import com.example.admin.bloodbank.fragments.ManagerClubFragment;
 import com.example.admin.bloodbank.fragments.ProfileFragment;
 import com.example.admin.bloodbank.fragments.SearchBloodGroupFragment;
+import com.example.admin.bloodbank.fragments.StatisticalFragment;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 
@@ -162,6 +163,13 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                             callFragment(new HistoryDonationBloodFragment());
                             toobar_title.setText(listTitleAdmin[5]);
                                 showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 7: {
+                            callFragment(new StatisticalFragment());
+                            toobar_title.setText(listTitleAdmin[6]);
+                            showMenuOptionId = 0;
 
                         }
                         break;

@@ -62,8 +62,6 @@ public class ProfileFragment extends TemplateFragment {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, Contraint.RESULT_LOAD_IMAGE);
             }
-
-
             @Override
             public void onItemCallClick(View view, int position) {
                 Toast.makeText(getActivity(),"Call ZZ", Toast.LENGTH_SHORT).show();
@@ -72,6 +70,18 @@ public class ProfileFragment extends TemplateFragment {
             @Override
             public void onItemMessageClick(View view, int position) {
                 Toast.makeText(getActivity(),"Message ZZ", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemEditProfileLongClick(View view, int position) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("fullName", "abc");
+//                bundle.putString("phone","123556");
+//                bundle.putString("dateOfBirth","24/10/1992");
+//                bundle.putString("timeDonation","Toàn thời gian");
+//                Fragment fragment = new Fragment();
+//                fragment.setArguments(bundle);
+//                TemplateActivity.startActivity(getActivity(), EditProfileActivity.class,bundle);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
