@@ -155,6 +155,9 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
     <string name="name_hospital"> Tên bệnh viện</string>
     <string name="units_donation">Đơn vị hiến</string>
 
+    <!--Screen statistical-->
+    <string name="statistical_text"> THỐNG KÊ THEO TỪNG THÁNG</string>
+
 
     <string-array name="navDrawerItemsUser">
         <item>Trang chủ</item>
