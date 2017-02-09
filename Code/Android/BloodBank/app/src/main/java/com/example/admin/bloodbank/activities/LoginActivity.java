@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
+import com.example.admin.bloodbank.contraints.Contraint;
 
 /**
  * Created by Admin on 09/01/2017.
@@ -57,8 +59,10 @@ public class LoginActivity extends TemplateActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,AddDescriptionUserActivity.class);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString(Contraint.CHECK_LOGIN,Contraint.DECENTRALIZATION_ADMIN);
+               TemplateActivity.startActivity(getContext(),NavigationDrawerMainActivity.class,bundle);
+                Toast.makeText(LoginActivity.this,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
             }
         });
 

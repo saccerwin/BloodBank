@@ -10,5 +10,5 @@ public interface ProfileListenerInterface {
     void onItemAvatarClick(View view, int position);
     void onItemCallClick(View view,int position);
     void onItemMessageClick(View view,int position);
-    void onItemEditProfileLongClick(View view,int position);
+    void onItemEditProfileClick(View view,int position);
 }

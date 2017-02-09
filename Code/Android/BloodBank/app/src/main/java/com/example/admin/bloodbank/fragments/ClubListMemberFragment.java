@@ -118,9 +118,10 @@ public class ClubListMemberFragment extends TemplateFragment {
             }
 
             @Override
-            public void onItemEditProfileLongClick(View view, int position) {
+            public void onItemEditProfileClick(View view, int position) {
 
             }
+
         });
 
     }

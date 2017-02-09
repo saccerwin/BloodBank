@@ -7,5 +7,4 @@
         app:showAsAction="ifRoom|collapseActionView"
         android:icon="@drawable/ic_tick">
     </item>
-
 </menu>

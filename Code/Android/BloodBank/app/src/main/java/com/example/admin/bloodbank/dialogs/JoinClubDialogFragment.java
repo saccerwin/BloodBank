@@ -9,7 +9,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
+import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.abstracts.TemplateCustomDialogFragment;
+import com.example.admin.bloodbank.activities.NavigationDrawerMainActivity;
+import com.example.admin.bloodbank.contraints.Contraint;
 
 /**
  * Created by saccerwin on 22/01/2017.
@@ -55,6 +58,9 @@ public class JoinClubDialogFragment extends TemplateCustomDialogFragment {
                 else  {
                     Toast.makeText(getActivity(),"Tham gia clb thành công!",Toast.LENGTH_SHORT).show();
                     getDialog().dismiss();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Contraint.CHECK_LOGIN,Contraint.DECENTRALIZATION_MEMBER);
+                    TemplateActivity.startActivity(getActivity(), NavigationDrawerMainActivity.class,bundle);
                 }
             }
         });

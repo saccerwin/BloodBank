@@ -9,20 +9,17 @@
         android:layout_height="match_parent">
         <include layout="@layout/toolbar"/>
 
-        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/spinner_city"
+        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+            android:id="@+id/autocomplete_tv_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_10"
+            android:ems="10"
             android:hint="@string/hint_city"
-            app:met_floatingLabel="normal"/>
-        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/spinner_district"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:inputType="textCapWords"
+            android:imeOptions="actionNext"
             android:layout_marginBottom="@dimen/padding_10"
-            android:hint="@string/hint_district"
-            app:met_floatingLabel="normal"/>
+            app:met_floatingLabel="normal" />
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
             android:id="@+id/spinner_count_member"

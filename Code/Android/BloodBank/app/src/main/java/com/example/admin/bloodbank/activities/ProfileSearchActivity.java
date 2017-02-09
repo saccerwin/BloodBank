@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
-import com.example.admin.bloodbank.adapters.ProfileAdapter;
+import com.example.admin.bloodbank.adapters.ProfileSearchAdapter;
 import com.example.admin.bloodbank.interfaces.ProfileListenerInterface;
 
 /**
@@ -58,7 +58,7 @@ public class ProfileSearchActivity extends TemplateActivity {
     private void setupRecyclerView() {
         String[] navNameMenu = getResources().getStringArray(R.array.array_item_profile);
         int[] itemIcons = {R.drawable.ic_count_donation_blood, R.drawable.ic_phone_profile, R.drawable.ic_mail, R.drawable.ic_address, R.drawable.ic_birthday, R.drawable.ic_gender, R.drawable.ic_time_donation};
-        ProfileAdapter adapter = new ProfileAdapter(navNameMenu, itemIcons);
+        ProfileSearchAdapter adapter = new ProfileSearchAdapter(navNameMenu, itemIcons);
         adapter.setProfileListenner(new ProfileListenerInterface() {
             @Override
             public void onItemAvatarClick(View view, int position) {
@@ -76,7 +76,7 @@ public class ProfileSearchActivity extends TemplateActivity {
             }
 
             @Override
-            public void onItemEditProfileLongClick(View view, int position) {
+            public void onItemEditProfileClick(View view, int position) {
 
             }
         });

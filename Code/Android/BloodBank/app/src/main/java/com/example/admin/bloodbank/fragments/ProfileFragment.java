@@ -11,13 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
+import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.abstracts.TemplateFragment;
+import com.example.admin.bloodbank.activities.EditProfileActivity;
 import com.example.admin.bloodbank.adapters.ProfileAdapter;
 import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.interfaces.ProfileListenerInterface;
+import com.example.admin.bloodbank.objects.Profile;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -54,7 +56,7 @@ public class ProfileFragment extends TemplateFragment {
 
     public void setupRecyclerView() {
         String[] navNameMenu = getResources().getStringArray(R.array.array_item_profile);
-        int[] itemIcons = {R.drawable.ic_count_donation_blood, R.drawable.ic_phone_profile, R.drawable.ic_mail, R.drawable.ic_address, R.drawable.ic_birthday, R.drawable.ic_gender, R.drawable.ic_time_donation};
+        int[] itemIcons = {R.drawable.ic_count_donation_blood, R.drawable.ic_phone_profile, R.drawable.ic_mail, R.drawable.ic_address, R.drawable.ic_birthday, R.drawable.ic_gender};
         ProfileAdapter adapter = new ProfileAdapter(navNameMenu, itemIcons);
         adapter.setProfileListenner(new ProfileListenerInterface() {
             @Override
@@ -64,24 +66,25 @@ public class ProfileFragment extends TemplateFragment {
             }
             @Override
             public void onItemCallClick(View view, int position) {
-                Toast.makeText(getActivity(),"Call ZZ", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onItemMessageClick(View view, int position) {
-                Toast.makeText(getActivity(),"Message ZZ", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onItemEditProfileLongClick(View view, int position) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("fullName", "abc");
-//                bundle.putString("phone","123556");
-//                bundle.putString("dateOfBirth","24/10/1992");
-//                bundle.putString("timeDonation","Toàn thời gian");
-//                Fragment fragment = new Fragment();
-//                fragment.setArguments(bundle);
-//                TemplateActivity.startActivity(getActivity(), EditProfileActivity.class,bundle);
+            public void onItemEditProfileClick(View view, int position) { //action click btn edit profile
+                Profile profile = new Profile("1","2","none","user","saccerwin101@gmail.com","123456","Dang Duy Hau","24/10/1993","Nữ","01227949185","...",0,"AB",false);
+                Bundle bundle = new Bundle();
+                bundle.putString(Contraint.PROFILE_FULLNAME, profile.getFullName());
+                bundle.putString(Contraint.PROFILE_PHONE,profile.getPhone());
+                bundle.putString(Contraint.PROFILE_DATEOFBIRTH,profile.getDateOfBirth());
+                bundle.putString(Contraint.PROFILE_GENDER,profile.getGender());
+                bundle.putString(Contraint.PROFILE_DISTICT,profile.getId_distict());
+                bundle.putString(Contraint.PROFILE_PASSWORD,profile.getPassword());
+                bundle.putString(Contraint.PROFILE_TYPEBLOOD,profile.getType_blood());
+                TemplateActivity.startActivityForResult(getActivity(), EditProfileActivity.class,0,bundle);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/toolbar"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" />
+
         <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="@dimen/padding_10"
-            android:paddingBottom="@dimen/padding_5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_5">
 
             <EditText
                 android:id="@+id/edt_email"
@@ -27,9 +30,9 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/padding_5"
+            android:layout_height="wrap_content"
 
-            android:layout_height="wrap_content">
+            android:paddingBottom="@dimen/padding_5">
 
             <EditText
                 android:id="@+id/edt_password"
@@ -42,8 +45,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/padding_5"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_5">
 
             <EditText
                 android:id="@+id/edt_fullname"
@@ -56,8 +59,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/padding_5"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_5">
 
             <EditText
                 android:id="@+id/edt_phone_number"
@@ -69,103 +72,97 @@
         </android.support.design.widget.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:paddingBottom="@dimen/padding_5"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/edt_date_of_birth"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/date_of_birth"
-            android:imeOptions="actionNext"
-            android:focusable="false"
-            android:inputType="date" />
-    </android.support.design.widget.TextInputLayout>
+            android:paddingBottom="@dimen/padding_5">
 
+            <EditText
+                android:id="@+id/edt_date_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/date_of_birth"
+                android:imeOptions="actionNext"
+                android:inputType="date" />
+        </android.support.design.widget.TextInputLayout>
 
-
-
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/spinner_time_donation"
-        android:paddingBottom="@dimen/padding_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_time_donation"
-        app:met_floatingLabel="normal" />
-
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/spinner_city"
-        android:paddingBottom="@dimen/padding_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_city"
-        app:met_floatingLabel="normal" />
-
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/spinner_district"
-        android:paddingBottom="@dimen/padding_5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_district"
-        app:met_floatingLabel="normal" />
-
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/spinner_blood_group"
-        android:layout_width="match_parent"
-        android:paddingBottom="@dimen/padding_5"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padding_10"
-        android:hint="@string/hint_blood_group"
-        app:met_floatingLabel="highlight" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/spinner_blood_group"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/padding_5"
+            android:layout_marginBottom="@dimen/padding_10"
+            android:hint="@string/hint_blood_group"
             android:paddingBottom="@dimen/padding_5"
-            android:text="@string/hint_gender"
-            android:textSize="@dimen/text_size_15" />
-
-        <RadioGroup
-            android:id="@+id/radio_group_gender"
+            app:met_floatingLabel="highlight" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginStart="20dp"
             android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_male"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                style="@style/RadioButtonMain"
-                android:text="@string/gender_male" />
+                android:paddingBottom="@dimen/padding_5"
+                android:paddingTop="@dimen/padding_5"
+                android:text="@string/hint_gender"
+                android:textSize="@dimen/text_size_15" />
 
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_female"
-                android:layout_width="0dp"
+            <RadioGroup
+                android:id="@+id/radio_group_gender"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/RadioButtonMain"
-                android:layout_weight="1"
-                android:text="@string/gender_female" />
-        </RadioGroup>
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radio_male"
+                    style="@style/RadioButtonMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/gender_male" />
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radio_female"
+                    style="@style/RadioButtonMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/gender_female" />
+            </RadioGroup>
         </LinearLayout>
+
+        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+            android:id="@+id/autocomplete_tv_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_city"
+            android:maxLines="1"
+            android:inputType="textCapWords"
+            android:imeOptions="actionNext"
+            android:paddingBottom="@dimen/padding_5"
+            app:met_floatingLabel="normal" />
+
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/spinner_district"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_district"
+            android:paddingBottom="@dimen/padding_5"
+            app:met_floatingLabel="normal" />
+
+
 
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_10"
             android:layout_marginEnd="@dimen/padding_70"
             android:layout_marginLeft="@dimen/padding_70"
             android:layout_marginRight="@dimen/padding_70"
@@ -173,11 +170,10 @@
             android:layout_marginTop="@dimen/padding_15"
             android:background="@drawable/textview_background_radius"
             android:text="@string/register"
-            android:layout_marginBottom="@dimen/padding_10"
             android:textColor="@color/colorWhite" />
 
     </LinearLayout>
 
 
-    </ScrollView>
+</ScrollView>
 

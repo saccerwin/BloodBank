@@ -16,12 +16,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
         </FrameLayout>
-
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:background="@color/colorWhite"
+        android:foreground="?selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

@@ -122,9 +122,10 @@ public class ResultSearchBloodGroupActivity extends TemplateActivity {
             }
 
             @Override
-            public void onItemEditProfileLongClick(View view, int position) {
+            public void onItemEditProfileClick(View view, int position) {
 
             }
+
         });
     }
 }

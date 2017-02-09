@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.adapters.ListResultSearchBloodGroupAdapter;
+import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.dialogs.JoinClubDialogFragment;
 import com.example.admin.bloodbank.interfaces.OnClickItemListenerInterface;
 import com.example.admin.bloodbank.interfaces.ProfileListenerInterface;
@@ -32,6 +33,8 @@ public class ViewDetailClubActivity extends TemplateActivity {
     private TextView toolbarTitle;
     private List<Member> list = new ArrayList<>();
     private RecyclerView recyclerView;
+    private Menu menu;
+
     protected void initData(Bundle savedInstanceState) {
 
     }
@@ -44,8 +47,8 @@ public class ViewDetailClubActivity extends TemplateActivity {
     @Override
     protected void initUI(Bundle savedInstanceState) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     }
 
     @Override
@@ -66,31 +69,42 @@ public class ViewDetailClubActivity extends TemplateActivity {
     }
 
     private List<Member> getData() {
-        list.add(new Member("Đặng Duy Hậu","","Admin","CLB Máu Nóng Yêu Thương Đà Nẵng","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
-        list.add(new Member("Đặng Duy Hậu","","Thành Viên CLB","CLB Ban Mai Xanh","012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Admin", "CLB Máu Nóng Yêu Thương Đà Nẵng", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
+        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
         return list;
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
         return true;
+    }
+
+    public void showMenuJoinGroupWithDecentralization(String decentralization) {
+        if(decentralization.equals(Contraint.DECENTRALIZATION_ADMIN) || decentralization.equals(Contraint.DECENTRALIZATION_MEMBER)) {
+            menu.findItem(R.id.menu_join_club).setVisible(false);
+        }
+        if(decentralization.equals(Contraint.DECENTRALIZATION_USER)) {
+            menu.findItem(R.id.menu_join_club).setVisible(true);
+        }
     }
 
     @Override
@@ -100,7 +114,7 @@ public class ViewDetailClubActivity extends TemplateActivity {
             case R.id.menu_join_club: {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 JoinClubDialogFragment dialogFragment = new JoinClubDialogFragment();
-                dialogFragment.show(fragmentManager,"fm");
+                dialogFragment.show(fragmentManager, "fm");
             }
             break;
         }
@@ -110,22 +124,23 @@ public class ViewDetailClubActivity extends TemplateActivity {
     }
 
     private void setupRecyclerView() {
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         ListResultSearchBloodGroupAdapter adapter = new ListResultSearchBloodGroupAdapter(getData());
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildLayoutPosition(view);
-                outRect.set(5,position == 0 || position == 1 ? 20 : 0,5,5);
+                outRect.set(5, position == 0 || position == 1 ? 20 : 0, 5, 5);
             }
         });
 
         adapter.setItemOnClick(new OnClickItemListenerInterface() {
             @Override
             public void onClickItemListenner(View view, int position) {
-                TemplateActivity.startActivity(getContext(),ProfileSearchActivity.class, null);
+                TemplateActivity.startActivity(getContext(), ProfileSearchActivity.class, null);
             }
+
             @Override
             public void onLongClickItemListenner(View view, int position) {
 
@@ -139,20 +154,21 @@ public class ViewDetailClubActivity extends TemplateActivity {
 
             @Override
             public void onItemCallClick(View view, int position) {
-                Toast.makeText(view.getContext(),"goi cho ..."+ position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "goi cho ..." + position, Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onItemMessageClick(View view, int position) {
-                Toast.makeText(view.getContext(),"nhan tin cho ..."+ position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "nhan tin cho ..." + position, Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
-            public void onItemEditProfileLongClick(View view, int position) {
+            public void onItemEditProfileClick(View view, int position) {
 
             }
+
         });
     }
 }

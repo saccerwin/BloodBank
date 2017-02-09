@@ -19,6 +19,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.admin.bloodbank.R.id.btnViewDetailClub;
+
 /**
  * Created by saccerwin on 22/01/2017.
  */
@@ -29,34 +31,72 @@ public class PostNewDiscussGroupAdapter extends TemplateAdapter<PostNewDiscussGr
 
     private PostListenerInterface mPostListenerInterface;
 
-
     public void setOnClickItemListenner(final PostListenerInterface mPostListenerInterface) {
         this.mPostListenerInterface = mPostListenerInterface;
     }
+
     public PostNewDiscussGroupAdapter(List<PostNews> listItems) {
         this.listItems = listItems;
     }
 
     public PostNewDiscussGroupAdapter.ViewHolderItem onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PostNewDiscussGroupAdapter.ViewHolderItem(this,parent);
+        return new PostNewDiscussGroupAdapter.ViewHolderItem(this, parent);
     }
 
-
-
-    public void onBindViewHolder(PostNewDiscussGroupAdapter.ViewHolderItem holder, int position) {
+    public void onBindViewHolder(final PostNewDiscussGroupAdapter.ViewHolderItem holder, final int position) {
         holder.setData(listItems.get(position));
+        holder.setOnBtnRegisterClick(new ItemBtnRegisterClick() {
+            @Override
+            public void onItemBtnRegisterClick(View view, int position) {
+                final Button btnRegister = (Button) holder.itemView.findViewById(btnViewDetailClub);
+                if (position == holder.getAdapterPosition()) {
+//                    Toast.makeText(holder.getContext(),"vt:" + position,Toast.LENGTH_SHORT).show();
+                    if (btnRegister.getText().equals("Hủy đăng ký")) { // action delete register
+                        new AlertDialog.Builder(holder.getContext())
+                                .setTitle("Hủy đăng ký")
+                                .setMessage("Bạn muốn hủy đăng ký hiến máu?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        btnRegister.setText("Đăng ký");
+                                        btnRegister.setBackgroundResource(R.drawable.button_radius_blue_app);
+                                        Toast.makeText(holder.getContext(), "Hủy đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
+                    } else { //action register
+                        btnRegister.setText("Hủy đăng ký");
+                        btnRegister.setBackgroundResource(R.drawable.textview_background_radius);
+                        Toast.makeText(holder.getContext(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                if (position != holder.getAdapterPosition()) {
+                    btnRegister.setVisibility(View.GONE);
+                }
+            }
+        });
 
     }
+
 
     @Override
     public int getItemCount() {
         return listItems == null ? 0 : listItems.size();
     }
 
+
     public class ViewHolderItem extends TemplateViewHolder {
-        TextView tvNameClub, tvTimePost, tvDesscription,tvComment,tvShare;
-        CircleImageView imgViewCircleAvatarClub;
-        Button btnCountMemberRegisterDonation,btnViewDetailClub;
+        public TextView tvNameClub, tvTimePost, tvDesscription, tvComment, tvShare;
+        public CircleImageView imgViewCircleAvatarClub;
+        public Button btnCountMemberRegisterDonation, btnViewDetailClub;
+        public ItemBtnRegisterClick itemBtnRegisterClick;
 
 
         public ViewHolderItem(RecyclerView.Adapter<? extends TemplateViewHolder> adapter, ViewGroup parent) {
@@ -75,58 +115,34 @@ public class PostNewDiscussGroupAdapter extends TemplateAdapter<PostNewDiscussGr
             btnCountMemberRegisterDonation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mPostListenerInterface != null) {
-                        mPostListenerInterface.onClickMemberRegisterListenner(view,getAdapterPosition());
+                    if (mPostListenerInterface != null) {
+                        mPostListenerInterface.onClickMemberRegisterListenner(view, getAdapterPosition());
                     }
                 }
             });
             tvComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(mPostListenerInterface != null) {
-                        mPostListenerInterface.onClickCommentListenner(view,getAdapterPosition());
+                    if (mPostListenerInterface != null) {
+                        mPostListenerInterface.onClickCommentListenner(view, getAdapterPosition());
                     }
                 }
             });
+
+
             btnViewDetailClub.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    if(btnViewDetailClub.getText().equals("Hủy đăng ký")) {
-                        new AlertDialog.Builder(getContext())
-                                .setTitle("Hủy đăng ký")
-                                .setMessage("Bạn muốn hủy đăng ký hiến máu?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        btnViewDetailClub.setText("Đăng ký");
-                                        btnViewDetailClub.setBackgroundResource(R.drawable.button_radius_blue_app);
-                                        Toast.makeText(getContext(),"Hủy đăng ký thành công",Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                })
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-
+                    if (itemBtnRegisterClick != null) { // listener btn register
+                        itemBtnRegisterClick.onItemBtnRegisterClick(view, getAdapterPosition());
                     }
-                    else  {
-
-
-                        btnViewDetailClub.setText("Hủy đăng ký");
-                        btnViewDetailClub.setBackgroundResource(R.drawable.textview_background_radius);
-                        Toast.makeText(getContext(),"Đăng ký thành công",Toast.LENGTH_SHORT).show();
-
-                    }
-                    if(mPostListenerInterface != null) {
-
-                        mPostListenerInterface.onClickBtnViewDetailClubListenner(view,getAdapterPosition());
-                    }
+//                    if (mPostListenerInterface != null) {
+//                        mPostListenerInterface.onClickBtnViewDetailClubListenner(view, getAdapterPosition());
+//                    }
                 }
             });
         }
+
 
         public void setData(PostNews postNews) {
             tvNameClub.setText(postNews.getNameClub());
@@ -134,5 +150,13 @@ public class PostNewDiscussGroupAdapter extends TemplateAdapter<PostNewDiscussGr
             tvDesscription.setText(postNews.getDescription());
             btnViewDetailClub.setText("Đăng ký");
         }
+
+        public void setOnBtnRegisterClick(final ItemBtnRegisterClick itemBtnRegisterClick) {
+            this.itemBtnRegisterClick = itemBtnRegisterClick;
+        }
+    }
+
+    public interface ItemBtnRegisterClick {
+        void onItemBtnRegisterClick(View view, int position);
     }
 }

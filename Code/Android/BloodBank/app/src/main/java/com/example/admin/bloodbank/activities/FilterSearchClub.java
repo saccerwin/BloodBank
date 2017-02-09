@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 /**
@@ -17,10 +18,11 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
  */
 
 public class FilterSearchClub extends TemplateActivity {
-    MaterialBetterSpinner spinnerCity,spinnerDistrict,spinnerCountMember;
+    MaterialBetterSpinner spinnerCity,spinnerCountMember;
     Button btnSearch;
     Toolbar toolbar;
     TextView toobarTitle;
+    private MaterialAutoCompleteTextView tvAutocompleteCity;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
@@ -36,10 +38,11 @@ public class FilterSearchClub extends TemplateActivity {
     protected void initUI(Bundle savedInstanceState) {
         spinnerCountMember = (MaterialBetterSpinner)findViewById(R.id.spinner_count_member);
         spinnerCity = (MaterialBetterSpinner)findViewById(R.id.spinner_city);
-        spinnerDistrict = (MaterialBetterSpinner) findViewById(R.id.spinner_district);
         btnSearch = (Button)findViewById(R.id.btn_search);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toobarTitle = (TextView)findViewById(R.id.toolbar_title);
+        tvAutocompleteCity = (MaterialAutoCompleteTextView)findViewById(R.id.autocomplete_tv_city);
+
     }
 
     @Override
@@ -75,16 +78,12 @@ public class FilterSearchClub extends TemplateActivity {
 
     private void setupSpinner() {
         String [] listCity = getResources().getStringArray(R.array.city);
-        String [] listDistrict = getResources().getStringArray(R.array.district);
         String [] listCountMember = getResources().getStringArray(R.array.count_member);
         ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, listDistrict);
         ArrayAdapter<String> adapterCountMember = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, listCountMember);
-        spinnerCity.setAdapter(adapterCity);
-        spinnerDistrict.setAdapter(adapterDistrict);
+        tvAutocompleteCity.setAdapter(adapterCity);
         spinnerCountMember.setAdapter(adapterCountMember);
     }
 }

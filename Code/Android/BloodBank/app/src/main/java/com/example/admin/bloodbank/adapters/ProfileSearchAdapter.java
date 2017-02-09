@@ -3,7 +3,6 @@ package com.example.admin.bloodbank.adapters;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,15 +17,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Admin on 13/01/2017.
  */
 
-public class ProfileAdapter extends TemplateAdapter<TemplateViewHolder> {
+public class ProfileSearchAdapter extends TemplateAdapter<TemplateViewHolder> {
     private static final int TYPE_HEADER = 1;
-    private static final int TYPE_EDIT_PROFILE = 2;
+    private static final int TYPE_CONTACT = 2;
     private static final int TYPE_BODY = 3;
     private String[] title;
     private int[] itemIcon;
     private ProfileListenerInterface profileListenerInterface;
 
-    public ProfileAdapter(String[] title, int[] itemIcon) {
+    public ProfileSearchAdapter(String[] title, int[] itemIcon) {
         this.title = title;
         this.itemIcon = itemIcon;
     }
@@ -35,22 +34,22 @@ public class ProfileAdapter extends TemplateAdapter<TemplateViewHolder> {
     public TemplateViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_HEADER) {
             return new ViewHolderItemHeader(this, parent);
-        } else if (viewType == TYPE_EDIT_PROFILE) {
-            return new ViewHolderItemEditProfile(this, parent);
+        } else if (viewType == TYPE_CONTACT) {
+            return new ViewHolderItemContact(this, parent);
         }
         return new ViewHolderItems(this, parent);
     }
 
     @Override
     public void onBindViewHolder(TemplateViewHolder holder, int position) {
-        if (holder instanceof ProfileAdapter.ViewHolderItems) {
-            ((ProfileAdapter.ViewHolderItems) holder).setData(title[position - 2], itemIcon[position - 2]);
+        if (holder instanceof ProfileSearchAdapter.ViewHolderItems) {
+            ((ProfileSearchAdapter.ViewHolderItems) holder).setData(title[position - 2], itemIcon[position - 2]);
         }
     }
 
     public int getItemViewType(int position) {
         if (position == 0) return TYPE_HEADER;
-        if (position == 1) return TYPE_EDIT_PROFILE;
+        if (position == 1) return TYPE_CONTACT;
         return TYPE_BODY;
     }
 
@@ -84,6 +83,12 @@ public class ProfileAdapter extends TemplateAdapter<TemplateViewHolder> {
         }
 
 
+        public boolean onLongClick(View view) {
+            if(profileListenerInterface != null) {
+                profileListenerInterface.onItemEditProfileClick(view,getAdapterPosition());
+            }
+            return true;
+        }
     }
 
     private class ViewHolderItemHeader extends TemplateViewHolder {
@@ -118,25 +123,34 @@ public class ProfileAdapter extends TemplateAdapter<TemplateViewHolder> {
 
     }
 
-    private class ViewHolderItemEditProfile extends TemplateViewHolder {
-        public Button btnEditProfile;
+    private class ViewHolderItemContact extends TemplateViewHolder {
+        public TextView tvCall, tvMessage;
 
-        public ViewHolderItemEditProfile(RecyclerView.Adapter<? extends TemplateViewHolder> adapter, ViewGroup parent) {
-            super(adapter, parent, R.layout.list_item_profile_edit);
+        public ViewHolderItemContact(RecyclerView.Adapter<? extends TemplateViewHolder> adapter, ViewGroup parent) {
+            super(adapter, parent, R.layout.list_item_profile_contact);
         }
 
         @Override
         protected void initUI() {
+            tvCall = (TextView) itemView.findViewById(R.id.tv_btn_call);
+            tvMessage = (TextView) itemView.findViewById(R.id.tv_btn_sms);
 
-            btnEditProfile = (Button)itemView.findViewById(R.id.btn_edit_profile);
-            btnEditProfile.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   if(profileListenerInterface != null) {
-                       profileListenerInterface.onItemEditProfileClick(view,getAdapterPosition());
-                   }
-               }
-           });
+            tvMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (profileListenerInterface != null) {
+                        profileListenerInterface.onItemMessageClick(view, getAdapterPosition());
+                    }
+                }
+            });
+            tvCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (profileListenerInterface != null) {
+                        profileListenerInterface.onItemCallClick(view, getAdapterPosition());
+                    }
+                }
+            });
         }
 
         public void setData() {

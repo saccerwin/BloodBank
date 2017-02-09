@@ -104,6 +104,8 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 R.drawable.ic_search_club,
                 R.drawable.ic_profile,
                 R.drawable.ic_logout};
+
+
         switch (position) {
             case Contraint.DECENTRALIZATION_USER: {
                 navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser,"Đặng Duy Hậu","Người dùng","avatar");
@@ -156,7 +158,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         case 5: {
                             callFragment(new ProfileFragment());
                             toobar_title.setText(listTitleAdmin[4]);
-                            showMenuOptionId = 2;
+                            showMenuOptionId = 0;
                         }
                         break;
                         case 6: {// menu history bloood
@@ -222,7 +224,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         case 5: {
                             callFragment(new ProfileFragment());
                             toobar_title.setText(listTitleMember[4]);
-                            showMenuOptionId = 2;
+                            showMenuOptionId = 0;
                         }
                         break;
                         case 6: {// menu history bloood
@@ -274,7 +276,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         case 4: {
                             callFragment(new ProfileFragment());
                             toobar_title.setText(listTitleUser[3]);
-                            showMenuOptionId = 2;
+                            showMenuOptionId = 0;
                         }
                         break;
                         case 5: { // logout
@@ -314,7 +316,6 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.action_search, menu);
-        menu.findItem(R.id.menu_edit_profile).setVisible(false);
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.search_member).setVisible(false);
         return true;
@@ -325,24 +326,16 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
             return;
         else if(menuOptionId == 1) {
              menu.findItem(R.id.action_search).setVisible(true);
-             menu.findItem(R.id.menu_edit_profile).setVisible(false);
             menu.findItem(R.id.search_member).setVisible(false);
          }
-        else if(menuOptionId == 2) {
-            menu.findItem(R.id.action_search).setVisible(false);
-            menu.findItem(R.id.menu_edit_profile).setVisible(true);
-            menu.findItem(R.id.search_member).setVisible(false);
-        }
         else if(menuOptionId == 3) {
             menu.findItem(R.id.action_search).setVisible(false);
             menu.findItem(R.id.search_member).setVisible(true);
-            menu.findItem(R.id.menu_edit_profile).setVisible(false);
         }
         else if(menuOptionId == 0)  {
             menu.setGroupVisible(R.menu.action_search,false);
             menu.findItem(R.id.action_search).setVisible(false);
             menu.findItem(R.id.search_member).setVisible(false);
-            menu.findItem(R.id.menu_edit_profile).setVisible(false);
         }
 
     }
@@ -352,11 +345,6 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
         switch (item.getItemId()) {
             case R.id.action_search: {
                 TemplateActivity.startActivity(this,FilterSearchClub.class,null);
-
-            }
-            break;
-            case R.id.menu_edit_profile: {
-                TemplateActivity.startActivity(this,EditProfileActivity.class,null);
 
             }
             break;

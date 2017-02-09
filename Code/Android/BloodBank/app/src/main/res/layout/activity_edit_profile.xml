@@ -72,14 +72,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                android:id="@+id/spinner_time_donation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/padding_10"
-                android:hint="@string/hint_time_donation"
-                app:met_floatingLabel="normal"/>
-
-            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner_blood_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -128,7 +120,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/gender_male"
                         style="@style/RadioButtonMain"
-                        android:checked="true"
                         android:id="@+id/radio_male"/>
 
                     <RadioButton

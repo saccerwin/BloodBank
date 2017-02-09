@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateFragment;
 import com.example.admin.bloodbank.activities.ResultSearchBloodGroupActivity;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 /**
@@ -20,10 +21,11 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
  */
 
 public class SearchBloodGroupFragment extends TemplateFragment {
-    private MaterialBetterSpinner spinnerCity, spinnerDistrict, spinnerTimeDonation, spinnerBloodGroup;
+    private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup;
     private RadioButton radioBtnMale, radioBtnFemale;
     private RadioGroup radioGroupGender;
     private Button btnSearch;
+    private MaterialAutoCompleteTextView tvAutocompleteCity;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
@@ -42,10 +44,11 @@ public class SearchBloodGroupFragment extends TemplateFragment {
         radioGroupGender = (RadioGroup) view.findViewById(R.id.radio_group_gender);
 
         spinnerBloodGroup = (MaterialBetterSpinner) view.findViewById(R.id.spinner_blood_group);
-        spinnerCity = (MaterialBetterSpinner) view.findViewById(R.id.spinner_city);
         spinnerDistrict = (MaterialBetterSpinner) view.findViewById(R.id.spinner_district);
-        spinnerTimeDonation = (MaterialBetterSpinner) view.findViewById(R.id.spinner_time_donation);
         btnSearch = (Button)view.findViewById(R.id.btn_search);
+
+        tvAutocompleteCity = (MaterialAutoCompleteTextView)view.findViewById(R.id.autocomplete_tv_city);
+
     }
 
     @Override
@@ -79,21 +82,17 @@ public class SearchBloodGroupFragment extends TemplateFragment {
 
     private void setupSpinner() {
         String[] listCity = getResources().getStringArray(R.array.city);
-        String[] listTimeDonation = getResources().getStringArray(R.array.time_donation);
         String[] listDistrict = getResources().getStringArray(R.array.district);
         String[] listBloodGroup = getResources().getStringArray(R.array.blood_group);
         ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterTimeDonation = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_dropdown_item_1line, listTimeDonation);
         ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_dropdown_item_1line, listDistrict);
         ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_dropdown_item_1line, listBloodGroup);
-        spinnerCity.setAdapter(adapterCity);
         spinnerDistrict.setAdapter(adapterDistrict);
-        spinnerTimeDonation.setAdapter(adapterTimeDonation);
         spinnerBloodGroup.setAdapter(adapterBloodGroup);
+        tvAutocompleteCity.setAdapter(adapterCity);
     }
 
 }
