@@ -10,28 +10,48 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by Admin on 25/01/2017.
  */
 
-public class RegisterActivity extends TemplateActivity {
+public class RegisterActivity extends TemplateActivity implements Validator.ValidationListener {
+    private Validator validator;
     private Button btnRegister;
     private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup;
     private MaterialAutoCompleteTextView tvAutocompleteCity;
     private RadioButton radioBtnMale, radioBtnFemale;
-    RadioGroup radioGroupGender;
-    EditText edtDateOfBirth;
+    private RadioGroup radioGroupGender;
+    @Email (message = "Email phải đúng định dạng")
+    private EditText edtEmail;
+    @NotEmpty(message = "Mật khẩu không được bỏ trống")
+    @Password(min = 6,message = "Mật khẩu phải trên 6 kí tự")
+    private EditText edtPassword;
+    @ConfirmPassword(message = "Phải trùng với mật khẩu!")
+    private EditText edtConfirmPassword;
+//    @Pattern(regex = "(^[a-zA-Z\\\\sàáạã_-]{3,25}$)", message = "Họ tên phải đúng định dạng")
+    private EditText edtFullName;
+//    @Pattern(regex = "(^\\\\(?(\\\\d{3})\\\\)?[- ]?(\\\\d{3})[- ]?(\\\\d{4}))", message = "Số điện thoại sai định dạng")
+    private EditText edtPhone;
+    private EditText edtDateOfBirth;
     TextView toolbarTitle;
     final Calendar calendar = Calendar.getInstance();
 
@@ -42,6 +62,7 @@ public class RegisterActivity extends TemplateActivity {
     @Override
     protected void initRootView(Bundle savedInstanceState) {
         setContentView(R.layout.activity_register);
+
     }
 
     @Override
@@ -55,6 +76,13 @@ public class RegisterActivity extends TemplateActivity {
         radioGroupGender = (RadioGroup) findViewById(R.id.radio_group_gender);
         toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         edtDateOfBirth = (EditText) findViewById(R.id.edt_date_of_birth);
+        edtEmail = (EditText) findViewById(R.id.edt_email);
+        edtPassword = (EditText) findViewById(R.id.edt_password);
+        edtConfirmPassword = (EditText) findViewById(R.id.edt_confirm_password);
+        edtFullName = (EditText) findViewById(R.id.edt_fullname);
+        edtPhone = (EditText) findViewById(R.id.edt_phone_number);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
     }
 
     @Override
@@ -66,7 +94,7 @@ public class RegisterActivity extends TemplateActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TemplateActivity.startActivity(RegisterActivity.this, LoginActivity.class, null);
+                validator.validate();
             }
         });
     }
@@ -135,5 +163,25 @@ public class RegisterActivity extends TemplateActivity {
         spinnerDistrict.setAdapter(adapterDistrict);
         spinnerBloodGroup.setAdapter(adapterBloodGroup);
         tvAutocompleteCity.setAdapter(adapterCity);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+//        TemplateActivity.startActivity(RegisterActivity.this, LoginActivity.class, null);
+        Toast.makeText(this, "Yay! we got it right!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
