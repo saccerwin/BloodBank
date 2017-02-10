@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/fullname"
                 android:imeOptions="actionNext"
-                android:inputType="text" />
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -151,8 +151,8 @@
             </RadioGroup>
         </LinearLayout>
 
-        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
-            android:id="@+id/autocomplete_tv_city"
+        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+            android:id="@+id/spinner_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

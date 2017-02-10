@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
-import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 /**
@@ -19,13 +18,12 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
  */
 
 public class SearchMemberGroupActivity extends TemplateActivity {
-    private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup;
+    private MaterialBetterSpinner spinnerBloodGroup;
     private RadioButton radioBtnMale, radioBtnFemale;
     private RadioGroup radioGroupGender;
     private Button btnSearch;
     private Toolbar toolbar;
     private TextView toolbarTitle;
-    private MaterialAutoCompleteTextView tvAutocompleteCity;
 
 
     protected void initData(Bundle savedInstanceState) {
@@ -42,15 +40,10 @@ public class SearchMemberGroupActivity extends TemplateActivity {
         radioBtnMale = (RadioButton) findViewById(R.id.radio_female);
         radioBtnFemale = (RadioButton) findViewById(R.id.radio_male);
         radioGroupGender = (RadioGroup) findViewById(R.id.radio_group_gender);
-
         spinnerBloodGroup = (MaterialBetterSpinner) findViewById(R.id.spinner_blood_group);
-        spinnerDistrict = (MaterialBetterSpinner) findViewById(R.id.spinner_district);
         btnSearch = (Button)findViewById(R.id.btn_search);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
-        tvAutocompleteCity = (MaterialAutoCompleteTextView)findViewById(R.id.autocomplete_tv_city);
-
     }
 
     @Override
@@ -94,17 +87,9 @@ public class SearchMemberGroupActivity extends TemplateActivity {
 
 
     private void setupSpinner() {
-        String[] listCity = getResources().getStringArray(R.array.city);
-        String[] listDistrict = getResources().getStringArray(R.array.district);
         String[] listBloodGroup = getResources().getStringArray(R.array.blood_group);
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, listDistrict);
         ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, listBloodGroup);
-        spinnerDistrict.setAdapter(adapterDistrict);
         spinnerBloodGroup.setAdapter(adapterBloodGroup);
-        tvAutocompleteCity.setAdapter(adapterCity);
     }
 }

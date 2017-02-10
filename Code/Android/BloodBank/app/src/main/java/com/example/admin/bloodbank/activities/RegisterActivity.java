@@ -14,13 +14,15 @@ import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
+import com.example.admin.bloodbank.utils.TemplateUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
 import com.mobsandgeeks.saripaar.annotation.Password;
-import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
+import com.mobsandgeeks.saripaar.annotation.Pattern;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.text.SimpleDateFormat;
@@ -36,20 +38,26 @@ import java.util.Locale;
 public class RegisterActivity extends TemplateActivity implements Validator.ValidationListener {
     private Validator validator;
     private Button btnRegister;
-    private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup;
-    private MaterialAutoCompleteTextView tvAutocompleteCity;
+    private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup,spinnerCity;
     private RadioButton radioBtnMale, radioBtnFemale;
     private RadioGroup radioGroupGender;
-    @Email (message = "Email phải đúng định dạng")
+
+    @Order(1)
+    @NotEmpty(message = "Email không được bỏ trống", sequence = 1)
+    @Email(message = "Email phải đúng định dạng", sequence = 2)
     private EditText edtEmail;
-    @NotEmpty(message = "Mật khẩu không được bỏ trống")
-    @Password(min = 6,message = "Mật khẩu phải trên 6 kí tự")
+    @NotEmpty(message = "Mật khẩu không được bỏ trống", sequence = 1)
+    @Password(min = 6, message = "Mật khẩu phải trên 6 kí tự", sequence = 2)
+    @Order(2)
     private EditText edtPassword;
+    @Order(3)
     @ConfirmPassword(message = "Phải trùng với mật khẩu!")
     private EditText edtConfirmPassword;
-//    @Pattern(regex = "(^[a-zA-Z\\\\sàáạã_-]{3,25}$)", message = "Họ tên phải đúng định dạng")
+    @Order(4)
+    @Pattern(regex = "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ\" +            \"ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ\" +            \"ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\\\s]+$", message = "Họ và Tên không chứa ký tự số")
     private EditText edtFullName;
-//    @Pattern(regex = "(^\\\\(?(\\\\d{3})\\\\)?[- ]?(\\\\d{3})[- ]?(\\\\d{4}))", message = "Số điện thoại sai định dạng")
+    @Pattern(regex = "^((\\+){0,1}((841[0-9]{9})|(849[0-9]{8})))$|^(09[0-9]{8})$|^(01[0-9]{9})$", message = "Số điện thoại sai định dạng")
+    @Order(5)
     private EditText edtPhone;
     private EditText edtDateOfBirth;
     TextView toolbarTitle;
@@ -70,7 +78,7 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         btnRegister = (Button) findViewById(R.id.btn_register);
         spinnerBloodGroup = (MaterialBetterSpinner) findViewById(R.id.spinner_blood_group);
         spinnerDistrict = (MaterialBetterSpinner) findViewById(R.id.spinner_district);
-        tvAutocompleteCity = (MaterialAutoCompleteTextView) findViewById(R.id.autocomplete_tv_city);
+        spinnerCity = (MaterialBetterSpinner) findViewById(R.id.spinner_city);
         radioBtnMale = (RadioButton) findViewById(R.id.radio_male);
         radioBtnFemale = (RadioButton) findViewById(R.id.radio_female);
         radioGroupGender = (RadioGroup) findViewById(R.id.radio_group_gender);
@@ -87,6 +95,7 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
 
     @Override
     protected void loadData(Bundle savedInstanceState) {
+        TemplateUtils.hideSoftKeyboard(getContext());
         setupSpinner();
         isCheckedGender();
         toolbarTitle.setText("Đăng ký tài khoản");
@@ -109,10 +118,8 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
                 updateLabel();
             }
         };
-
         edtDateOfBirth.setOnClickListener(new View.OnClickListener() {
-
-
+            @Override
             public void onClick(View view) {
                 Calendar calendar = Calendar.getInstance();
                 int mYear = calendar.get(Calendar.YEAR);
@@ -121,10 +128,8 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
                 DatePickerDialog dialog = new DatePickerDialog(RegisterActivity.this, date, mYear, mMonth, mDay);
                 dialog.getDatePicker().setMaxDate(new Date().getTime());
                 dialog.show();
-
             }
         });
-
 
     }
 
@@ -162,7 +167,7 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
                 android.R.layout.simple_dropdown_item_1line, listBloodGroup);
         spinnerDistrict.setAdapter(adapterDistrict);
         spinnerBloodGroup.setAdapter(adapterBloodGroup);
-        tvAutocompleteCity.setAdapter(adapterCity);
+        spinnerCity.setAdapter(adapterCity);
     }
 
     @Override

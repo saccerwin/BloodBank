@@ -18,24 +18,6 @@
             android:layout_marginBottom="@dimen/padding_10"
             android:hint="@string/hint_blood_group"
             app:met_floatingLabel="highlight"/>
-        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
-            android:id="@+id/autocomplete_tv_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_city"
-            android:maxLines="1"
-            android:inputType="textCapWords"
-            android:imeOptions="actionNext"
-            android:layout_marginBottom="@dimen/padding_10"
-            app:met_floatingLabel="normal" />
-        <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-            android:id="@+id/spinner_district"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_10"
-            android:hint="@string/hint_district"
-            app:met_floatingLabel="normal"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

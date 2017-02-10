@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
-import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 /**
@@ -18,11 +17,10 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
  */
 
 public class FilterSearchClub extends TemplateActivity {
-    MaterialBetterSpinner spinnerCity,spinnerCountMember;
-    Button btnSearch;
-    Toolbar toolbar;
-    TextView toobarTitle;
-    private MaterialAutoCompleteTextView tvAutocompleteCity;
+    private MaterialBetterSpinner spinnerCity,spinnerCountMember;
+    private Button btnSearch;
+    private Toolbar toolbar;
+    private TextView toobarTitle;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
@@ -41,7 +39,6 @@ public class FilterSearchClub extends TemplateActivity {
         btnSearch = (Button)findViewById(R.id.btn_search);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toobarTitle = (TextView)findViewById(R.id.toolbar_title);
-        tvAutocompleteCity = (MaterialAutoCompleteTextView)findViewById(R.id.autocomplete_tv_city);
 
     }
 
@@ -83,7 +80,7 @@ public class FilterSearchClub extends TemplateActivity {
                 android.R.layout.simple_dropdown_item_1line, listCity);
         ArrayAdapter<String> adapterCountMember = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, listCountMember);
-        tvAutocompleteCity.setAdapter(adapterCity);
+        spinnerCity.setAdapter(adapterCity);
         spinnerCountMember.setAdapter(adapterCountMember);
     }
 }
