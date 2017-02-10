@@ -164,6 +164,10 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
 
     <!--Screen statistical-->
     <string name="statistical_text"> THỐNG KÊ THEO TỪNG THÁNG</string>
+    <string name="radio_gender_all">Tất cả</string>
+    <string name="hint_have_gender">Giới tính bạn cần:</string>
+    <string name="hint_time_day">Thời gian cần</string>
+    <string name="text_infomation_other">Thông tin khác(nếu có)</string>
 
 
     <string-array name="navDrawerItemsUser">
@@ -228,6 +232,31 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
         <item>Tiểu cầu máu</item>
     </string-array>
 
+    <string-array name="array_time_day">
+        <item>Sáng nay</item>
+        <item>Chiều nay</item>
+        <item>Tối nay</item>
+        <item>Hôm nay</item>
+        <item>Ngay bây giờ</item>
+    </string-array>
+
+
+    <string-array name="name_hospital">
+        <item>Bệnh viện Đa khoa Hoàn Mỹ Đà Nẵng</item>
+        <item>Bệnh viện Đa khoa Bình Dân</item>
+        <item>Bệnh viện Y học cổ truyền Đà Nẵng</item>
+        <item>Bệnh Viện Điều Dưỡng Phục Hồi Chức Năng</item>
+        <item>Bệnh Viện Da Liễu</item>
+        <item>Bệnh viện Mắt Đà Nẵng</item>
+        <item>Bệnh Viện Đa Khoa Đà Nẵng</item>
+        <item>Bệnh viện Giao thông vận tải Đà Nẵng</item>
+        <item>Bệnh viện Phụ Sản – Nhi Đà Nẵng</item>
+        <item>Bệnh viện C Đà Nẵng</item>
+        <item>Bệnh viện chỉnh hình – PHCN ĐN</item>
+        <item>Bệnh viện đa khoa Tâm trí Đà Nẵng</item>
+        <item>Bệnh viện đa khoa Vĩnh Toàn</item>
+        <item>Bệnh viện đa khoa Gia Đình</item>
+    </string-array>
 
     <string-array name="blood_group">
         <item>A</item>

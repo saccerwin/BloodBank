@@ -44,6 +44,7 @@ public class InstructionFragment extends TemplateFragment {
                 TemplateActivity.startActivity(getActivity(), InstructionFeatureActivity.class,null);
             }
         });
+
     }
 
     private void showStaticContent()  {
