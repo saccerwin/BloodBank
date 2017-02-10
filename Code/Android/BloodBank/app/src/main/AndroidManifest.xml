@@ -34,5 +34,6 @@
         <activity android:name=".activities.SearchMemberGroupActivity" />
         <activity android:name=".activities.RegisterActivity" android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".activities.ForgotPasswordActivity"/>
+        <activity android:name=".activities.InstructionFeatureActivity"/>
     </application>
 </manifest>

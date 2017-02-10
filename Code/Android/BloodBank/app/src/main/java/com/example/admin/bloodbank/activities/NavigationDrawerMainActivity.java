@@ -17,6 +17,7 @@ import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.adapters.NavigationRecyclerViewAdapter;
 import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.fragments.HistoryDonationBloodFragment;
+import com.example.admin.bloodbank.fragments.InstructionFragment;
 import com.example.admin.bloodbank.fragments.ListClubFragment;
 import com.example.admin.bloodbank.fragments.MainFragment;
 import com.example.admin.bloodbank.fragments.ManagerClubFragment;
@@ -89,6 +90,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 R.drawable.ic_profile,
                 R.drawable.ic_history_donation_blood,
                 R.drawable.ic_staticfic,
+                R.drawable.ic_live_help_black_36dp,
                 R.drawable.ic_logout};
 
         int[] iconNavMenuMember = {R.drawable.ic_home,
@@ -97,12 +99,14 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 R.drawable.ic_manager_club,
                 R.drawable.ic_profile,
                 R.drawable.ic_history_donation_blood,
+                R.drawable.ic_live_help_black_36dp,
                 R.drawable.ic_logout};
 
         int[] iconNavMenuUser = {R.drawable.ic_home,
                 R.drawable.ic_search_group_blood,
                 R.drawable.ic_search_club,
                 R.drawable.ic_profile,
+                R.drawable.ic_live_help_black_36dp,
                 R.drawable.ic_logout};
 
 
@@ -176,6 +180,13 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         }
                         break;
                         case 8: {
+                            toobar_title.setText(listTitleAdmin[7]);
+                            callFragment(new InstructionFragment());
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 9: {
                             finish();
                             showMenuOptionId = 0;
 
@@ -234,6 +245,13 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         }
                         break;
                         case 7: {
+                            toobar_title.setText(listTitleMember[6]);
+                            callFragment(new InstructionFragment());
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 8: {
                             finish();
                             showMenuOptionId = 0;
 
@@ -279,7 +297,14 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                             showMenuOptionId = 0;
                         }
                         break;
-                        case 5: { // logout
+                        case 5: {
+                            toobar_title.setText(listTitleUser[4]);
+                            callFragment(new InstructionFragment());
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 6: { // logout
                             finish();
                             showMenuOptionId = 0;
                         }

@@ -65,6 +65,10 @@
     <string name="btn_add_desription"> Thêm thông tin</string>
 
 
+    <!--Screen instruction-->
+    <string name="btn_instruction">Hướng dẫn sử dụng</string>
+    <string name="btn_introduction">Giới thiệu về app</string>
+
     <!--Screen Navigation drawer-->
     <string name="nav_name"> Đặng Duy Hậu</string>
     <string name="position"> Người dùng</string>
@@ -89,6 +93,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
     <string name="search">Tìm kiếm</string>
     <!--Screen Result Search blood group-->
     <string name="list_search">Danh sách tìm kiếm</string>
+    <string name="instruction_feature">Hướng dẫn sử dụng</string>
 
 
 
@@ -166,6 +171,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
         <item>Tìm kiếm nhóm máu</item>
         <item>Tìm kiếm câu lạc bộ</item>
         <item>Tài khoản</item>
+        <item>Hướng dẫn sử dụng</item>
         <item>Đăng xuất</item>
     </string-array>
 
@@ -176,6 +182,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
         <item>Quản lý câu lạc bộ</item>
         <item>Tài khoản</item>
         <item>Lịch sử hiến máu</item>
+        <item>Hướng dẫn sử dụng</item>
         <item>Đăng xuất</item>
     </string-array>
 
@@ -187,6 +194,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
         <item>Tài khoản</item>
         <item>Lịch sử hiến máu</item>
         <item>Thống kê</item>
+        <item>Hướng dẫn sử dụng</item>
         <item>Đăng xuất</item>
     </string-array>
 

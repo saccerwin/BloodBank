@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_instruction"
+        android:textColor="@color/colorWhite"
+        android:layout_margin="@dimen/padding_20"
+        android:background="@drawable/textview_background_radius"
+        android:id="@+id/btn_instruction"/>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/web_view_about"/>
+</LinearLayout>
