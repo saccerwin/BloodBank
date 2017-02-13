@@ -51,29 +51,15 @@ public class HistoryDonationBloodFragment extends TemplateFragment{
     @Override
     protected void loadData(Bundle savedInstanceState) {
         setupRecyclerView();
-
         fabAddNewHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getFragmentManager();
-                AddNewHistoryDialogFragment dialogFragment = new AddNewHistoryDialogFragment();
-                dialogFragment.show(fragmentManager, "fm");
+                showDialog();
             }
         });
     }
 
     private List<History> getData() {
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
-        list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
         list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
         list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
         list.add(new History("24/01/2017","Tại bệnh viện đa khoa đà nẵng","Bạn đã hiến 1 tiểu cầu máu"));
@@ -94,5 +80,11 @@ public class HistoryDonationBloodFragment extends TemplateFragment{
                 outRect.set(20,0,10,0);
             }
         });
+    }
+
+    private void showDialog() {
+        FragmentManager fm = getFragmentManager();
+        AddNewHistoryDialogFragment dialog = new AddNewHistoryDialogFragment();
+        dialog.show(fm,"showDialogAddNewHistory");
     }
 }

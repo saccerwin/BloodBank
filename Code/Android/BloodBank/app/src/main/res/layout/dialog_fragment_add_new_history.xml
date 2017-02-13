@@ -24,19 +24,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_10"
         android:orientation="vertical">
-        <android.support.design.widget.TextInputLayout
+
+        <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_10">
-
-            <EditText
-                android:id="@+id/edt_name_hospital"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/name_hospital"
-                android:imeOptions="actionNext"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
+            android:hint="@string/name_hospital"
+            android:ems="10"
+            android:maxLines="3"
+            android:maxHeight="50dp"
+            android:layout_marginBottom="@dimen/padding_10"
+            app:met_floatingLabel="highlight"
+            android:id="@+id/tv_auto_completed_name_hospital"/>
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
             android:id="@+id/spinner_units_donation_blood"

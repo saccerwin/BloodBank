@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
+import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.utils.TemplateUtils;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -172,8 +173,15 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
 
     @Override
     public void onValidationSucceeded() {
-//        TemplateActivity.startActivity(RegisterActivity.this, LoginActivity.class, null);
-        Toast.makeText(this, "Yay! we got it right!", Toast.LENGTH_SHORT).show();
+        String email = edtEmail.getText().toString().trim();
+        String password = edtPassword.getText().toString().trim();
+        Bundle bundle = new Bundle();
+        bundle.putString(Contraint.PROFILE_EMAIL, email);
+        bundle.putString(Contraint.PROFILE_PASSWORD, password);
+        bundle.putString(Contraint.CHECK_LOGIN, Contraint.DECENTRALIZATION_USER);
+        Toast.makeText(this, "Đăng ký thành công! Đăng nhập vào app!", Toast.LENGTH_SHORT).show();
+        TemplateActivity.startActivity(RegisterActivity.this, NavigationDrawerMainActivity.class, bundle);
+        finish();
     }
 
     @Override

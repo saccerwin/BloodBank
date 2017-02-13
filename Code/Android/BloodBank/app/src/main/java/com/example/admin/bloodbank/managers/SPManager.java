@@ -25,7 +25,7 @@ public class SPManager {
         return sp.getString(Contraint.CHECK_LOGIN, null );
     }
 
-    public void setDecentralization(String decentralization, String text) {
+    public void setDecentralization(String text) {
         if(text.equals(Contraint.DECENTRALIZATION_USER)) {
             sp.edit().putString(Contraint.CHECK_LOGIN, Contraint.DECENTRALIZATION_USER).apply();
         }

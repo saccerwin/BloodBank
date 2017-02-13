@@ -16,6 +16,7 @@ import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.adapters.NavigationRecyclerViewAdapter;
 import com.example.admin.bloodbank.contraints.Contraint;
+import com.example.admin.bloodbank.fragments.ClubJoinFragment;
 import com.example.admin.bloodbank.fragments.HistoryDonationBloodFragment;
 import com.example.admin.bloodbank.fragments.InstructionFragment;
 import com.example.admin.bloodbank.fragments.ListClubFragment;
@@ -24,6 +25,7 @@ import com.example.admin.bloodbank.fragments.ManagerClubFragment;
 import com.example.admin.bloodbank.fragments.ProfileFragment;
 import com.example.admin.bloodbank.fragments.SearchBloodGroupFragment;
 import com.example.admin.bloodbank.fragments.StatisticalFragment;
+import com.example.admin.bloodbank.managers.SPManager;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 
@@ -60,7 +62,6 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     @Override
     protected void loadData(Bundle savedInstanceState) {
         Bundle bundle = this.getIntent().getExtras();
-//        Toast.makeText(this,bundle.getString(Contraint.CHECK_LOGIN),Toast.LENGTH_SHORT).show();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
@@ -122,6 +123,8 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuAdmin, iconNavMenuAdmin,"Võ Đại Nam","Admin CLB Ban Mai Xanh Đà Nẵng","avatar");
             }break;
         }
+
+
         // Log.d(Contraint.TAG, "setupRecyclerViewDrawer: " + navNameMenu.length + " == " + itemIcons.length);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
@@ -189,7 +192,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         case 9: {
                             finish();
                             showMenuOptionId = 0;
-
+                            SPManager.getInstance(getContext()).clear();
                         }
                         break;
                         default: {
@@ -227,9 +230,9 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         }
                         break;
                         case 4: {
-                            callFragment(new ManagerClubFragment());
+                            callFragment(new ClubJoinFragment());
                             toobar_title.setText(listTitleMember[3]);
-                            showMenuOptionId = 3;
+                            showMenuOptionId = 0;
                         }
                         break;
                         case 5: {
@@ -238,7 +241,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                             showMenuOptionId = 0;
                         }
                         break;
-                        case 6: {// menu history bloood
+                        case 6: {// menu history blood
                             callFragment(new HistoryDonationBloodFragment());
                             toobar_title.setText(listTitleMember[5]);
                             showMenuOptionId = 0;
@@ -254,7 +257,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         case 8: {
                             finish();
                             showMenuOptionId = 0;
-
+                            SPManager.getInstance(getContext()).clear();
                         }
                         break;
                         default: {
@@ -307,6 +310,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                         case 6: { // logout
                             finish();
                             showMenuOptionId = 0;
+                            SPManager.getInstance(getContext()).clear();
                         }
                         break;
 

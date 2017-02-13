@@ -168,6 +168,11 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
     <string name="hint_have_gender">Giới tính bạn cần:</string>
     <string name="hint_time_day">Thời gian cần</string>
     <string name="text_infomation_other">Thông tin khác(nếu có)</string>
+    <string name="btn_done_list_register_blood">Hoàn thành đăng ký</string>
+    <string name="text_list_member_register">THÀNH VIÊN ĐĂNG KÝ</string>
+    <string name="text_filter_search">Bộ lọc tìm kiếm</string>
+    <string name="text_delete_all">Xóa tât cả</string>
+    <string name="text_add_new_discuss">THÊM BÀI ĐĂNG MỚI</string>
 
 
     <string-array name="navDrawerItemsUser">
@@ -183,7 +188,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
         <item>Trang chủ</item>
         <item>Tìm kiếm nhóm máu</item>
         <item>Tìm kiếm câu lạc bộ</item>
-        <item>Quản lý câu lạc bộ</item>
+        <item>CLB đã tham gia</item>
         <item>Tài khoản</item>
         <item>Lịch sử hiến máu</item>
         <item>Hướng dẫn sử dụng</item>
@@ -215,17 +220,13 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
 
 
     <string-array name="count_member">
+        <item>Không giới hạn</item>
         <item>Từ 10 - 100 thành viên</item>
         <item>Từ 100 - 500 thành viên</item>
         <item>Từ 500 - 1000 thành viên</item>
         <item>Trên 1000 thành viên</item>
     </string-array>
 
-
-    <string-array name="time_donation">
-        <item>Toàn thời gian</item>
-        <item>Ngoài giờ hành chính</item>
-    </string-array>
 
     <string-array name="units_donation_blood_items">
         <item>Máu toàn phần</item>

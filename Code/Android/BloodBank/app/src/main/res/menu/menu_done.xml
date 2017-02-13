@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menuEditProfileDone"
+    <item android:id="@+id/menuDone"
         android:title="Hoàn thành"
         app:showAsAction="ifRoom|collapseActionView"
         android:icon="@drawable/ic_tick">

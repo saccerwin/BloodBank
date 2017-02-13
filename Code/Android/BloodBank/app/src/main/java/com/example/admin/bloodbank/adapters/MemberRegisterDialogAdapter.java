@@ -41,7 +41,7 @@ public class MemberRegisterDialogAdapter extends TemplateAdapter<MemberRegisterD
     public class ItemVH extends TemplateViewHolder {
         public TextView tvName;
         public ItemVH(RecyclerView.Adapter<? extends TemplateViewHolder> adapter, ViewGroup parent) {
-            super(adapter, parent, R.layout.list_item_member_register);
+            super(adapter, parent, R.layout.list_item_register_donation_blood);
         }
 
         @Override

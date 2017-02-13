@@ -28,7 +28,6 @@ import static com.example.admin.bloodbank.R.id.btnViewDetailClub;
 public class PostNewDiscussGroupAdapter extends TemplateAdapter<PostNewDiscussGroupAdapter.ViewHolderItem> {
 
     private List<PostNews> listItems;
-
     private PostListenerInterface mPostListenerInterface;
 
     public void setOnClickItemListenner(final PostListenerInterface mPostListenerInterface) {
@@ -45,6 +44,8 @@ public class PostNewDiscussGroupAdapter extends TemplateAdapter<PostNewDiscussGr
 
     public void onBindViewHolder(final PostNewDiscussGroupAdapter.ViewHolderItem holder, final int position) {
         holder.setData(listItems.get(position));
+
+
         holder.setOnBtnRegisterClick(new ItemBtnRegisterClick() {
             @Override
             public void onItemBtnRegisterClick(View view, int position) {
@@ -97,7 +98,7 @@ public class PostNewDiscussGroupAdapter extends TemplateAdapter<PostNewDiscussGr
         public CircleImageView imgViewCircleAvatarClub;
         public Button btnCountMemberRegisterDonation, btnViewDetailClub;
         public ItemBtnRegisterClick itemBtnRegisterClick;
-
+        private String permission;
 
         public ViewHolderItem(RecyclerView.Adapter<? extends TemplateViewHolder> adapter, ViewGroup parent) {
             super(adapter, parent, R.layout.list_items_news);

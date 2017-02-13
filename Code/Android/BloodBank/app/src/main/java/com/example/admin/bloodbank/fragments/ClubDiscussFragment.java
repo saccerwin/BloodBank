@@ -13,11 +13,14 @@ import android.view.ViewGroup;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.abstracts.TemplateFragment;
+import com.example.admin.bloodbank.activities.AddNewDiscussActivity;
 import com.example.admin.bloodbank.activities.CommentActivity;
+import com.example.admin.bloodbank.activities.MemberRegisterDonationActivity;
 import com.example.admin.bloodbank.adapters.PostNewDiscussGroupAdapter;
-import com.example.admin.bloodbank.dialogs.ClubDiscussPostNewDialogFragment;
+import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.dialogs.MemberRegisterDonationDialogFragment;
 import com.example.admin.bloodbank.interfaces.PostListenerInterface;
+import com.example.admin.bloodbank.managers.SPManager;
 import com.example.admin.bloodbank.objects.PostNews;
 
 import java.util.ArrayList;
@@ -36,27 +39,22 @@ public class ClubDiscussFragment extends TemplateFragment {
 
     @Override
     protected View initRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_club_discuss,null);
+        return inflater.inflate(R.layout.fragment_club_discuss, null);
     }
 
     @Override
     protected void initUI(View view, Bundle savedInstanceState) {
-         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-         fabPostNews = (FloatingActionButton)view.findViewById(R.id.fab_postNews);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        fabPostNews = (FloatingActionButton) view.findViewById(R.id.fab_postNews);
     }
 
     @Override
     protected void loadData(Bundle savedInstanceState) {
         setupRecyclerView();
+
     }
 
     private List<PostNews> getData() {
-        list.add(new PostNews("CLB Ban Mai Xanh", "15h00 - 15/01/2017", "Sáng nay một bệnh nhi đang điều trị tai hồi sức cấp cứu bv 600 giường . Cần hỗ trợ 1 đơn vị tiểu cầu máy nhóm O . Vậy bạn Nam nào trên 55kg . Có thể giúp được . Vui lòng liên lạc mình 0905119135 ( Bình ) \n" +
-                "P/S Đồng cảm đơn giản là sẻ chia ..."));
-        list.add(new PostNews("CLB Ban Mai Xanh", "15h00 - 15/01/2017", "Sáng nay một bệnh nhi đang điều trị tai hồi sức cấp cứu bv 600 giường . Cần hỗ trợ 1 đơn vị tiểu cầu máy nhóm O . Vậy bạn Nam nào trên 55kg . Có thể giúp được . Vui lòng liên lạc mình 0905119135 ( Bình ) \n" +
-                "P/S Đồng cảm đơn giản là sẻ chia ..."));
-        list.add(new PostNews("CLB Ban Mai Xanh", "15h00 - 15/01/2017", "Sáng nay một bệnh nhi đang điều trị tai hồi sức cấp cứu bv 600 giường . Cần hỗ trợ 1 đơn vị tiểu cầu máy nhóm O . Vậy bạn Nam nào trên 55kg . Có thể giúp được . Vui lòng liên lạc mình 0905119135 ( Bình ) \n" +
-                "P/S Đồng cảm đơn giản là sẻ chia ..."));
         list.add(new PostNews("CLB Ban Mai Xanh", "15h00 - 15/01/2017", "Sáng nay một bệnh nhi đang điều trị tai hồi sức cấp cứu bv 600 giường . Cần hỗ trợ 1 đơn vị tiểu cầu máy nhóm O . Vậy bạn Nam nào trên 55kg . Có thể giúp được . Vui lòng liên lạc mình 0905119135 ( Bình ) \n" +
                 "P/S Đồng cảm đơn giản là sẻ chia ..."));
         list.add(new PostNews("CLB Ban Mai Xanh", "15h00 - 15/01/2017", "Sáng nay một bệnh nhi đang điều trị tai hồi sức cấp cứu bv 600 giường . Cần hỗ trợ 1 đơn vị tiểu cầu máy nhóm O . Vậy bạn Nam nào trên 55kg . Có thể giúp được . Vui lòng liên lạc mình 0905119135 ( Bình ) \n" +
@@ -82,14 +80,20 @@ public class ClubDiscussFragment extends TemplateFragment {
         adapter.setOnClickItemListenner(new PostListenerInterface() {
             @Override
             public void onClickMemberRegisterListenner(View view, int position) {
-                FragmentManager fragmentManager = getFragmentManager();
-                MemberRegisterDonationDialogFragment dialogFragment = new MemberRegisterDonationDialogFragment();
-                dialogFragment.show(fragmentManager,"fm");
+                String permission = SPManager.getInstance(getContext()).getDecentralization();
+                if(permission.equals(Contraint.DECENTRALIZATION_MEMBER)) {
+                    showDialog();
+                }
+                else  {
+                    TemplateActivity.startActivity(getActivity(), MemberRegisterDonationActivity.class, null);
+                }
+
+
             }
 
             @Override
             public void onClickCommentListenner(View view, int position) {
-                TemplateActivity.startActivity(getActivity(), CommentActivity.class,null);
+                TemplateActivity.startActivity(getActivity(), CommentActivity.class, null);
             }
 
             @Override
@@ -101,13 +105,10 @@ public class ClubDiscussFragment extends TemplateFragment {
 
             }
         });
-
-
-        isScrollHideFab();
         fabPostNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+                TemplateActivity.startActivity(getActivity(), AddNewDiscussActivity.class, null);
             }
         });
     }
@@ -121,20 +122,20 @@ public class ClubDiscussFragment extends TemplateFragment {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(dy > 0) {  // dy > 0 touch down, dy < 0 touch up
+                if (dy > 0) {  // dy > 0 touch down, dy < 0 touch up
                     fabPostNews.hide();
                 }
-                if(dy < 0) {
+                if (dy < 0) {
                     fabPostNews.show();
                 }
             }
         });
     }
 
-    private void showDialog() {
-        FragmentManager fm = getFragmentManager();
-        ClubDiscussPostNewDialogFragment dialog = new ClubDiscussPostNewDialogFragment();
-        dialog.show(fm,"showDialogPostNew");
+    public void showDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        MemberRegisterDonationDialogFragment dialogFragment = new MemberRegisterDonationDialogFragment();
+        dialogFragment.show(fragmentManager, "fm");
     }
 
 }

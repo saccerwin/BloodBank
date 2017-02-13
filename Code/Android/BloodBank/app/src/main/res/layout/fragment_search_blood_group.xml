@@ -33,48 +33,50 @@
             android:hint="@string/hint_district"
             app:met_floatingLabel="normal"/>
 
-        <LinearLayout
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_5"
+            android:text="@string/hint_have_gender"
+            android:textSize="@dimen/text_size_15" />
+
+        <RadioGroup
+            android:gravity="center_horizontal"
+            android:id="@+id/radio_group_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_10"
+            android:weightSum="3"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_5"
-                android:textSize="@dimen/text_size_15"
-                android:text="@string/hint_gender"/>
-            <RadioGroup
-                android:id="@+id/radio_group_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="horizontal">
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gender_male"
-                    style="@style/RadioButtonMain"
-                    android:checked="true"
-                    android:id="@+id/radio_male"/>
 
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    style="@style/RadioButtonMain"
-                    android:layout_height="wrap_content"
-                    android:text="@string/gender_female"
-                    android:id="@+id/radio_female"
-                    />
-            </RadioGroup>
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_gender_all"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/RadioButtonMain"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/radio_gender_all" />
 
-        </LinearLayout>
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/RadioButtonMain"
+                android:text="@string/gender_male" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/RadioButtonMain"
+                android:layout_weight="1"
+                android:text="@string/gender_female" />
+        </RadioGroup>
 
         <CheckBox
+            android:layout_marginTop="@dimen/padding_10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_10"

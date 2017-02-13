@@ -9,8 +9,8 @@ public class Contraint {
     public static final String NAME_APP = "BloodBank";
     public static final String CHECK_LOGIN = "CheckLogin";
     public static final String DECENTRALIZATION_ADMIN = "admin";
-    public static final String DECENTRALIZATION_MEMBER = "user";
-    public static final String DECENTRALIZATION_USER = "member";
+    public static final String DECENTRALIZATION_MEMBER = "member";
+    public static final String DECENTRALIZATION_USER = "user";
     public static final String PROFILE_FULLNAME = "fullName";
     public static final String PROFILE_PHONE = "phone";
     public static final String PROFILE_DATEOFBIRTH = "dateOfBirth";

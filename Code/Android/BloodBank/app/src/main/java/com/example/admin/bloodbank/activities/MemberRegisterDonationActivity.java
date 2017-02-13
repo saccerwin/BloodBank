@@ -1,50 +1,51 @@
-package com.example.admin.bloodbank.dialogs;
+package com.example.admin.bloodbank.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.admin.bloodbank.R;
-import com.example.admin.bloodbank.abstracts.TemplateCustomDialogFragment;
+import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.adapters.MemberRegisterDialogAdapter;
 import com.example.admin.bloodbank.objects.Member;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.WINDOW_SERVICE;
-
 /**
- * Created by Admin on 17/01/2017.
+ * Created by Admin on 13/02/2017.
  */
 
-public class MemberRegisterDonationDialogFragment extends TemplateCustomDialogFragment {
-    private ImageButton btnDismiss;
-    private TextView tvTitle;
+public class MemberRegisterDonationActivity extends TemplateActivity {
     private List<Member> list = new ArrayList<>();
     private RecyclerView recyclerView;
-    @Override
+    private Toolbar toolbar;
+    private TextView toolbarTitle;
+
     protected void initData(Bundle savedInstanceState) {
 
     }
 
     @Override
-    protected View initRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_fragment_member_register_donation,container,false);
+    protected void initRootView(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_member_register_donation);
     }
 
     @Override
-    protected void initUI(View view, Bundle savedInstanceState) {
-        tvTitle = (TextView)view.findViewById(R.id.tv_title);
-        btnDismiss = (ImageButton) view.findViewById(R.id.img_btn_dismiss);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+    protected void initUI(Bundle savedInstanceState) {
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+    }
+
+    @Override
+    protected void loadData(Bundle savedInstanceState) {
+        setupToobar();
+        setupRecyclerView();
     }
 
     private List<Member> getData() {
@@ -63,28 +64,38 @@ public class MemberRegisterDonationDialogFragment extends TemplateCustomDialogFr
         return list;
     }
 
-    @Override
-    protected void loadData(Bundle savedInstanceState) {
-        setupRecyclerView();
-        setSizeDialog();
-        btnDismiss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
-            }
-        });
-    }
-
     private void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         MemberRegisterDialogAdapter adapter = new MemberRegisterDialogAdapter(getData());
         recyclerView.setAdapter(adapter);
     }
 
-    private void setSizeDialog() {
-        Display display = ((WindowManager) getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-        int width = display.getWidth();
-        int height = display.getHeight()/2;
-        getDialog().getWindow().setLayout(width,height);
+    private void setupToobar() {
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            toolbarTitle.setText(getString(R.string.text_list_member_register));
+            toolbarTitle.setTextSize(14);
+            getSupportActionBar().setTitle("");
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_member_register, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+        }
+        return false;
+    }
+
+
 }

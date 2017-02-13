@@ -64,6 +64,13 @@ public class PostNewsAdapter extends TemplateAdapter<PostNewsAdapter.ViewHolderI
             tvShare = (TextView) itemView.findViewById(R.id.tv_share);
             btnCountMemberRegisterDonation = (Button) itemView.findViewById(R.id.btn_count_register);
             btnViewDetailClub = (Button) itemView.findViewById(R.id.btnViewDetailClub);
+
+        }
+
+        public void setData(PostNews postNews) {
+            tvNameClub.setText(postNews.getNameClub());
+            tvTimePost.setText(postNews.getTimePost());
+            tvDesscription.setText(postNews.getDescription());
             btnCountMemberRegisterDonation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -88,12 +95,6 @@ public class PostNewsAdapter extends TemplateAdapter<PostNewsAdapter.ViewHolderI
                     }
                 }
             });
-        }
-
-        public void setData(PostNews postNews) {
-            tvNameClub.setText(postNews.getNameClub());
-            tvTimePost.setText(postNews.getTimePost());
-            tvDesscription.setText(postNews.getDescription());
         }
     }
 

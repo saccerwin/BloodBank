@@ -145,7 +145,7 @@ public class EditProfileActivity extends TemplateActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_done, menu);
         return true;
     }
 

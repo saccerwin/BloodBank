@@ -19,7 +19,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class SearchMemberGroupActivity extends TemplateActivity {
     private MaterialBetterSpinner spinnerBloodGroup;
-    private RadioButton radioBtnMale, radioBtnFemale;
+    private RadioButton radioBtnMale, radioBtnFemale,radioBtnAll;
     private RadioGroup radioGroupGender;
     private Button btnSearch;
     private Toolbar toolbar;
@@ -44,6 +44,8 @@ public class SearchMemberGroupActivity extends TemplateActivity {
         btnSearch = (Button)findViewById(R.id.btn_search);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbarTitle = (TextView)findViewById(R.id.toolbar_title);
+        radioBtnAll = (RadioButton) findViewById(R.id.radio_gender_all);
+
     }
 
     @Override
@@ -67,6 +69,9 @@ public class SearchMemberGroupActivity extends TemplateActivity {
 
                 }
                 if (checkedId == R.id.radio_female) {
+
+                }
+                if (checkedId == R.id.radio_gender_all) {
 
                 }
             }

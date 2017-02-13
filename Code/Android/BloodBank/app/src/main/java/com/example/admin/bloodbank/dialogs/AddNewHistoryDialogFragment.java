@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateCustomDialogFragment;
+import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 /**
@@ -18,8 +19,9 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class AddNewHistoryDialogFragment extends TemplateCustomDialogFragment {
     Button btnDone,btnCancel;
-    EditText edtNameHospital,edtQualityUnitsDonation;
+    EditText edtQualityUnitsDonation;
     private MaterialBetterSpinner spinnerUnitsDonationBlood;
+    private MaterialAutoCompleteTextView materialAutoCompleteTextViewNameHospital;
 
     protected void initData(Bundle savedInstanceState) {
 
@@ -32,11 +34,11 @@ public class AddNewHistoryDialogFragment extends TemplateCustomDialogFragment {
 
     @Override
     protected void initUI(View view, Bundle savedInstanceState) {
-        btnCancel = (Button)view.findViewById(R.id.btn_cancel);
-        btnDone = (Button)view.findViewById(R.id.btn_done);
-        edtNameHospital = (EditText)view.findViewById(R.id.edt_name_hospital);
+        materialAutoCompleteTextViewNameHospital = (MaterialAutoCompleteTextView) view.findViewById(R.id.tv_auto_completed_name_hospital);
         edtQualityUnitsDonation = (EditText)view.findViewById(R.id.edt_quality);
         spinnerUnitsDonationBlood = (MaterialBetterSpinner)view.findViewById(R.id.spinner_units_donation_blood);
+        btnCancel = (Button)view.findViewById(R.id.btn_cancel);
+        btnDone = (Button)view.findViewById(R.id.btn_done);
     }
 
     @Override
@@ -60,9 +62,15 @@ public class AddNewHistoryDialogFragment extends TemplateCustomDialogFragment {
 
     private void setupSpinner() {
         String[] listUnitsDonationBlood = getResources().getStringArray(R.array.units_donation_blood_items);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        String[] listNameHospital = getResources().getStringArray(R.array.name_hospital);
+        ArrayAdapter<String> adapterUnitDonationBlood = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_dropdown_item_1line, listUnitsDonationBlood);
-        spinnerUnitsDonationBlood.setAdapter(adapter);
+        ArrayAdapter<String> adapterNameHospital = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line, listNameHospital);
 
+        spinnerUnitsDonationBlood.setAdapter(adapterUnitDonationBlood);
+        materialAutoCompleteTextViewNameHospital.setAdapter(adapterNameHospital);
     }
+
+
 }

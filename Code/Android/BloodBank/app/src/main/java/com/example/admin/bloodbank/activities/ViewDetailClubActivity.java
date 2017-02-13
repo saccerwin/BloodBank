@@ -19,6 +19,7 @@ import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.dialogs.JoinClubDialogFragment;
 import com.example.admin.bloodbank.interfaces.OnClickItemListenerInterface;
 import com.example.admin.bloodbank.interfaces.ProfileListenerInterface;
+import com.example.admin.bloodbank.managers.SPManager;
 import com.example.admin.bloodbank.objects.Member;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class ViewDetailClubActivity extends TemplateActivity {
     protected void loadData(Bundle savedInstanceState) {
         setupToobar();
         setupRecyclerView();
+
     }
 
     private void setupToobar() {
@@ -77,34 +79,21 @@ public class ViewDetailClubActivity extends TemplateActivity {
         list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
         list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
         list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
-        list.add(new Member("Đặng Duy Hậu", "", "Thành Viên CLB", "CLB Ban Mai Xanh", "012649800"));
         return list;
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
+        showJoinGroupWithPermission(SPManager.getInstance(getContext()).getDecentralization());
         return true;
     }
 
-    public void showMenuJoinGroupWithDecentralization(String decentralization) {
-        if(decentralization.equals(Contraint.DECENTRALIZATION_ADMIN) || decentralization.equals(Contraint.DECENTRALIZATION_MEMBER)) {
+    public void showJoinGroupWithPermission(String permission) {
+        if (permission.equals(Contraint.DECENTRALIZATION_ADMIN)) {
             menu.findItem(R.id.menu_join_club).setVisible(false);
-        }
-        if(decentralization.equals(Contraint.DECENTRALIZATION_USER)) {
+        } else
             menu.findItem(R.id.menu_join_club).setVisible(true);
-        }
     }
 
     @Override

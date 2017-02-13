@@ -22,7 +22,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 public class SearchBloodGroupFragment extends TemplateFragment {
     private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup;
-    private RadioButton radioBtnMale, radioBtnFemale;
+    private RadioButton radioBtnMale, radioBtnFemale,radioBtnAll;
     private RadioGroup radioGroupGender;
     private Button btnSearch;
     private MaterialAutoCompleteTextView tvAutocompleteCity;
@@ -42,6 +42,7 @@ public class SearchBloodGroupFragment extends TemplateFragment {
         radioBtnMale = (RadioButton) view.findViewById(R.id.radio_female);
         radioBtnFemale = (RadioButton) view.findViewById(R.id.radio_male);
         radioGroupGender = (RadioGroup) view.findViewById(R.id.radio_group_gender);
+        radioBtnAll = (RadioButton) view.findViewById(R.id.radio_gender_all);
 
         spinnerBloodGroup = (MaterialBetterSpinner) view.findViewById(R.id.spinner_blood_group);
         spinnerDistrict = (MaterialBetterSpinner) view.findViewById(R.id.spinner_district);
@@ -74,6 +75,9 @@ public class SearchBloodGroupFragment extends TemplateFragment {
 
                 }
                 if (checkedId == R.id.radio_female) {
+
+                }
+                if(checkedId == R.id.radio_gender_all) {
 
                 }
             }

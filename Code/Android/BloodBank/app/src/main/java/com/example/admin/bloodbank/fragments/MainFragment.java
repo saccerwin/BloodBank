@@ -66,7 +66,7 @@ public class MainFragment extends TemplateFragment {
         list.add(new PostNews("CLB Ban Mai Xanh", "15h00 - 15/01/2017", "Sáng nay một bệnh nhi đang điều trị tai hồi sức cấp cứu bv 600 giường . Cần hỗ trợ 1 đơn vị tiểu cầu máy nhóm O . Vậy bạn Nam nào trên 55kg . Có thể giúp được . Vui lòng liên lạc mình 0905119135 ( Bình ) \n" +
                 "P/S Đồng cảm đơn giản là sẻ chia ..."));
         return list;
-    };
+    }
 
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -81,7 +81,6 @@ public class MainFragment extends TemplateFragment {
         adapter.setOnClickItemListenner(new PostListenerInterface() {
             @Override
             public void onClickMemberRegisterListenner(View view, int position) {
-                showDialog();
             }
 
             @Override
