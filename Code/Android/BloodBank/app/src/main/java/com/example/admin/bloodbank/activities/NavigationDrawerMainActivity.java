@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
@@ -26,6 +27,7 @@ import com.example.admin.bloodbank.fragments.ProfileFragment;
 import com.example.admin.bloodbank.fragments.SearchBloodGroupFragment;
 import com.example.admin.bloodbank.fragments.StatisticalFragment;
 import com.example.admin.bloodbank.managers.SPManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 
@@ -65,264 +67,26 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
-        showMenuOptionId = 0;
         setupDrawerToggle();
-        checkLogin(bundle.get(Contraint.CHECK_LOGIN).toString());
+        if(bundle != null) {
+            checkLogin(bundle.get(Contraint.CHECK_LOGIN).toString());
+        }
         callFragment(new MainFragment());
         setupEventClickIntentItemMenu(bundle.get(Contraint.CHECK_LOGIN).toString());
         listTitleUser = getTitleMenuNav(R.array.navDrawerItemsUser);
         listTitleMember = getTitleMenuNav(R.array.navDrawerItemsMember);
         listTitleAdmin = getTitleMenuNav(R.array.navDrawerItemsAdmin);
-        toobar_title.setText(listTitleAdmin[0]); // title home
+        toobar_title.setText(R.string.home); // title home
+        showMenuOptionId = 0;
     }
 
     private String[] getTitleMenuNav(int id) {
         return getResources().getStringArray(id);
     }
 
-    private void checkLogin(String position) {
-        String[] navNameMenuUser = getResources().getStringArray(R.array.navDrawerItemsUser);
-        String[] navNameMenuMember = getResources().getStringArray(R.array.navDrawerItemsMember);
-        String[] navNameMenuAdmin = getResources().getStringArray(R.array.navDrawerItemsAdmin);
-        int[] iconNavMenuAdmin = {R.drawable.ic_home,
-                R.drawable.ic_search_group_blood,
-                R.drawable.ic_search_club,
-                R.drawable.ic_manager_club,
-                R.drawable.ic_profile,
-                R.drawable.ic_history_donation_blood,
-                R.drawable.ic_staticfic,
-                R.drawable.ic_live_help_black_36dp,
-                R.drawable.ic_logout};
-
-        int[] iconNavMenuMember = {R.drawable.ic_home,
-                R.drawable.ic_search_group_blood,
-                R.drawable.ic_search_club,
-                R.drawable.ic_manager_club,
-                R.drawable.ic_profile,
-                R.drawable.ic_history_donation_blood,
-                R.drawable.ic_live_help_black_36dp,
-                R.drawable.ic_logout};
-
-        int[] iconNavMenuUser = {R.drawable.ic_home,
-                R.drawable.ic_search_group_blood,
-                R.drawable.ic_search_club,
-                R.drawable.ic_profile,
-                R.drawable.ic_live_help_black_36dp,
-                R.drawable.ic_logout};
 
 
-        switch (position) {
-            case Contraint.DECENTRALIZATION_USER: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser,"Đặng Duy Hậu","Người dùng","avatar");
-            }
-            break;
-            case Contraint.DECENTRALIZATION_MEMBER: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuMember, iconNavMenuMember,"Trần Văn Nam","Thành viên CLB Ban Mai Xanh Đà Nẵng","avatar");
-            }break;
-            case Contraint.DECENTRALIZATION_ADMIN: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuAdmin, iconNavMenuAdmin,"Võ Đại Nam","Admin CLB Ban Mai Xanh Đà Nẵng","avatar");
-            }break;
-        }
 
-
-        // Log.d(Contraint.TAG, "setupRecyclerViewDrawer: " + navNameMenu.length + " == " + itemIcons.length);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
-        recyclerView.setAdapter(navigationRecyclerViewAdapter);
-    }
-
-    private void setupEventClickIntentItemMenu(String decentralization) {
-
-        if(decentralization.equals(Contraint.DECENTRALIZATION_ADMIN)) {
-            navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    switch (position) {
-                        case 1: {
-                            callFragment(new MainFragment());
-                            toobar_title.setText(listTitleAdmin[0]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 2: {
-                            callFragment(new SearchBloodGroupFragment());
-                            toobar_title.setText(listTitleAdmin[1]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 3: {
-                            callFragment(new ListClubFragment());
-                            toobar_title.setText(listTitleAdmin[2]);
-                            showMenuOptionId = 1;
-                        }
-                        break;
-                        case 4: {
-                            callFragment(new ManagerClubFragment());
-                            toobar_title.setText(listTitleAdmin[3]);
-                            showMenuOptionId = 3;
-                        }
-                        break;
-                        case 5: {
-                            callFragment(new ProfileFragment());
-                            toobar_title.setText(listTitleAdmin[4]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 6: {// menu history bloood
-                            callFragment(new HistoryDonationBloodFragment());
-                            toobar_title.setText(listTitleAdmin[5]);
-                                showMenuOptionId = 0;
-
-                        }
-                        break;
-                        case 7: {
-                            callFragment(new StatisticalFragment());
-                            toobar_title.setText(listTitleAdmin[6]);
-                            showMenuOptionId = 0;
-
-                        }
-                        break;
-                        case 8: {
-                            toobar_title.setText(listTitleAdmin[7]);
-                            callFragment(new InstructionFragment());
-                            showMenuOptionId = 0;
-
-                        }
-                        break;
-                        case 9: {
-                            finish();
-                            showMenuOptionId = 0;
-                            SPManager.getInstance(getContext()).clear();
-                        }
-                        break;
-                        default: {
-                            callFragment(new MainFragment());
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                    }
-                    drawerLayout.closeDrawers();
-                    showMenuSearch(showMenuOptionId);
-                }
-            });
-        }
-        if(decentralization.equals(Contraint.DECENTRALIZATION_MEMBER) ) {
-            navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    switch (position) {
-                        case 1: {
-                            callFragment(new MainFragment());
-                            toobar_title.setText(listTitleMember[0]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 2: {
-                            callFragment(new SearchBloodGroupFragment());
-                            toobar_title.setText(listTitleMember[1]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 3: {
-                            callFragment(new ListClubFragment());
-                            toobar_title.setText(listTitleMember[2]);
-                            showMenuOptionId = 1;
-                        }
-                        break;
-                        case 4: {
-                            callFragment(new ClubJoinFragment());
-                            toobar_title.setText(listTitleMember[3]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 5: {
-                            callFragment(new ProfileFragment());
-                            toobar_title.setText(listTitleMember[4]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 6: {// menu history blood
-                            callFragment(new HistoryDonationBloodFragment());
-                            toobar_title.setText(listTitleMember[5]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 7: {
-                            toobar_title.setText(listTitleMember[6]);
-                            callFragment(new InstructionFragment());
-                            showMenuOptionId = 0;
-
-                        }
-                        break;
-                        case 8: {
-                            finish();
-                            showMenuOptionId = 0;
-                            SPManager.getInstance(getContext()).clear();
-                        }
-                        break;
-                        default: {
-                            callFragment(new MainFragment());
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                    }
-                    drawerLayout.closeDrawers();
-                    showMenuSearch(showMenuOptionId);
-                }
-            });
-        }
-        if(decentralization.equals(Contraint.DECENTRALIZATION_USER) ) {
-            navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    switch (position) {
-                        case 1: {
-                            callFragment(new MainFragment());
-                            toobar_title.setText(listTitleUser[0]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 2: {
-                            callFragment(new SearchBloodGroupFragment());
-                            toobar_title.setText(listTitleUser[1]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 3: {
-                            callFragment(new ListClubFragment());
-                            toobar_title.setText(listTitleUser[2]);
-                            showMenuOptionId = 1;
-                        }
-                        break;
-                        case 4: {
-                            callFragment(new ProfileFragment());
-                            toobar_title.setText(listTitleUser[3]);
-                            showMenuOptionId = 0;
-                        }
-                        break;
-                        case 5: {
-                            toobar_title.setText(listTitleUser[4]);
-                            callFragment(new InstructionFragment());
-                            showMenuOptionId = 0;
-
-                        }
-                        break;
-                        case 6: { // logout
-                            finish();
-                            showMenuOptionId = 0;
-                            SPManager.getInstance(getContext()).clear();
-                        }
-                        break;
-
-                    }
-                    drawerLayout.closeDrawers();
-                    showMenuSearch(showMenuOptionId);
-                }
-            });
-        }
-
-
-    }
 
     public void callFragment(android.support.v4.app.Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -402,6 +166,253 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
         getSupportActionBar().setTitle("");
+    }
+
+
+    private void setupEventClickIntentItemMenu(String decentralization) {
+
+        if(decentralization.equals(Contraint.DECENTRALIZATION_ADMIN)) {
+            navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    switch (position) {
+                        case 1: {
+                            callFragment(new MainFragment());
+                            toobar_title.setText(listTitleAdmin[0]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 2: {
+                            callFragment(new SearchBloodGroupFragment());
+                            toobar_title.setText(listTitleAdmin[1]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 3: {
+                            callFragment(new ListClubFragment());
+                            toobar_title.setText(listTitleAdmin[2]);
+                            showMenuOptionId = 1;
+                        }
+                        break;
+                        case 4: {
+                            callFragment(new ManagerClubFragment());
+                            toobar_title.setText(listTitleAdmin[3]);
+                            showMenuOptionId = 3;
+                        }
+                        break;
+                        case 5: {
+                            callFragment(new ProfileFragment());
+                            toobar_title.setText(listTitleAdmin[4]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 6: {// menu history bloood
+                            callFragment(new HistoryDonationBloodFragment());
+                            toobar_title.setText(listTitleAdmin[5]);
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 7: {
+                            callFragment(new StatisticalFragment());
+                            toobar_title.setText(listTitleAdmin[6]);
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 8: {
+                            toobar_title.setText(listTitleAdmin[7]);
+                            callFragment(new InstructionFragment());
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 9: {
+                            isSignOut();
+                        }
+                        break;
+                        default: {
+                            callFragment(new MainFragment());
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                    }
+                    drawerLayout.closeDrawers();
+                    showMenuSearch(showMenuOptionId);
+                }
+            });
+        }
+        if(decentralization.equals(Contraint.DECENTRALIZATION_MEMBER) ) {
+            navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    switch (position) {
+                        case 1: {
+                            callFragment(new MainFragment());
+                            toobar_title.setText(listTitleMember[0]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 2: {
+                            callFragment(new SearchBloodGroupFragment());
+                            toobar_title.setText(listTitleMember[1]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 3: {
+                            callFragment(new ListClubFragment());
+                            toobar_title.setText(listTitleMember[2]);
+                            showMenuOptionId = 1;
+                        }
+                        break;
+                        case 4: {
+                            callFragment(new ClubJoinFragment());
+                            toobar_title.setText(listTitleMember[3]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 5: {
+                            callFragment(new ProfileFragment());
+                            toobar_title.setText(listTitleMember[4]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 6: {// menu history blood
+                            callFragment(new HistoryDonationBloodFragment());
+                            toobar_title.setText(listTitleMember[5]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 7: {
+                            toobar_title.setText(listTitleMember[6]);
+                            callFragment(new InstructionFragment());
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 8: {
+                            isSignOut();
+                        }
+                        break;
+                        default: {
+                            callFragment(new MainFragment());
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                    }
+                    drawerLayout.closeDrawers();
+                    showMenuSearch(showMenuOptionId);
+                }
+            });
+        }
+        if(decentralization.equals(Contraint.DECENTRALIZATION_USER) ) {
+            navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    switch (position) {
+                        case 1: {
+                            callFragment(new MainFragment());
+                            toobar_title.setText(listTitleUser[0]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 2: {
+                            callFragment(new SearchBloodGroupFragment());
+                            toobar_title.setText(listTitleUser[1]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 3: {
+                            callFragment(new ListClubFragment());
+                            toobar_title.setText(listTitleUser[2]);
+                            showMenuOptionId = 1;
+                        }
+                        break;
+                        case 4: {
+                            callFragment(new ProfileFragment());
+                            toobar_title.setText(listTitleUser[3]);
+                            showMenuOptionId = 0;
+                        }
+                        break;
+                        case 5: {
+                            toobar_title.setText(listTitleUser[4]);
+                            callFragment(new InstructionFragment());
+                            showMenuOptionId = 0;
+
+                        }
+                        break;
+                        case 6: { // logout
+                            isSignOut();
+                        }
+                        break;
+
+                    }
+                    drawerLayout.closeDrawers();
+                    showMenuSearch(showMenuOptionId);
+                }
+            });
+        }
+
+
+    }
+
+    private void checkLogin(String position) {
+        String[] navNameMenuUser = getResources().getStringArray(R.array.navDrawerItemsUser);
+        String[] navNameMenuMember = getResources().getStringArray(R.array.navDrawerItemsMember);
+        String[] navNameMenuAdmin = getResources().getStringArray(R.array.navDrawerItemsAdmin);
+        int[] iconNavMenuAdmin = {R.drawable.ic_home,
+                R.drawable.ic_search_group_blood,
+                R.drawable.ic_search_club,
+                R.drawable.ic_manager_club,
+                R.drawable.ic_profile,
+                R.drawable.ic_history_donation_blood,
+                R.drawable.ic_staticfic,
+                R.drawable.ic_live_help_black_36dp,
+                R.drawable.ic_logout};
+
+        int[] iconNavMenuMember = {R.drawable.ic_home,
+                R.drawable.ic_search_group_blood,
+                R.drawable.ic_search_club,
+                R.drawable.ic_manager_club,
+                R.drawable.ic_profile,
+                R.drawable.ic_history_donation_blood,
+                R.drawable.ic_live_help_black_36dp,
+                R.drawable.ic_logout};
+
+        int[] iconNavMenuUser = {R.drawable.ic_home,
+                R.drawable.ic_search_group_blood,
+                R.drawable.ic_search_club,
+                R.drawable.ic_profile,
+                R.drawable.ic_live_help_black_36dp,
+                R.drawable.ic_logout};
+
+
+        switch (position) {
+            case Contraint.DECENTRALIZATION_USER: {
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser,"Đặng Duy Hậu","Người dùng","avatar");
+            }
+            break;
+            case Contraint.DECENTRALIZATION_MEMBER: {
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuMember, iconNavMenuMember,"Trần Văn Nam","Thành viên CLB Ban Mai Xanh Đà Nẵng","avatar");
+            }break;
+            case Contraint.DECENTRALIZATION_ADMIN: {
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuAdmin, iconNavMenuAdmin,"Võ Đại Nam","Admin CLB Ban Mai Xanh Đà Nẵng","avatar");
+            }break;
+        }
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).build());
+        recyclerView.setAdapter(navigationRecyclerViewAdapter);
+    }
+
+
+    private void isSignOut() {
+        Toast.makeText(getContext(),"Đăng xuất thành công!",Toast.LENGTH_SHORT).show();
+        showMenuOptionId = 0;
+        FirebaseAuth.getInstance().signOut();
+        TemplateActivity.startActivity(getContext(),LoginActivity.class,null);
+        finish();
+        SPManager.getInstance(getContext()).clear();
     }
 
 

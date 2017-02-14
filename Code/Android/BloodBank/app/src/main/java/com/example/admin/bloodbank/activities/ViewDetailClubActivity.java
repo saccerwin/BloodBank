@@ -85,7 +85,9 @@ public class ViewDetailClubActivity extends TemplateActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_join_group, menu);
-        showJoinGroupWithPermission(SPManager.getInstance(getContext()).getDecentralization());
+        if(SPManager.getInstance(getContext()).getDecentralization() != null) {
+            showJoinGroupWithPermission(SPManager.getInstance(getContext()).getDecentralization());
+        }
         return true;
     }
 

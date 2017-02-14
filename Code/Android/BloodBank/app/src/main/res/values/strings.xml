@@ -173,6 +173,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
     <string name="text_filter_search">Bộ lọc tìm kiếm</string>
     <string name="text_delete_all">Xóa tât cả</string>
     <string name="text_add_new_discuss">THÊM BÀI ĐĂNG MỚI</string>
+    <string name="home">Trang chủ</string>
 
 
     <string-array name="navDrawerItemsUser">

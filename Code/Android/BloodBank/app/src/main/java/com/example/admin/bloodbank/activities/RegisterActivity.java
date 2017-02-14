@@ -1,7 +1,9 @@
 package com.example.admin.bloodbank.activities;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,7 +17,12 @@ import android.widget.Toast;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.contraints.Contraint;
-import com.example.admin.bloodbank.utils.TemplateUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -39,9 +46,16 @@ import java.util.Locale;
 public class RegisterActivity extends TemplateActivity implements Validator.ValidationListener {
     private Validator validator;
     private Button btnRegister;
-    private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup,spinnerCity;
+    private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup, spinnerCity;
     private RadioButton radioBtnMale, radioBtnFemale;
     private RadioGroup radioGroupGender;
+    private FirebaseAuth auth;
+    public ProgressDialog progressDialog;
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
+    private String email;
+    private String password;
+
 
     @Order(1)
     @NotEmpty(message = "Email không được bỏ trống", sequence = 1)
@@ -96,11 +110,15 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
 
     @Override
     protected void loadData(Bundle savedInstanceState) {
-        TemplateUtils.hideSoftKeyboard(getContext());
         setupSpinner();
         isCheckedGender();
         toolbarTitle.setText("Đăng ký tài khoản");
         setupDatePickerForDateOfBirth();
+        //setup using Firebase
+        auth = FirebaseAuth.getInstance();
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+        // get reference to 'users' node
+        mFirebaseDatabase = mFirebaseInstance.getReference("users");
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,6 +174,16 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         });
     }
 
+    private void hideProgressDialog() {
+        progressDialog.dismiss();
+    }
+
+    public void showProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Đang xử lý...");
+        progressDialog.show();
+    }
+
     private void setupSpinner() {
         String[] listCity = getResources().getStringArray(R.array.city);
         String[] listDistrict = getResources().getStringArray(R.array.district);
@@ -173,16 +201,32 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
 
     @Override
     public void onValidationSucceeded() {
-        String email = edtEmail.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
-        Bundle bundle = new Bundle();
-        bundle.putString(Contraint.PROFILE_EMAIL, email);
-        bundle.putString(Contraint.PROFILE_PASSWORD, password);
-        bundle.putString(Contraint.CHECK_LOGIN, Contraint.DECENTRALIZATION_USER);
-        Toast.makeText(this, "Đăng ký thành công! Đăng nhập vào app!", Toast.LENGTH_SHORT).show();
-        TemplateActivity.startActivity(RegisterActivity.this, NavigationDrawerMainActivity.class, bundle);
-        finish();
+        email = edtEmail.getText().toString().trim();
+        password = edtPassword.getText().toString().trim();
+        showProgressDialog();
+
+
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                hideProgressDialog();
+                if(task.isSuccessful()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Contraint.PROFILE_EMAIL, email);
+                    bundle.putString(Contraint.PROFILE_PASSWORD, password);
+                    bundle.putString(Contraint.CHECK_LOGIN, Contraint.DECENTRALIZATION_USER);
+                    Toast.makeText(RegisterActivity.this, "Đăng ký thành công! Đăng nhập vào app!", Toast.LENGTH_SHORT).show();
+                    TemplateActivity.startActivity(RegisterActivity.this, NavigationDrawerMainActivity.class, bundle);
+                    finish();
+                }
+                else {
+                    Toast.makeText(RegisterActivity.this, "Đăng ký thất bại! \n Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
     }
+
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
