@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.contraints.Contraint;
+import com.example.admin.bloodbank.objects.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -43,7 +45,7 @@ import java.util.Locale;
  * Created by Admin on 25/01/2017.
  */
 
-public class RegisterActivity extends TemplateActivity implements Validator.ValidationListener {
+public class RegisterActivity extends TemplateActivity implements Validator.ValidationListener{
     private Validator validator;
     private Button btnRegister;
     private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup, spinnerCity;
@@ -55,7 +57,6 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     private FirebaseDatabase mFirebaseInstance;
     private String email;
     private String password;
-
 
     @Order(1)
     @NotEmpty(message = "Email không được bỏ trống", sequence = 1)
@@ -111,9 +112,9 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     @Override
     protected void loadData(Bundle savedInstanceState) {
         setupSpinner();
-        isCheckedGender();
         toolbarTitle.setText("Đăng ký tài khoản");
         setupDatePickerForDateOfBirth();
+        showSpinnerDistictForCity();
         //setup using Firebase
         auth = FirebaseAuth.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
@@ -160,18 +161,8 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     }
 
 
-    private void isCheckedGender() {
-        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if (checkedId == R.id.radio_male) {
-
-                }
-                if (checkedId == R.id.radio_female) {
-
-                }
-            }
-        });
+    private String getValueGender() {
+        return radioBtnFemale.isChecked() ? "Nam" : "Nữ";
     }
 
     private void hideProgressDialog() {
@@ -199,13 +190,43 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         spinnerCity.setAdapter(adapterCity);
     }
 
+    private void showSpinnerDistictForCity() { // enable spinner distict on a display spinner city change data
+        spinnerDistrict.setEnabled(false);
+        spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerDistrict.setEnabled(true);
+              //  String nameCity  = spinnerCity.getText().toString().trim();
+//                mFirebaseDatabase.child("city").child("An Giang").child("districts").addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        final List<String> listDistrict = new ArrayList<>();
+//                        for (DataSnapshot distictSnapshot: dataSnapshot.getChildren()) {
+//                            String name = distictSnapshot.child("name").getValue(String.class);
+//                            listDistrict.add(name);
+//                        }
+//                        ToastUtil.showLong(getContext(),listDistrict.size());
+//                        Log.d(Contraint.TAG, "onDataChange: " + listDistrict.size());
+//                        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(RegisterActivity.this,
+//                                android.R.layout.simple_dropdown_item_1line, listDistrict);
+//                        spinnerDistrict.setAdapter(adapterDistrict);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//                        Log.w(Contraint.TAG, "loadPost:onCancelled", databaseError.toException());
+//                    }
+//                });
+            }
+
+        });
+    }
+
     @Override
     public void onValidationSucceeded() {
         email = edtEmail.getText().toString().trim();
         password = edtPassword.getText().toString().trim();
         showProgressDialog();
-
-
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
 
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -215,6 +236,13 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
                     bundle.putString(Contraint.PROFILE_EMAIL, email);
                     bundle.putString(Contraint.PROFILE_PASSWORD, password);
                     bundle.putString(Contraint.CHECK_LOGIN, Contraint.DECENTRALIZATION_USER);
+                    String distict = spinnerDistrict.getText().toString().trim();
+                    String city = spinnerCity.getText().toString().trim();
+                    String fullname = edtFullName.getText().toString().trim();
+                    String phone = edtPhone.getText().toString().trim();
+                    String dataOfBirth = edtDateOfBirth.getText().toString().trim();
+                    String typeBlood = spinnerBloodGroup.getText().toString().trim();
+                    createNewUser("None",distict,"None","user",email,password,fullname,dataOfBirth,getValueGender(),phone,"None",0,typeBlood,false);
                     Toast.makeText(RegisterActivity.this, "Đăng ký thành công! Đăng nhập vào app!", Toast.LENGTH_SHORT).show();
                     TemplateActivity.startActivity(RegisterActivity.this, NavigationDrawerMainActivity.class, bundle);
                     finish();
@@ -227,6 +255,11 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         });
     }
 
+
+    private void createNewUser(String id_club, String id_distict, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String picture_avatar, int quantity_donation, String type_blood, boolean isCheckDonation) {
+        User user = new User(id_club, id_distict, id_discuss, permission, email, password, fullName, dateOfBirth, gender, phone, picture_avatar, quantity_donation, type_blood, isCheckDonation);
+        mFirebaseDatabase.child("user").push().setValue(user);
+    }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {

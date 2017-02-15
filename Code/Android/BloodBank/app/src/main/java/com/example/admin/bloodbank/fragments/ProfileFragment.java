@@ -19,7 +19,7 @@ import com.example.admin.bloodbank.activities.EditProfileActivity;
 import com.example.admin.bloodbank.adapters.ProfileAdapter;
 import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.interfaces.ProfileListenerInterface;
-import com.example.admin.bloodbank.objects.Users;
+import com.example.admin.bloodbank.objects.User;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -75,15 +75,15 @@ public class ProfileFragment extends TemplateFragment {
 
             @Override
             public void onItemEditProfileClick(View view, int position) { //action click btn edit profile
-                Users users = new Users("1","2","none","user","saccerwin101@gmail.com","123456","Dang Duy Hau","24/10/1993","Nữ","01227949185","...",0,"AB",false);
+                User user = new User("1","2","none","user","saccerwin101@gmail.com","123456","Dang Duy Hau","24/10/1993","Nữ","01227949185","...",0,"AB",false);
                 Bundle bundle = new Bundle();
-                bundle.putString(Contraint.PROFILE_FULLNAME, users.getFullName());
-                bundle.putString(Contraint.PROFILE_PHONE, users.getPhone());
-                bundle.putString(Contraint.PROFILE_DATEOFBIRTH, users.getDateOfBirth());
-                bundle.putString(Contraint.PROFILE_GENDER, users.getGender());
-                bundle.putString(Contraint.PROFILE_DISTICT, users.getId_distict());
-                bundle.putString(Contraint.PROFILE_PASSWORD, users.getPassword());
-                bundle.putString(Contraint.PROFILE_TYPEBLOOD, users.getType_blood());
+                bundle.putString(Contraint.PROFILE_FULLNAME, user.getFullName());
+                bundle.putString(Contraint.PROFILE_PHONE, user.getPhone());
+                bundle.putString(Contraint.PROFILE_DATEOFBIRTH, user.getDateOfBirth());
+                bundle.putString(Contraint.PROFILE_GENDER, user.getGender());
+                bundle.putString(Contraint.PROFILE_DISTICT, user.getId_distict());
+                bundle.putString(Contraint.PROFILE_PASSWORD, user.getPassword());
+                bundle.putString(Contraint.PROFILE_TYPEBLOOD, user.getType_blood());
                 TemplateActivity.startActivityForResult(getActivity(), EditProfileActivity.class,0,bundle);
             }
         });

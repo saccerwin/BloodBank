@@ -1,12 +1,14 @@
 package com.example.admin.bloodbank.objects;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.UUID;
 
 /**
  * Created by Admin on 09/02/2017.
  */
-
-public class Users {
+@IgnoreExtraProperties
+public class User {
 
     private String id;
     private String id_club;
@@ -24,7 +26,10 @@ public class Users {
     private String type_blood;
     private boolean isCheckDonation;
 
-    public Users(String id_club, String id_distict, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String picture_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
+    public User() {
+    }
+
+    public User(String id_club, String id_distict, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String picture_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
         this.id = UUID.randomUUID().toString();
         this.id_club = id_club;
         this.id_distict = id_distict;

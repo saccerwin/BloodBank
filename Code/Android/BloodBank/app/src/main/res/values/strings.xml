@@ -277,6 +277,11 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
     </string-array>
 
     <string-array name="city">
+        <item>Cần Thơ</item>
+        <item>Đà Nẵng</item>
+        <item>Hà Nội</item>
+        <item>Hải Phòng</item>
+        <item>Hồ Chí Minh</item>
         <item>An Giang</item>
         <item>Bà Rịa - Vũng Tàu</item>
         <item>Bắc Giang</item>
@@ -335,11 +340,6 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
         <item>Vĩnh Phúc</item>
         <item>Yên Bái</item>
         <item>Phú Yên</item>
-        <item>Cần Thơ</item>
-        <item>Đà Nẵng</item>
-        <item>Hải Phòng</item>
-        <item>Hà Nội</item>
-        <item>Hồ Chí Minh</item>
     </string-array>
 
 </resources>

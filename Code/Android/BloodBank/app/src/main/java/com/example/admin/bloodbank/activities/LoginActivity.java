@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +14,8 @@ import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.managers.SPManager;
+import com.example.admin.bloodbank.utils.TemplateUtils;
+import com.example.admin.bloodbank.utils.ToastUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -55,6 +56,11 @@ public class LoginActivity extends TemplateActivity {
 
     @Override
     protected void loadData(Bundle savedInstanceState) {
+
+        if (!TemplateUtils.checkInternetConnection(getContext()))  {
+            ToastUtil.showLong(getContext(),"Lỗi ko truy cập được mạng! Vui lòng kiểm tra lại kết nối!");
+        }
+
         actionOnClick();
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) { // check user  exist not signout
@@ -62,10 +68,6 @@ public class LoginActivity extends TemplateActivity {
             bundleCheckLogin.putString(Contraint.CHECK_LOGIN, SPManager.getInstance(getContext()).getDecentralization());
             TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, bundleCheckLogin);
         }
-    }
-
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     private void actionOnClick() {
