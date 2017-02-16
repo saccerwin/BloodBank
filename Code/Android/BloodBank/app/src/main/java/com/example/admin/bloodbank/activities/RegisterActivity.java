@@ -51,8 +51,8 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup, spinnerCity;
     private RadioButton radioBtnMale, radioBtnFemale;
     private RadioGroup radioGroupGender;
-    private FirebaseAuth auth;
     public ProgressDialog progressDialog;
+    private FirebaseAuth auth;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
     private String email;
@@ -177,18 +177,16 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
 
     private void setupSpinner() {
         String[] listCity = getResources().getStringArray(R.array.city);
-        String[] listDistrict = getResources().getStringArray(R.array.district);
         String[] listBloodGroup = getResources().getStringArray(R.array.blood_group);
         ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, listDistrict);
         ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, listBloodGroup);
-        spinnerDistrict.setAdapter(adapterDistrict);
         spinnerBloodGroup.setAdapter(adapterBloodGroup);
         spinnerCity.setAdapter(adapterCity);
     }
+
+
 
     private void showSpinnerDistictForCity() { // enable spinner distict on a display spinner city change data
         spinnerDistrict.setEnabled(false);
@@ -196,30 +194,28 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 spinnerDistrict.setEnabled(true);
-              //  String nameCity  = spinnerCity.getText().toString().trim();
-//                mFirebaseDatabase.child("city").child("An Giang").child("districts").addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        final List<String> listDistrict = new ArrayList<>();
-//                        for (DataSnapshot distictSnapshot: dataSnapshot.getChildren()) {
-//                            String name = distictSnapshot.child("name").getValue(String.class);
-//                            listDistrict.add(name);
-//                        }
-//                        ToastUtil.showLong(getContext(),listDistrict.size());
-//                        Log.d(Contraint.TAG, "onDataChange: " + listDistrict.size());
-//                        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(RegisterActivity.this,
-//                                android.R.layout.simple_dropdown_item_1line, listDistrict);
-//                        spinnerDistrict.setAdapter(adapterDistrict);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        Log.w(Contraint.TAG, "loadPost:onCancelled", databaseError.toException());
-//                    }
-//                });
+                fillDataDistrictWithCity();
+
             }
 
         });
+    }
+
+    private void fillDataDistrictWithCity() {
+        String city = spinnerCity.getText().toString().trim();
+        String [] district = null;
+        if(city.equals("Đà Nẵng")) {
+            district = getResources().getStringArray(R.array.district_danang);
+        }
+        if(city.equals("Hà Nội")) {
+            district = getResources().getStringArray(R.array.district_hanoi);
+        }
+        if(city.equals("Hồ Chí Minh")) {
+            district = getResources().getStringArray(R.array.district_hochiminh);
+        }
+        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, district);
+        spinnerDistrict.setAdapter(adapterDistrict);
     }
 
     @Override
@@ -242,7 +238,14 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
                     String phone = edtPhone.getText().toString().trim();
                     String dataOfBirth = edtDateOfBirth.getText().toString().trim();
                     String typeBlood = spinnerBloodGroup.getText().toString().trim();
-                    createNewUser("None",distict,"None","user",email,password,fullname,dataOfBirth,getValueGender(),phone,"None",0,typeBlood,false);
+                    String imagesAvatarUrl;
+                    if(getValueGender().equals("Nam")) {
+                        imagesAvatarUrl = "http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg";
+                    }
+                    else {
+                        imagesAvatarUrl = "http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg";
+                    }
+                    createNewUser("None","None","user",email,password,fullname,dataOfBirth,getValueGender(),phone,city,distict,imagesAvatarUrl,0,typeBlood,false);
                     Toast.makeText(RegisterActivity.this, "Đăng ký thành công! Đăng nhập vào app!", Toast.LENGTH_SHORT).show();
                     TemplateActivity.startActivity(RegisterActivity.this, NavigationDrawerMainActivity.class, bundle);
                     finish();
@@ -255,10 +258,9 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         });
     }
 
-
-    private void createNewUser(String id_club, String id_distict, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String picture_avatar, int quantity_donation, String type_blood, boolean isCheckDonation) {
-        User user = new User(id_club, id_distict, id_discuss, permission, email, password, fullName, dateOfBirth, gender, phone, picture_avatar, quantity_donation, type_blood, isCheckDonation);
-        mFirebaseDatabase.child("user").push().setValue(user);
+    private void createNewUser(String id_club, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String city, String district, String url_images_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
+        User user = new User(id_club,id_discuss, permission, email, password, fullName, dateOfBirth, gender, phone, city, district, url_images_avatar, quality_donation, type_blood, isCheckDonation);
+        mFirebaseDatabase.push().setValue(user);
     }
 
     @Override

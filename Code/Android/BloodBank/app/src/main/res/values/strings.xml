@@ -266,80 +266,152 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
         <item>O</item>
         <item>AB</item>
     </string-array>
+
     <string-array name="district">
-        <item>Quận Thanh Khê - Đà Nẵng</item>
-        <item>Quận Liên Chiểu - Đà Nẵng</item>
-        <item>Quận Hải Châu - Đà Nẵng</item>
-        <item>Huyện Hòa Vang - Đà Nẵng</item>
-        <item>Quận Ngũ Hành Sơn- Đà Nẵng</item>
-        <item>Quận Sơn Trà - Đà Nẵng</item>
-        <item>Huyện Đảo Hoàng Sa - Đà Nẵng</item>
+        <item>Huyện Hòa Vang</item>
+        <item>Huyện Hoàng Sa</item>
+        <item>Quận Cẩm Lệ</item>
+        <item>Quận Hải Châu</item>
+        <item>Quận Liên Chiểu</item>
+        <item>Quận Ngũ Hành Sơn</item>
+        <item>Quận Sơn Trà</item>
+        <item>Quận Thanh Khê</item>
     </string-array>
 
+
+
+    <string-array name="district_danang">
+        <item>Huyện Hòa Vang</item>
+        <item>Huyện Hoàng Sa</item>
+        <item>Quận Cẩm Lệ</item>
+        <item>Quận Hải Châu</item>
+        <item>Quận Liên Chiểu</item>
+        <item>Quận Ngũ Hành Sơn</item>
+        <item>Quận Sơn Trà</item>
+        <item>Quận Thanh Khê</item>
+    </string-array>
+
+    <string-array name="district_hanoi">
+        <item>Huyện Ba Vì</item>
+        <item>Huyện Chương Mỹ</item>
+        <item>Huyện Đan Phượng</item>
+        <item>Huyện Đông Anh</item>
+        <item>Huyện Gia Lâm</item>
+        <item>Huyện Hoài Đức</item>
+        <item>Huyện Mê Linh</item>
+        <item>Huyện Mỹ Đức</item>
+        <item>Huyện Phú Xuyên</item>
+        <item>Huyện Phúc Thọ</item>
+        <item>Huyện Quốc Oai</item>
+        <item>Huyện Sóc Sơn</item>
+        <item>Huyện Thạch Thất</item>
+        <item>Huyện Thanh Oai</item>
+        <item>Huyện Thanh Trì</item>
+        <item>Quận Ba Đình</item>
+        <item>Quận Cầu Giấy</item>
+        <item>Quận Đống Đa</item>
+        <item>Quận Hà Đông</item>
+        <item>Quận Hai Bà Trưng</item>
+        <item>Quận Hoàn Kiếm</item>
+        <item>Quận Hoàng Mai</item>
+        <item>Quận Long Biên</item>
+        <item>Quận Tây Hồ</item>
+        <item>Quận Thanh Xuân</item>
+        <item>Thị xã Sơn Tây</item>
+    </string-array>
+
+    <string-array name="district_hochiminh">
+        <item>Huyện Bình Chánh</item>
+        <item>Huyện Cần Giờ</item>
+        <item>HHuyện Củ Chi</item>
+        <item>Huyện Hóc Môn</item>
+        <item>Huyện Nhà Bè</item>
+        <item>Quận 1</item>
+        <item>Quận 2</item>
+        <item>Quận 3</item>
+        <item>Quận 4</item>
+        <item>Quận 5</item>
+        <item>Quận 6</item>
+        <item>Quận 7</item>
+        <item>Quận 8</item>
+        <item>Quận 9</item>
+        <item>Quận 10</item>
+        <item>Quận 11</item>
+        <item>Quận 12</item>
+        <item>Quận Bình Tân</item>
+        <item>Quận Bình Thạnh</item>
+        <item>Quận Gò Vấp</item>
+        <item>Quận Phú Nhuận</item>
+        <item>Quận Tân Bình</item>
+        <item>Quận Tân Phú</item>
+        <item>Quận Thủ Đức</item>
+    </string-array>
+
+
     <string-array name="city">
-        <item>Cần Thơ</item>
+        <!--<item>Cần Thơ</item>-->
         <item>Đà Nẵng</item>
         <item>Hà Nội</item>
-        <item>Hải Phòng</item>
+        <!--<item>Hải Phòng</item>-->
         <item>Hồ Chí Minh</item>
-        <item>An Giang</item>
-        <item>Bà Rịa - Vũng Tàu</item>
-        <item>Bắc Giang</item>
-        <item>Bắc Kạn</item>
-        <item>Bạc Liêu</item>
-        <item>Bắc Ninh</item>
-        <item>Bến Tre</item>
-        <item>Bình Định</item>
-        <item>Bình Dương</item>
-        <item>Bình Phước</item>
-        <item>Bình Thuận</item>
-        <item>Cà Mau</item>
-        <item>Cao Bằng</item>
-        <item>Đắk Lắk</item>
-        <item>Đắk Nông</item>
-        <item>Điện Biên</item>
-        <item>Đồng Nai</item>
-        <item>Đồng Tháp</item>
-        <item>Gia Lai</item>
-        <item>Hà Giang</item>
-        <item>Hà Nam</item>
-        <item>Hà Tĩnh</item>
-        <item>Hải Dương</item>
-        <item>Hậu Giang</item>
-        <item>Hòa Bình</item>
-        <item>Hưng Yên</item>
-        <item>Khánh Hòa</item>
-        <item>Kiên Giang</item>
-        <item>Kon Tum</item>
-        <item>Lai Châu</item>
-        <item>Lâm Đồng</item>
-        <item>Lạng Sơn</item>
-        <item>Lào Cai</item>
-        <item>Long An</item>
-        <item>Nam Định</item>
-        <item>Nghệ An</item>
-        <item>Ninh Bình</item>
-        <item>Ninh Thuận</item>
-        <item>Phú Thọ</item>
-        <item>Quảng Bình</item>
-        <item>Quảng Nam</item>
-        <item>Quảng Ngãi</item>
-        <item>Quảng Ninh</item>
-        <item>Quảng Trị</item>
-        <item>Sóc Trăng</item>
-        <item>Sơn La</item>
-        <item>Tây Ninh</item>
-        <item>Thái Bình</item>
-        <item>Thái Nguyên</item>
-        <item>Thanh Hóa</item>
-        <item>Thừa Thiên Huế</item>
-        <item>Tiền Giang</item>
-        <item>Trà Vinh</item>
-        <item>Tuyên Quang</item>
-        <item>Vĩnh Long</item>
-        <item>Vĩnh Phúc</item>
-        <item>Yên Bái</item>
-        <item>Phú Yên</item>
+        <!--<item>An Giang</item>-->
+        <!--<item>Bà Rịa - Vũng Tàu</item>-->
+        <!--<item>Bắc Giang</item>-->
+        <!--<item>Bắc Kạn</item>-->
+        <!--<item>Bạc Liêu</item>-->
+        <!--<item>Bắc Ninh</item>-->
+        <!--<item>Bến Tre</item>-->
+        <!--<item>Bình Định</item>-->
+        <!--<item>Bình Dương</item>-->
+        <!--<item>Bình Phước</item>-->
+        <!--<item>Bình Thuận</item>-->
+        <!--<item>Cà Mau</item>-->
+        <!--<item>Cao Bằng</item>-->
+        <!--<item>Đắk Lắk</item>-->
+        <!--<item>Đắk Nông</item>-->
+        <!--<item>Điện Biên</item>-->
+        <!--<item>Đồng Nai</item>-->
+        <!--<item>Đồng Tháp</item>-->
+        <!--<item>Gia Lai</item>-->
+        <!--<item>Hà Giang</item>-->
+        <!--<item>Hà Nam</item>-->
+        <!--<item>Hà Tĩnh</item>-->
+        <!--<item>Hải Dương</item>-->
+        <!--<item>Hậu Giang</item>-->
+        <!--<item>Hòa Bình</item>-->
+        <!--<item>Hưng Yên</item>-->
+        <!--<item>Khánh Hòa</item>-->
+        <!--<item>Kiên Giang</item>-->
+        <!--<item>Kon Tum</item>-->
+        <!--<item>Lai Châu</item>-->
+        <!--<item>Lâm Đồng</item>-->
+        <!--<item>Lạng Sơn</item>-->
+        <!--<item>Lào Cai</item>-->
+        <!--<item>Long An</item>-->
+        <!--<item>Nam Định</item>-->
+        <!--<item>Nghệ An</item>-->
+        <!--<item>Ninh Bình</item>-->
+        <!--<item>Ninh Thuận</item>-->
+        <!--<item>Phú Thọ</item>-->
+        <!--<item>Quảng Bình</item>-->
+        <!--<item>Quảng Nam</item>-->
+        <!--<item>Quảng Ngãi</item>-->
+        <!--<item>Quảng Ninh</item>-->
+        <!--<item>Quảng Trị</item>-->
+        <!--<item>Sóc Trăng</item>-->
+        <!--<item>Sơn La</item>-->
+        <!--<item>Tây Ninh</item>-->
+        <!--<item>Thái Bình</item>-->
+        <!--<item>Thái Nguyên</item>-->
+        <!--<item>Thanh Hóa</item>-->
+        <!--<item>Thừa Thiên Huế</item>-->
+        <!--<item>Tiền Giang</item>-->
+        <!--<item>Trà Vinh</item>-->
+        <!--<item>Tuyên Quang</item>-->
+        <!--<item>Vĩnh Long</item>-->
+        <!--<item>Vĩnh Phúc</item>-->
+        <!--<item>Yên Bái</item>-->
+        <!--<item>Phú Yên</item>-->
     </string-array>
 
 </resources>

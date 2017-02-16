@@ -12,7 +12,6 @@ public class User {
 
     private String id;
     private String id_club;
-    private String id_distict;
     private String id_discuss;
     private String permission;
     private String email;
@@ -21,18 +20,20 @@ public class User {
     private String dateOfBirth;
     private String gender;
     private String phone;
-    private String picture_avatar;
+    private String city;
+    private String district;
+    private String url_images_avatar;
     private int quality_donation;
     private String type_blood;
     private boolean isCheckDonation;
 
     public User() {
+
     }
 
-    public User(String id_club, String id_distict, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String picture_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
+    public User(String id_club, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String city, String district, String url_images_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
         this.id = UUID.randomUUID().toString();
         this.id_club = id_club;
-        this.id_distict = id_distict;
         this.id_discuss = id_discuss;
         this.permission = permission;
         this.email = email;
@@ -41,10 +42,36 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.phone = phone;
-        this.picture_avatar = picture_avatar;
+        this.city = city;
+        this.district = district;
+        this.url_images_avatar = url_images_avatar;
         this.quality_donation = quality_donation;
         this.type_blood = type_blood;
         this.isCheckDonation = isCheckDonation;
+    }
+
+    public String getUrl_images_avatar() {
+        return url_images_avatar;
+    }
+
+    public void setUrl_images_avatar(String url_images_avatar) {
+        this.url_images_avatar = url_images_avatar;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getId() {
@@ -53,14 +80,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getId_distict() {
-        return id_distict;
-    }
-
-    public void setId_distict(String id_distict) {
-        this.id_distict = id_distict;
     }
 
     public String getId_club() {
@@ -125,14 +144,6 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getPicture_avatar() {
-        return picture_avatar;
-    }
-
-    public void setPicture_avatar(String picture_avatar) {
-        this.picture_avatar = picture_avatar;
     }
 
     public int getQuality_donation() {

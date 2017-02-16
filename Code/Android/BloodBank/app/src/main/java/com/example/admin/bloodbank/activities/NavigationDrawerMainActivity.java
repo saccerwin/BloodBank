@@ -28,6 +28,8 @@ import com.example.admin.bloodbank.fragments.SearchBloodGroupFragment;
 import com.example.admin.bloodbank.fragments.StatisticalFragment;
 import com.example.admin.bloodbank.managers.SPManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 
@@ -42,6 +44,9 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     private TextView toobar_title;
     private int showMenuOptionId;
     private Menu menu;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
@@ -63,6 +68,11 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
 
     @Override
     protected void loadData(Bundle savedInstanceState) {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+
+        // get data from layout login and register
         Bundle bundle = this.getIntent().getExtras();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -389,15 +399,18 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
 
         switch (position) {
             case Contraint.DECENTRALIZATION_USER: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser,"Đặng Duy Hậu","Người dùng","avatar");
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser,"Đặng Duy Hậu","Người dùng","http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg");
+
             }
             break;
             case Contraint.DECENTRALIZATION_MEMBER: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuMember, iconNavMenuMember,"Trần Văn Nam","Thành viên CLB Ban Mai Xanh Đà Nẵng","avatar");
-            }break;
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuMember, iconNavMenuMember,"Trần Văn Nam","Thành viên CLB Ban Mai Xanh Đà Nẵng","http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg");
+            }
+            break;
             case Contraint.DECENTRALIZATION_ADMIN: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuAdmin, iconNavMenuAdmin,"Võ Đại Nam","Admin CLB Ban Mai Xanh Đà Nẵng","avatar");
-            }break;
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuAdmin, iconNavMenuAdmin,"Võ Đại Nam","Admin CLB Ban Mai Xanh Đà Nẵng","http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg");
+            }
+            break;
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

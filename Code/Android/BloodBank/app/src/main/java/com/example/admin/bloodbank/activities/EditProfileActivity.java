@@ -111,10 +111,12 @@ public class EditProfileActivity extends TemplateActivity {
         String gender = bundle.getString(Contraint.PROFILE_GENDER);
         String typeBlood = bundle.getString(Contraint.PROFILE_TYPEBLOOD);
         String distict = bundle.getString(Contraint.PROFILE_DISTICT);
+        String city = bundle.getString(Contraint.PROFILE_CITY);
         edtFullName.setText(fullName);
         edtPassword.setText(password);
         edtPhone.setText(phone);
         edtDateOfBirth.setText(dateOfBirth);
+        spinnerCity.setText(city);
         spinnerBloodGroup.setText(typeBlood);
         if (distict.equals("2")) {
             spinnerDistrict.setText("Quận Cẩm Lệ");

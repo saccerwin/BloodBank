@@ -16,6 +16,7 @@ public class Contraint {
     public static final String PROFILE_DATEOFBIRTH = "dateOfBirth";
     public static final String PROFILE_EMAIL = "email";
     public static final String PROFILE_GENDER = "gender";
+    public static final String PROFILE_CITY = "city";
     public static final String PROFILE_DISTICT = "distict";
     public static final String PROFILE_PASSWORD = "password";
     public static final String PROFILE_TYPEBLOOD = "typeBlood";

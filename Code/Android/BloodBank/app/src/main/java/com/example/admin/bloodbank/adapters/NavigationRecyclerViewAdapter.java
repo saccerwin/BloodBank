@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateAdapter;
 import com.example.admin.bloodbank.abstracts.TemplateViewHolder;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -81,7 +82,6 @@ public class NavigationRecyclerViewAdapter extends TemplateAdapter<TemplateViewH
         public void onClick(View view) {
             if (mItemMenuNavClickListener != null) {
                 mItemMenuNavClickListener.onItemClick(view, getAdapterPosition());
-               // Log.d(Contraint.TAG, "onClick: " + getAdapterPosition());
             }
         }
 
@@ -103,10 +103,15 @@ public class NavigationRecyclerViewAdapter extends TemplateAdapter<TemplateViewH
             imgAvatar = (CircleImageView) itemView.findViewById(R.id.image_circle_avatar_header_nav);
         }
 
-        public void setData(String name, String decentralizationName, String avatar) {
+        public void setData(String name, String decentralizationName, String avatarUrl) {
             tvNameNav.setText(name);
             tvNamePosition.setText(decentralizationName);
-            imgAvatar.setImageResource(R.drawable.avatar);
+            Picasso.with(getContext())
+                    .load(avatarUrl)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.error)
+                    .resize(200,200)
+                    .into(imgAvatar);
         }
     }
 
