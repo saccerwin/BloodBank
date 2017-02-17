@@ -106,10 +106,11 @@ public class NavigationRecyclerViewAdapter extends TemplateAdapter<TemplateViewH
         public void setData(String name, String decentralizationName, String avatarUrl) {
             tvNameNav.setText(name);
             tvNamePosition.setText(decentralizationName);
+
             Picasso.with(getContext())
                     .load(avatarUrl)
-                    .placeholder(R.drawable.avatar)
-                    .error(R.drawable.error)
+                    .placeholder(R.drawable.avatar_default)
+                    .error(R.drawable.avatar_default)
                     .resize(200,200)
                     .into(imgAvatar);
         }

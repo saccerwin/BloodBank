@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Admin on 09/01/2017.
@@ -30,10 +36,10 @@ public class LoginActivity extends TemplateActivity {
     private TextView tvForgotPassword, tvRegister;
     private EditText edtEmail, edtPassword;
     private FirebaseAuth auth;
+    private DatabaseReference mFirebaseDatabase;
     private ProgressDialog progressDialog;
     private String email;
     private String password;
-
     @Override
     protected void initData(Bundle savedInstanceState) {
 
@@ -57,18 +63,20 @@ public class LoginActivity extends TemplateActivity {
     @Override
     protected void loadData(Bundle savedInstanceState) {
 
+        // check connection internet
         if (!TemplateUtils.checkInternetConnection(getContext()))  {
             ToastUtil.showLong(getContext(),"Lỗi ko truy cập được mạng! Vui lòng kiểm tra lại kết nối!");
         }
-
+        // handling firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
         actionOnClick();
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) { // check user  exist not signout
-            Bundle bundleCheckLogin = new Bundle();
-            bundleCheckLogin.putString(Contraint.CHECK_LOGIN, SPManager.getInstance(getContext()).getDecentralization());
-            TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, bundleCheckLogin);
+            TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, null);
         }
+
     }
+
 
     private void actionOnClick() {
         btnFacebook.setOnClickListener(new View.OnClickListener() {
@@ -84,47 +92,53 @@ public class LoginActivity extends TemplateActivity {
                 email = edtEmail.getText().toString().trim();
                 password = edtPassword.getText().toString().trim();
                 showProgressDialog();
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        hideProgressDialog();
-                        if (task.isSuccessful()) {
-                            Bundle bundle = new Bundle();
-                            bundle.putString(Contraint.CHECK_LOGIN, Contraint.DECENTRALIZATION_USER);
-                            SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_USER);
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                            TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, bundle);
-                            finish();
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                if(TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
+                    ToastUtil.showShort(getContext(),"Email và password không được rỗng");
+                    hideProgressDialog();
+                }
+                else {
+                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            hideProgressDialog();
+                            if (task.isSuccessful()) {
+                                // get decentralization user
+                                mFirebaseDatabase.child(Contraint.FIREBASE_TREE_USER).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                                            if(userSnapshot.child("email").getValue().equals(email)) {
+                                                String permissionUser = userSnapshot.child(Contraint.FIREBASE_USERS_PERMISSION).getValue().toString();
+//                                            Log.d(Contraint.TAG, "onDataChange permission: " + permission);
+                                                SPManager.getInstance(getContext()).setDecentralization(permissionUser);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString(Contraint.CHECK_LOGIN,permissionUser);
+                                                bundle.putString(Contraint.PROFILE_EMAIL,email);
+                                                bundle.putString(Contraint.PROFILE_PASSWORD,password);
+                                                TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, bundle);
+                                                finish();
+                                                break;
+                                            }
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        ToastUtil.showShort(getContext(),databaseError.getMessage());
+                                    }
+                                });
+
+                            } else {
+                                edtEmail.getText().clear();
+                                edtPassword.getText().clear();
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!\nError: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-//                if(email.equals("a@gmail.com") && password.equals("123456")) {
-//                    bundle.putString(Contraint.CHECK_LOGIN,Contraint.DECENTRALIZATION_USER);
-//                    SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_USER);
-//                    TemplateActivity.startActivity(getContext(),NavigationDrawerMainActivity.class,bundle);
-//                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
-//                }
-//                else if(email.equals("ab@gmail.com") && password.equals("123456")) {
-//                    bundle.putString(Contraint.CHECK_LOGIN,Contraint.DECENTRALIZATION_MEMBER);
-//                    TemplateActivity.startActivity(getContext(),NavigationDrawerMainActivity.class,bundle);
-//                    SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_MEMBER);
-//                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
-//                }
-//                else if(email.equals("abc@gmail.com") && password.equals("123456")) {
-//                    bundle.putString(Contraint.CHECK_LOGIN,Contraint.DECENTRALIZATION_ADMIN);
-//                    TemplateActivity.startActivity(getContext(),NavigationDrawerMainActivity.class,bundle);
-//                    SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_ADMIN);
-//                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
-//                }
-//                else if(email.equals("") || password.equals("")) {
-//                    Toast.makeText(LoginActivity.this,"Email và password ko được rỗng",Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    Toast.makeText(LoginActivity.this,"Đăng nhập thất bại!",Toast.LENGTH_SHORT).show();
-//                    edtEmail.getText().clear();
-//                    edtPassword.getText().clear();
-//                }
+                    });
+
+                }
+
+
 
 
             }

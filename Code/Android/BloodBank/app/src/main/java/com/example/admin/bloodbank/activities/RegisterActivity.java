@@ -2,8 +2,10 @@ package com.example.admin.bloodbank.activities;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,11 +20,15 @@ import android.widget.Toast;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.contraints.Contraint;
+import com.example.admin.bloodbank.managers.SPManager;
 import com.example.admin.bloodbank.objects.User;
+import com.example.admin.bloodbank.utils.ToastUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -45,18 +51,20 @@ import java.util.Locale;
  * Created by Admin on 25/01/2017.
  */
 
-public class RegisterActivity extends TemplateActivity implements Validator.ValidationListener{
+public class RegisterActivity extends TemplateActivity implements Validator.ValidationListener {
     private Validator validator;
     private Button btnRegister;
     private MaterialBetterSpinner spinnerDistrict, spinnerBloodGroup, spinnerCity;
-    private RadioButton radioBtnMale, radioBtnFemale;
-    private RadioGroup radioGroupGender;
     public ProgressDialog progressDialog;
     private FirebaseAuth auth;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+    private RadioButton radioSexButton;
     private String email;
     private String password;
+    private String imagesAvatarUrl;
+    private String fullname;
+    private RadioGroup radioGroup;
 
     @Order(1)
     @NotEmpty(message = "Email không được bỏ trống", sequence = 1)
@@ -95,9 +103,7 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         spinnerBloodGroup = (MaterialBetterSpinner) findViewById(R.id.spinner_blood_group);
         spinnerDistrict = (MaterialBetterSpinner) findViewById(R.id.spinner_district);
         spinnerCity = (MaterialBetterSpinner) findViewById(R.id.spinner_city);
-        radioBtnMale = (RadioButton) findViewById(R.id.radio_male);
-        radioBtnFemale = (RadioButton) findViewById(R.id.radio_female);
-        radioGroupGender = (RadioGroup) findViewById(R.id.radio_group_gender);
+        radioGroup = (RadioGroup) findViewById(R.id.radio_group_gender);
         toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         edtDateOfBirth = (EditText) findViewById(R.id.edt_date_of_birth);
         edtEmail = (EditText) findViewById(R.id.edt_email);
@@ -162,7 +168,10 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
 
 
     private String getValueGender() {
-        return radioBtnFemale.isChecked() ? "Nam" : "Nữ";
+        int selectId = radioGroup.getCheckedRadioButtonId();
+        radioSexButton = (RadioButton) findViewById(selectId);
+        imagesAvatarUrl = "https://firebasestorage.googleapis.com/v0/b/bloodbank-1e50e.appspot.com/o/avatar_default.jpg?alt=media&token=045117c4-b4b0-45a4-a034-b2f74e3d522c";
+        return radioSexButton.getText().toString();
     }
 
     private void hideProgressDialog() {
@@ -187,7 +196,6 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     }
 
 
-
     private void showSpinnerDistictForCity() { // enable spinner distict on a display spinner city change data
         spinnerDistrict.setEnabled(false);
         spinnerCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -203,14 +211,14 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
 
     private void fillDataDistrictWithCity() {
         String city = spinnerCity.getText().toString().trim();
-        String [] district = null;
-        if(city.equals("Đà Nẵng")) {
+        String[] district = null;
+        if (city.equals("Đà Nẵng")) {
             district = getResources().getStringArray(R.array.district_danang);
         }
-        if(city.equals("Hà Nội")) {
+        if (city.equals("Hà Nội")) {
             district = getResources().getStringArray(R.array.district_hanoi);
         }
-        if(city.equals("Hồ Chí Minh")) {
+        if (city.equals("Hồ Chí Minh")) {
             district = getResources().getStringArray(R.array.district_hochiminh);
         }
         ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
@@ -222,44 +230,52 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     public void onValidationSucceeded() {
         email = edtEmail.getText().toString().trim();
         password = edtPassword.getText().toString().trim();
+        fullname = edtFullName.getText().toString().trim();
         showProgressDialog();
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-
+            @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 hideProgressDialog();
-                if(task.isSuccessful()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Contraint.PROFILE_EMAIL, email);
-                    bundle.putString(Contraint.PROFILE_PASSWORD, password);
-                    bundle.putString(Contraint.CHECK_LOGIN, Contraint.DECENTRALIZATION_USER);
+                if (task.isSuccessful()) {
                     String distict = spinnerDistrict.getText().toString().trim();
                     String city = spinnerCity.getText().toString().trim();
-                    String fullname = edtFullName.getText().toString().trim();
                     String phone = edtPhone.getText().toString().trim();
                     String dataOfBirth = edtDateOfBirth.getText().toString().trim();
                     String typeBlood = spinnerBloodGroup.getText().toString().trim();
-                    String imagesAvatarUrl;
-                    if(getValueGender().equals("Nam")) {
-                        imagesAvatarUrl = "http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg";
-                    }
-                    else {
-                        imagesAvatarUrl = "http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg";
-                    }
-                    createNewUser("None","None","user",email,password,fullname,dataOfBirth,getValueGender(),phone,city,distict,imagesAvatarUrl,0,typeBlood,false);
-                    Toast.makeText(RegisterActivity.this, "Đăng ký thành công! Đăng nhập vào app!", Toast.LENGTH_SHORT).show();
-                    TemplateActivity.startActivity(RegisterActivity.this, NavigationDrawerMainActivity.class, bundle);
-                    finish();
-                }
-                else {
-                    Toast.makeText(RegisterActivity.this, "Đăng ký thất bại! \n Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                }
+                    createNewUser("None", "None", Contraint.DECENTRALIZATION_USER, email, password, fullname, dataOfBirth, getValueGender(), phone, city, distict, imagesAvatarUrl, 0, typeBlood, false);
+                    // update name, and photo for firebase user
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(fullname)
+                                .setPhotoUri(Uri.parse(imagesAvatarUrl))
+                                .build();
+                        user.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(Contraint.TAG, "User profile updated.");
 
+                                }
+                            }
+                        });
+                        ToastUtil.showLong(getContext(), "Đăng ký thành công!");
+                        SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_USER);
+                        TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, null);
+                        finish();
+                    }
+
+
+                } else {
+                    ToastUtil.showLong(getContext(), "Đăng ký thất bại! \n Error: " + task.getException().getMessage());
+                }
             }
         });
     }
 
+
     private void createNewUser(String id_club, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String city, String district, String url_images_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
-        User user = new User(id_club,id_discuss, permission, email, password, fullName, dateOfBirth, gender, phone, city, district, url_images_avatar, quality_donation, type_blood, isCheckDonation);
+        User user = new User(id_club, id_discuss, permission, email, password, fullName, dateOfBirth, gender, phone, city, district, url_images_avatar, quality_donation, type_blood, isCheckDonation);
         mFirebaseDatabase.push().setValue(user);
     }
 

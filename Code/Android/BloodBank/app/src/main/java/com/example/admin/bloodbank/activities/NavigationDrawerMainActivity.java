@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,8 +29,11 @@ import com.example.admin.bloodbank.fragments.SearchBloodGroupFragment;
 import com.example.admin.bloodbank.fragments.StatisticalFragment;
 import com.example.admin.bloodbank.managers.SPManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 
@@ -44,9 +48,8 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     private TextView toobar_title;
     private int showMenuOptionId;
     private Menu menu;
-    private FirebaseAuth firebaseAuth;
     private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
+    private FirebaseAuth auth;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
@@ -69,25 +72,64 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     @Override
     protected void loadData(Bundle savedInstanceState) {
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
         // get data from layout login and register
-        Bundle bundle = this.getIntent().getExtras();
+        auth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        fillDataSlidebarWithPermission();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+
         setupDrawerToggle();
-        if(bundle != null) {
-            checkLogin(bundle.get(Contraint.CHECK_LOGIN).toString());
-        }
+//        ToastUtil.showLong(getContext(), auth.getCurrentUser().getDisplayName() + " / " + auth.getCurrentUser().getEmail() + "\n" + auth.getCurrentUser().getPhotoUrl());
         callFragment(new MainFragment());
-        setupEventClickIntentItemMenu(bundle.get(Contraint.CHECK_LOGIN).toString());
         listTitleUser = getTitleMenuNav(R.array.navDrawerItemsUser);
         listTitleMember = getTitleMenuNav(R.array.navDrawerItemsMember);
         listTitleAdmin = getTitleMenuNav(R.array.navDrawerItemsAdmin);
         toobar_title.setText(R.string.home); // title home
         showMenuOptionId = 0;
+    }
+    private void fillDataSlidebarWithPermission() {
+        if(auth.getCurrentUser().getDisplayName() == null) {
+            mFirebaseDatabase.child(Contraint.FIREBASE_TREE_USER).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
+                        String avatar = userSnapshot.child(Contraint.FIREBASE_USERS_IMAGES).getValue().toString();
+                        String fullname = userSnapshot.child(Contraint.PROFILE_FULLNAME).getValue().toString();
+                        String email = auth.getCurrentUser().getEmail();
+                        if(userSnapshot.child("email").getValue().equals(email)) {
+                            // check decentralization with menu.
+                            String permission = SPManager.getInstance(getContext()).getDecentralization();
+                            if (!permission.isEmpty()) {
+                                checkLogin(permission,fullname,avatar);
+                                setupEventClickIntentItemMenu(permission);
+                            } else {
+                                isSignOut();
+                            }
+                            break;
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d(Contraint.TAG, "onCancelled: " + databaseError);
+                }
+            });
+        }
+        else  {
+            String permission = SPManager.getInstance(getContext()).getDecentralization();
+            if (!permission.isEmpty()) {
+                checkLogin(permission,auth.getCurrentUser().getDisplayName(),auth.getCurrentUser().getPhotoUrl().toString());
+                setupEventClickIntentItemMenu(permission);
+            } else {
+                isSignOut();
+            }
+        }
+
+
     }
 
     private String[] getTitleMenuNav(int id) {
@@ -95,13 +137,10 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     }
 
 
-
-
-
     public void callFragment(android.support.v4.app.Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.containerView,fragment);
+        transaction.replace(R.id.containerView, fragment);
         transaction.commit();
 
     }
@@ -125,18 +164,15 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     }
 
     public void showMenuSearch(int menuOptionId) { // check show Icon menu for fragment list club
-        if (menu == null)
-            return;
-        else if(menuOptionId == 1) {
-             menu.findItem(R.id.action_search).setVisible(true);
+
+        if (menuOptionId == 1) {
+            menu.findItem(R.id.action_search).setVisible(true);
             menu.findItem(R.id.search_member).setVisible(false);
-         }
-        else if(menuOptionId == 3) {
+        } else if (menuOptionId == 3) {
             menu.findItem(R.id.action_search).setVisible(false);
             menu.findItem(R.id.search_member).setVisible(true);
-        }
-        else if(menuOptionId == 0)  {
-            menu.setGroupVisible(R.menu.action_search,false);
+        } else if (menuOptionId == 0) {
+            menu.setGroupVisible(R.menu.action_search, false);
             menu.findItem(R.id.action_search).setVisible(false);
             menu.findItem(R.id.search_member).setVisible(false);
         }
@@ -147,12 +183,12 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search: {
-                TemplateActivity.startActivity(this,FilterSearchClub.class,null);
+                TemplateActivity.startActivity(this, FilterSearchClub.class, null);
 
             }
             break;
             case R.id.search_member: {
-                TemplateActivity.startActivity(this,SearchMemberGroupActivity.class,null);
+                TemplateActivity.startActivity(this, SearchMemberGroupActivity.class, null);
             }
 
         }
@@ -181,7 +217,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
 
     private void setupEventClickIntentItemMenu(String decentralization) {
 
-        if(decentralization.equals(Contraint.DECENTRALIZATION_ADMIN)) {
+        if (decentralization.equals(Contraint.DECENTRALIZATION_ADMIN)) {
             navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
@@ -252,7 +288,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 }
             });
         }
-        if(decentralization.equals(Contraint.DECENTRALIZATION_MEMBER) ) {
+        if (decentralization.equals(Contraint.DECENTRALIZATION_MEMBER)) {
             navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
@@ -315,7 +351,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 }
             });
         }
-        if(decentralization.equals(Contraint.DECENTRALIZATION_USER) ) {
+        if (decentralization.equals(Contraint.DECENTRALIZATION_USER)) {
             navigationRecyclerViewAdapter.setmItemMenuNavClickListener(new NavigationRecyclerViewAdapter.OnItemMenuNavClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
@@ -366,7 +402,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
 
     }
 
-    private void checkLogin(String position) {
+    private void checkLogin(String permission,String fullname, String avatar) {
         String[] navNameMenuUser = getResources().getStringArray(R.array.navDrawerItemsUser);
         String[] navNameMenuMember = getResources().getStringArray(R.array.navDrawerItemsMember);
         String[] navNameMenuAdmin = getResources().getStringArray(R.array.navDrawerItemsAdmin);
@@ -397,18 +433,20 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 R.drawable.ic_logout};
 
 
-        switch (position) {
+
+
+        switch (permission) {
             case Contraint.DECENTRALIZATION_USER: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser,"Đặng Duy Hậu","Người dùng","http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg");
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser, fullname, "Người dùng", avatar);
 
             }
             break;
             case Contraint.DECENTRALIZATION_MEMBER: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuMember, iconNavMenuMember,"Trần Văn Nam","Thành viên CLB Ban Mai Xanh Đà Nẵng","http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg");
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuMember, iconNavMenuMember, fullname, "Thành viên", avatar);
             }
             break;
             case Contraint.DECENTRALIZATION_ADMIN: {
-                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuAdmin, iconNavMenuAdmin,"Võ Đại Nam","Admin CLB Ban Mai Xanh Đà Nẵng","http://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/174/1741/1741863/4-blood-donation-final-f.jpg");
+                navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuAdmin, iconNavMenuAdmin, fullname, "Admin", avatar);
             }
             break;
         }
@@ -420,16 +458,13 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
 
 
     private void isSignOut() {
-        Toast.makeText(getContext(),"Đăng xuất thành công!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
         showMenuOptionId = 0;
         FirebaseAuth.getInstance().signOut();
-        TemplateActivity.startActivity(getContext(),LoginActivity.class,null);
+        TemplateActivity.startActivity(getContext(), LoginActivity.class, null);
         finish();
         SPManager.getInstance(getContext()).clear();
     }
-
-
-
 
 
 }

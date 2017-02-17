@@ -86,22 +86,6 @@
                 android:inputType="phone" />
         </android.support.design.widget.TextInputLayout>
 
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_5">
-
-            <EditText
-                android:id="@+id/edt_date_of_birth"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:hint="@string/date_of_birth"
-                android:imeOptions="actionDone"
-                android:inputType="date" />
-        </android.support.design.widget.TextInputLayout>
-
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
             android:id="@+id/spinner_blood_group"
             android:layout_width="match_parent"
@@ -110,46 +94,6 @@
             android:hint="@string/hint_blood_group"
             android:paddingBottom="@dimen/padding_5"
             app:met_floatingLabel="highlight" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_5"
-                android:paddingTop="@dimen/padding_5"
-                android:text="@string/hint_gender"
-                android:textSize="@dimen/text_size_15" />
-
-            <RadioGroup
-                android:id="@+id/radio_group_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginStart="20dp"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:id="@+id/radio_male"
-                    style="@style/RadioButtonMain"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/gender_male" />
-
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:id="@+id/radio_female"
-                    style="@style/RadioButtonMain"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/gender_female" />
-            </RadioGroup>
-        </LinearLayout>
 
         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
             android:id="@+id/spinner_city"
@@ -171,7 +115,55 @@
             android:paddingBottom="@dimen/padding_5"
             app:met_floatingLabel="normal" />
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_5">
 
+            <EditText
+                android:id="@+id/edt_date_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/date_of_birth"
+                android:imeOptions="actionDone"
+                android:inputType="date" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding_5"
+            android:paddingTop="@dimen/padding_5"
+            android:text="@string/hint_gender"
+            android:textSize="@dimen/text_size_15" />
+
+        <RadioGroup
+                android:id="@+id/radio_group_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radio_male"
+                    style="@style/RadioButtonMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/gender_male" />
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radio_female"
+                    style="@style/RadioButtonMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/gender_female" />
+            </RadioGroup>
 
         <Button
             android:id="@+id/btn_register"
