@@ -25,6 +25,7 @@ import com.example.admin.bloodbank.objects.PostNews;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 public class ClubDiscussFragment extends TemplateFragment {
@@ -51,6 +52,10 @@ public class ClubDiscussFragment extends TemplateFragment {
     @Override
     protected void loadData(Bundle savedInstanceState) {
         setupRecyclerView();
+        String permission = SPManager.getInstance(getActivity()).getDecentralization();
+        if(!permission.isEmpty()) {
+            isCheckPermission(SPManager.getInstance(getActivity()).getDecentralization());
+        }
 
     }
 
@@ -111,6 +116,16 @@ public class ClubDiscussFragment extends TemplateFragment {
                 TemplateActivity.startActivity(getActivity(), AddNewDiscussActivity.class, null);
             }
         });
+    }
+
+    private void isCheckPermission(String permission) {
+        if(permission.equals(Contraint.DECENTRALIZATION_MEMBER)) {
+            fabPostNews.setVisibility(View.GONE);
+        }
+        else  {
+            fabPostNews.setVisibility(View.VISIBLE);
+            isScrollHideFab();
+        }
     }
 
     private void isScrollHideFab() {

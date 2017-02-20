@@ -28,6 +28,8 @@ import com.example.admin.bloodbank.fragments.ProfileFragment;
 import com.example.admin.bloodbank.fragments.SearchBloodGroupFragment;
 import com.example.admin.bloodbank.fragments.StatisticalFragment;
 import com.example.admin.bloodbank.managers.SPManager;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -72,6 +74,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     @Override
     protected void loadData(Bundle savedInstanceState) {
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
         // get data from layout login and register
         auth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
@@ -90,7 +93,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
         showMenuOptionId = 0;
     }
     private void fillDataSlidebarWithPermission() {
-        if(auth.getCurrentUser().getDisplayName() == null) {
+        if(auth.getCurrentUser().getDisplayName().isEmpty()) {
             mFirebaseDatabase.child(Contraint.FIREBASE_TREE_USER).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -122,14 +125,12 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
         else  {
             String permission = SPManager.getInstance(getContext()).getDecentralization();
             if (!permission.isEmpty()) {
-                checkLogin(permission,auth.getCurrentUser().getDisplayName(),auth.getCurrentUser().getPhotoUrl().toString());
+                checkLogin(permission,auth.getCurrentUser().getDisplayName(),auth.getCurrentUser().getPhotoUrl().toString().trim());
                 setupEventClickIntentItemMenu(permission);
             } else {
                 isSignOut();
             }
         }
-
-
     }
 
     private String[] getTitleMenuNav(int id) {
@@ -433,8 +434,6 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
                 R.drawable.ic_logout};
 
 
-
-
         switch (permission) {
             case Contraint.DECENTRALIZATION_USER: {
                 navigationRecyclerViewAdapter = new NavigationRecyclerViewAdapter(navNameMenuUser, iconNavMenuUser, fullname, "Người dùng", avatar);
@@ -461,6 +460,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
         Toast.makeText(getContext(), "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
         showMenuOptionId = 0;
         FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
         TemplateActivity.startActivity(getContext(), LoginActivity.class, null);
         finish();
         SPManager.getInstance(getContext()).clear();

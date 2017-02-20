@@ -54,41 +54,12 @@ public class AddDescriptionUserActivity extends TemplateActivity {
     @Override
     protected void loadData(Bundle savedInstanceState) {
         setupSpinner();
-        isCheckedGender();
         toolbarTitle.setText("Thêm thông tin người dùng");
         addEventCheckLogin();
     }
 
     private void addEventCheckLogin() {
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-//                Intent intent = new Intent(AddDescriptionUserActivity.this, NavigationDrawerMainActivity.class);
-//                startActivity(intent);
-            }
-        });
-        btnGuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TemplateActivity.startActivity(getContext(),NavigationDrawerMainActivity.class, setDataBundelForIntent(Contraint.DECENTRALIZATION_USER));
-                SPManager.getInstance(getContext());
-
-            }
-        });
-        btnMember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TemplateActivity.startActivity(getContext(),NavigationDrawerMainActivity.class, setDataBundelForIntent(Contraint.DECENTRALIZATION_MEMBER));
-            }
-        });
-
-        btnAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TemplateActivity.startActivity(getContext(),NavigationDrawerMainActivity.class, setDataBundelForIntent(Contraint.DECENTRALIZATION_ADMIN));
-            }
-        });
     }
 
     private Bundle setDataBundelForIntent(String text) {
@@ -97,34 +68,20 @@ public class AddDescriptionUserActivity extends TemplateActivity {
         return bundle;
     }
 
-    private void isCheckedGender() {
-        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if (checkedId == R.id.radio_male) {
-
-                }
-                if (checkedId == R.id.radio_female) {
-
-                }
-            }
-        });
-    }
 
     private void setupSpinner() {
         String[] listCity = getResources().getStringArray(R.array.city);
         String[] listDistrict = getResources().getStringArray(R.array.district);
         String[] listBloodGroup = getResources().getStringArray(R.array.blood_group);
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterCity = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listDistrict);
-        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listBloodGroup);
         spinnerCity.setAdapter(adapterCity);
         spinnerDistrict.setAdapter(adapterDistrict);
         spinnerBloodGroup.setAdapter(adapterBloodGroup);
     }
-
 
 }

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
+import com.example.admin.bloodbank.contraints.Contraint;
+import com.example.admin.bloodbank.managers.SPManager;
 import com.rengwuxian.materialedittext.MaterialAutoCompleteTextView;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
@@ -56,8 +58,7 @@ public class AddNewDiscussActivity extends TemplateActivity {
     protected void loadData(Bundle savedInstanceState) {
         setupToobar();
         setupSpinner();
-       // String decentralization = SPManager.getInstance(getContext()).getDecentralization();
-       // Toast.makeText(getContext(),decentralization,Toast.LENGTH_LONG).show();
+
     }
 
     private void setupToobar() {
@@ -70,6 +71,7 @@ public class AddNewDiscussActivity extends TemplateActivity {
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,22 +93,6 @@ public class AddNewDiscussActivity extends TemplateActivity {
         return false;
     }
 
-    private void isCheckedGender() {
-        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if (checkedId == R.id.radio_male) {
-
-                }
-                if (checkedId == R.id.radio_female) {
-
-                }
-                if(checkedId == R.id.radio_gender_all) {
-
-                }
-            }
-        });
-    }
 
 
     private void setupSpinner() {

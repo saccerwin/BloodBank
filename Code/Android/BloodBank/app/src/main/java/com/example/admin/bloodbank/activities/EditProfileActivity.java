@@ -67,7 +67,6 @@ public class EditProfileActivity extends TemplateActivity {
     protected void loadData(Bundle savedInstanceState) {
         setupToobar();
         setupSpinner();
-        isCheckedGender();
         setupDataField();
         setupDatePickerForDateOfBirth();
 
@@ -160,30 +159,16 @@ public class EditProfileActivity extends TemplateActivity {
         return false;
     }
 
-    private void isCheckedGender() {
-        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                if (checkedId == R.id.radio_male) {
-
-                }
-                if (checkedId == R.id.radio_female) {
-
-                }
-            }
-        });
-    }
 
     private void setupSpinner() {
         String[] listCity = getResources().getStringArray(R.array.city);
         String[] listDistrict = getResources().getStringArray(R.array.district);
         String[] listBloodGroup = getResources().getStringArray(R.array.blood_group);
-
-        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listBloodGroup);
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterCity = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listDistrict);
         spinnerCity.setAdapter(adapterCity);
         spinnerDistrict.setAdapter(adapterDistrict);

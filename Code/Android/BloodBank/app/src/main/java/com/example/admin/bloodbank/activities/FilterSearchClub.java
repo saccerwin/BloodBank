@@ -76,9 +76,9 @@ public class FilterSearchClub extends TemplateActivity {
     private void setupSpinner() {
         String [] listCity = getResources().getStringArray(R.array.city);
         String [] listCountMember = getResources().getStringArray(R.array.count_member);
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterCity = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterCountMember = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterCountMember = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listCountMember);
         spinnerCity.setAdapter(adapterCity);
         spinnerCountMember.setAdapter(adapterCountMember);

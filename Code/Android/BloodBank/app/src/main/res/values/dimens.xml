@@ -51,7 +51,8 @@
 
     <dimen name="popup_width">400dp</dimen>
     <dimen name="popup_height">400dp</dimen>
-
+    <dimen name="dp200">200dp</dimen>
+    <dimen name="dp250">250dp</dimen>
 
 
 </resources>

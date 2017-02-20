@@ -6,6 +6,9 @@
     <string name="guest">Guest</string>
     <string name="cancel">Thoát</string>
     <string name="ok">Ok</string>
+    <string name="facebook_app_id">1807721506157321</string>
+    <string name="fb_login_protocol_scheme">fb1807721506157321</string>
+
 
 
     <!--Toobar-->
@@ -174,6 +177,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
     <string name="text_delete_all">Xóa tât cả</string>
     <string name="text_add_new_discuss">THÊM BÀI ĐĂNG MỚI</string>
     <string name="home">Trang chủ</string>
+    <string name="login_success">" Đăng nhập thành công"</string>
 
 
     <string-array name="navDrawerItemsUser">

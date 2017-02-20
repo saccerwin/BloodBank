@@ -15,6 +15,5 @@ public class Application  extends android.app.Application {
                     .name("BloodBank")
                     .schemaVersion(0)
                     .build());
-
     }
 }

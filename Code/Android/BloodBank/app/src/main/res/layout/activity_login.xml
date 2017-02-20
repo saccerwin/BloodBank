@@ -3,14 +3,14 @@
 <ScrollView android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:fb="http://schemas.android.com/apk/res-auto">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:contentDescription="@string/app_name"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/dp250"
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:background="@color/colorGrey_login"
@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_10"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,24 +87,23 @@
                 android:layout_marginEnd="@dimen/padding_20"
                 android:id="@+id/btn_login" />
 
-            <Button
+
+            <com.facebook.login.widget.LoginButton
                 android:layout_width="match_parent"
-                android:background="@drawable/button_radius_facebook"
-                android:drawableLeft="@drawable/ic_facebook"
-                android:drawableStart="@drawable/ic_facebook"
-                android:paddingLeft="@dimen/padding_20"
-                android:paddingStart="@dimen/padding_20"
-                android:paddingRight="0dp"
-                android:paddingEnd="0dp"
-                android:text="@string/btn_login_facebook"
-                android:textColor="@color/colorWhite"
                 android:layout_height="wrap_content"
+                android:minHeight="100dp"
+                android:text="@string/btn_login_facebook"
+                android:id="@+id/btn_login_facebook"
+                android:background="@drawable/button_radius_facebook"
+                android:padding="@dimen/padding_20"
                 android:layout_marginBottom="@dimen/padding_15"
                 android:layout_marginLeft="@dimen/padding_20"
                 android:layout_marginRight="@dimen/padding_20"
                 android:layout_marginStart="@dimen/padding_20"
-                android:layout_marginEnd="@dimen/padding_20"
-                android:id="@+id/btn_facebook" />
+                android:textSize="@dimen/text_size_25"
+                android:layout_marginEnd="@dimen/padding_20">
+
+            </com.facebook.login.widget.LoginButton>
 
         </LinearLayout>
         <LinearLayout
