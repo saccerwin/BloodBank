@@ -2,8 +2,6 @@ package com.example.admin.bloodbank.objects;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.UUID;
-
 /**
  * Created by Admin on 09/02/2017.
  */
@@ -15,7 +13,6 @@ public class User {
     private String id_discuss;
     private String permission;
     private String email;
-    private String password;
     private String fullName;
     private String dateOfBirth;
     private String gender;
@@ -31,13 +28,12 @@ public class User {
 
     }
 
-    public User(String id_club, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String city, String district, String url_images_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
-        this.id = UUID.randomUUID().toString();
+    public User(String id,String id_club, String id_discuss, String permission, String email, String fullName, String dateOfBirth, String gender, String phone, String city, String district, String url_images_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
+        this.id = id;
         this.id_club = id_club;
         this.id_discuss = id_discuss;
         this.permission = permission;
         this.email = email;
-        this.password = password;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
@@ -114,14 +110,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getFullName() {
         return fullName;
     }
@@ -178,7 +166,6 @@ public class User {
     public void setCheckDonation(boolean checkDonation) {
         isCheckDonation = checkDonation;
     }
-
 
 
 }

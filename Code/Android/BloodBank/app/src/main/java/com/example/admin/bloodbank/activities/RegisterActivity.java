@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.contraints.Contraint;
-import com.example.admin.bloodbank.managers.SPManager;
 import com.example.admin.bloodbank.objects.User;
 import com.example.admin.bloodbank.utils.ToastUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -118,7 +117,7 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     @Override
     protected void loadData(Bundle savedInstanceState) {
         setupSpinner();
-        toolbarTitle.setText("Đăng ký tài khoản");
+        toolbarTitle.setText(R.string.register_account);
         setupDatePickerForDateOfBirth();
         showSpinnerDistictForCity();
         //setup using Firebase
@@ -181,15 +180,16 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     public void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Đang xử lý...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
     }
 
     private void setupSpinner() {
         String[] listCity = getResources().getStringArray(R.array.city);
         String[] listBloodGroup = getResources().getStringArray(R.array.blood_group);
-        ArrayAdapter<String> adapterCity = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterCity = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listCity);
-        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterBloodGroup = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, listBloodGroup);
         spinnerBloodGroup.setAdapter(adapterBloodGroup);
         spinnerCity.setAdapter(adapterCity);
@@ -221,7 +221,7 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         if (city.equals("Hồ Chí Minh")) {
             district = getResources().getStringArray(R.array.district_hochiminh);
         }
-        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapterDistrict = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, district);
         spinnerDistrict.setAdapter(adapterDistrict);
     }
@@ -235,14 +235,13 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                hideProgressDialog();
                 if (task.isSuccessful()) {
                     String distict = spinnerDistrict.getText().toString().trim();
                     String city = spinnerCity.getText().toString().trim();
                     String phone = edtPhone.getText().toString().trim();
                     String dataOfBirth = edtDateOfBirth.getText().toString().trim();
                     String typeBlood = spinnerBloodGroup.getText().toString().trim();
-                    createNewUser("None", "None", Contraint.DECENTRALIZATION_USER, email, password, fullname, dataOfBirth, getValueGender(), phone, city, distict, imagesAvatarUrl, 0, typeBlood, false);
+                    createNewUser(FirebaseAuth.getInstance().getCurrentUser().getUid(),"None", "None", Contraint.DECENTRALIZATION_USER, email, fullname, dataOfBirth, getValueGender(), phone, city, distict, imagesAvatarUrl, 0, typeBlood, false);
                     // update name, and photo for firebase user
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
@@ -254,19 +253,22 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    hideProgressDialog();
                                     Log.d(Contraint.TAG, "User profile updated.");
-
+                                    ToastUtil.showLong(getContext(), "Đăng ký thành công!");
+                                    TemplateActivity.startActivity(getContext(), LoginActivity.class, null);
+                                    finish();
+                                }
+                                else {
+                                    ToastUtil.showShort(getContext(),"Error" + task.getException().getLocalizedMessage());
                                 }
                             }
                         });
-                        ToastUtil.showLong(getContext(), "Đăng ký thành công!");
-                        SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_USER);
-                        TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, null);
-                        finish();
                     }
 
 
                 } else {
+                    hideProgressDialog();
                     ToastUtil.showLong(getContext(), "Đăng ký thất bại! \n Error: " + task.getException().getMessage());
                 }
             }
@@ -274,8 +276,8 @@ public class RegisterActivity extends TemplateActivity implements Validator.Vali
     }
 
 
-    private void createNewUser(String id_club, String id_discuss, String permission, String email, String password, String fullName, String dateOfBirth, String gender, String phone, String city, String district, String url_images_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
-        User user = new User(id_club, id_discuss, permission, email, password, fullName, dateOfBirth, gender, phone, city, district, url_images_avatar, quality_donation, type_blood, isCheckDonation);
+    private void createNewUser(String id,String id_club, String id_discuss, String permission, String email, String fullName, String dateOfBirth, String gender, String phone, String city, String district, String url_images_avatar, int quality_donation, String type_blood, boolean isCheckDonation) {
+        User user = new User(id,id_club, id_discuss, permission, email, fullName, dateOfBirth, gender, phone, city, district, url_images_avatar, quality_donation, type_blood, isCheckDonation);
         mFirebaseDatabase.push().setValue(user);
     }
 

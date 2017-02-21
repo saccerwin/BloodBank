@@ -20,6 +20,7 @@ import com.example.admin.bloodbank.adapters.ProfileAdapter;
 import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.interfaces.ProfileListenerInterface;
 import com.example.admin.bloodbank.objects.User;
+import com.google.firebase.auth.FirebaseAuth;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -75,14 +76,13 @@ public class ProfileFragment extends TemplateFragment {
 
             @Override
             public void onItemEditProfileClick(View view, int position) { //action click btn edit profile
-                User user = new User("1","2","user","saccerwin101@gmail.com","123456","Dang Duy Hau","24/10/1993","Nữ","01227949185","Đà Nẵng","Thanh Khê","...",0,"AB",false);
+                User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid(),"1","2","user","saccerwin101@gmail.com","Dang Duy Hau","24/10/1993","Nữ","01227949185","Đà Nẵng","Thanh Khê","...",0,"AB",false);
                 Bundle bundle = new Bundle();
                 bundle.putString(Contraint.PROFILE_FULLNAME, user.getFullName());
                 bundle.putString(Contraint.PROFILE_PHONE, user.getPhone());
                 bundle.putString(Contraint.PROFILE_DATEOFBIRTH, user.getDateOfBirth());
                 bundle.putString(Contraint.PROFILE_GENDER, user.getGender());
                 bundle.putString(Contraint.PROFILE_DISTICT, user.getDistrict());
-                bundle.putString(Contraint.PROFILE_PASSWORD, user.getPassword());
                 bundle.putString(Contraint.PROFILE_CITY, user.getCity());
                 bundle.putString(Contraint.PROFILE_TYPEBLOOD, user.getType_blood());
                 TemplateActivity.startActivityForResult(getActivity(), EditProfileActivity.class,0,bundle);

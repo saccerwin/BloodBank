@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,11 +30,8 @@ import com.example.admin.bloodbank.managers.SPManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 
@@ -74,17 +70,16 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
     @Override
     protected void loadData(Bundle savedInstanceState) {
 
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
         FacebookSdk.sdkInitialize(getApplicationContext());
         // get data from layout login and register
         auth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
         fillDataSlidebarWithPermission();
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
-
         setupDrawerToggle();
-//        ToastUtil.showLong(getContext(), auth.getCurrentUser().getDisplayName() + " / " + auth.getCurrentUser().getEmail() + "\n" + auth.getCurrentUser().getPhotoUrl());
         callFragment(new MainFragment());
         listTitleUser = getTitleMenuNav(R.array.navDrawerItemsUser);
         listTitleMember = getTitleMenuNav(R.array.navDrawerItemsMember);
@@ -92,45 +87,15 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
         toobar_title.setText(R.string.home); // title home
         showMenuOptionId = 0;
     }
+
     private void fillDataSlidebarWithPermission() {
-        if(auth.getCurrentUser().getDisplayName().isEmpty()) {
-            mFirebaseDatabase.child(Contraint.FIREBASE_TREE_USER).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                        String avatar = userSnapshot.child(Contraint.FIREBASE_USERS_IMAGES).getValue().toString();
-                        String fullname = userSnapshot.child(Contraint.PROFILE_FULLNAME).getValue().toString();
-                        String email = auth.getCurrentUser().getEmail();
-                        if(userSnapshot.child("email").getValue().equals(email)) {
-                            // check decentralization with menu.
-                            String permission = SPManager.getInstance(getContext()).getDecentralization();
-                            if (!permission.isEmpty()) {
-                                checkLogin(permission,fullname,avatar);
-                                setupEventClickIntentItemMenu(permission);
-                            } else {
-                                isSignOut();
-                            }
-                            break;
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.d(Contraint.TAG, "onCancelled: " + databaseError);
-                }
-            });
-        }
-        else  {
             String permission = SPManager.getInstance(getContext()).getDecentralization();
-            if (!permission.isEmpty()) {
+            if (permission != null) {
                 checkLogin(permission,auth.getCurrentUser().getDisplayName(),auth.getCurrentUser().getPhotoUrl().toString().trim());
                 setupEventClickIntentItemMenu(permission);
             } else {
                 isSignOut();
             }
-        }
     }
 
     private String[] getTitleMenuNav(int id) {
@@ -403,7 +368,7 @@ public class NavigationDrawerMainActivity extends TemplateActivity {
 
     }
 
-    private void checkLogin(String permission,String fullname, String avatar) {
+    private void checkLogin(String permission, String fullname, String avatar) {
         String[] navNameMenuUser = getResources().getStringArray(R.array.navDrawerItemsUser);
         String[] navNameMenuMember = getResources().getStringArray(R.array.navDrawerItemsMember);
         String[] navNameMenuAdmin = getResources().getStringArray(R.array.navDrawerItemsAdmin);

@@ -178,6 +178,7 @@ P/s Đồng cảm đơn giản là sẻ chia</string>
     <string name="text_add_new_discuss">THÊM BÀI ĐĂNG MỚI</string>
     <string name="home">Trang chủ</string>
     <string name="login_success">" Đăng nhập thành công"</string>
+    <string name="register_account">Đăng ký tài khoản</string>
 
 
     <string-array name="navDrawerItemsUser">

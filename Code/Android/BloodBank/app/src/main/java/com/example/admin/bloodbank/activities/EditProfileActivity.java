@@ -105,14 +105,12 @@ public class EditProfileActivity extends TemplateActivity {
         Bundle bundle = getIntent().getExtras();
         String fullName = bundle.getString(Contraint.PROFILE_FULLNAME);
         String phone = bundle.getString(Contraint.PROFILE_PHONE);
-        String password = bundle.getString(Contraint.PROFILE_PASSWORD);
         String dateOfBirth = bundle.getString(Contraint.PROFILE_DATEOFBIRTH);
         String gender = bundle.getString(Contraint.PROFILE_GENDER);
         String typeBlood = bundle.getString(Contraint.PROFILE_TYPEBLOOD);
         String distict = bundle.getString(Contraint.PROFILE_DISTICT);
         String city = bundle.getString(Contraint.PROFILE_CITY);
         edtFullName.setText(fullName);
-        edtPassword.setText(password);
         edtPhone.setText(phone);
         edtDateOfBirth.setText(dateOfBirth);
         spinnerCity.setText(city);

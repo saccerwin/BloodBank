@@ -16,12 +16,10 @@ import com.example.admin.bloodbank.R;
 import com.example.admin.bloodbank.abstracts.TemplateActivity;
 import com.example.admin.bloodbank.contraints.Contraint;
 import com.example.admin.bloodbank.managers.SPManager;
-import com.example.admin.bloodbank.utils.PrefManager;
 import com.example.admin.bloodbank.utils.TemplateUtils;
 import com.example.admin.bloodbank.utils.ToastUtil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookButtonBase;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
@@ -34,7 +32,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,14 +47,14 @@ public class LoginActivity extends TemplateActivity {
     private TextView tvForgotPassword, tvRegister;
     private EditText edtEmail, edtPassword;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mFirebaseDatabase;
     private CallbackManager mCallbackManager;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
     private ProgressDialog progressDialog;
     private String email;
     private String password;
     private LoginButton btnLoginFacebook;
+
     @Override
     protected void initData(Bundle savedInstanceState) {
 
@@ -82,46 +79,71 @@ public class LoginActivity extends TemplateActivity {
     @Override
     protected void loadData(Bundle savedInstanceState) {
         // check connection internet
-        if (!TemplateUtils.checkInternetConnection(getContext()))  {
-            ToastUtil.showLong(getContext(),"Lỗi ko truy cập được mạng! Vui lòng kiểm tra lại kết nối!");
+        if (!TemplateUtils.checkInternetConnection(getContext())) {
+            ToastUtil.showLong(getContext(), "Lỗi ko truy cập được mạng! Vui lòng kiểm tra lại kết nối!");
         }
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
         // handling firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
-        actionOnClick();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, null);
+            finish();
+        }
+        checkLogin();
         // check user
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    TemplateActivity.startActivity(LoginActivity.this, NavigationDrawerMainActivity.class, null);
-                    ToastUtil.showLong(getContext(),getString(R.string.login_success));
-                    finish();
-                    Log.d(Contraint.TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(Contraint.TAG, "onAuthStateChanged:signed_out");
-                    signOut();
-                }
-
-            }
-        };
-
-        loginWithFacebook();
-
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if (user != null) {
+//                    if (AccessToken.getCurrentAccessToken() != null) {
+//                        TemplateActivity.startActivity(LoginActivity.this, NavigationDrawerMainActivity.class, null);
+//                        finish();
+//                    }
+//
+//                    Log.d(Contraint.TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                    mFirebaseDatabase.child(Contraint.FIREBASE_TREE_USER).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+//                                if (userSnapshot.child("email").getValue().equals(email)) {
+//                                    String permissionUser = userSnapshot.child(Contraint.FIREBASE_USERS_PERMISSION).getValue().toString();
+////                                            Log.d(Contraint.TAG, "onDataChange permission: " + permission);
+//                                    SPManager.getInstance(getContext()).setDecentralization(permissionUser);
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putString(Contraint.CHECK_LOGIN, permissionUser);
+//                                    TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, bundle);
+//                                    ToastUtil.showShort(getContext(), getString(R.string.login_success));
+//                                    finish();
+//                                    break;
+//                                }
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//                } else {
+//                    // User is signed out
+//                    Log.d(Contraint.TAG, "onAuthStateChanged:signed_out");
+//                    signOut();
+//                }
+//            }
+//        };
 
     }
 
     private void loginWithFacebook() {
-        btnLoginFacebook.setMinHeight(200);
         mCallbackManager = CallbackManager.Factory.create();
-        btnLoginFacebook.setReadPermissions("email","public_profile");
+        btnLoginFacebook.setReadPermissions("email", "public_profile");
+
         btnLoginFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_USER);
                 Log.d(Contraint.TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
@@ -140,44 +162,39 @@ public class LoginActivity extends TemplateActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode,resultCode,data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
 
     }
 
-    private void actionOnClick() {
+    private void checkLogin() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 email = edtEmail.getText().toString().trim();
                 password = edtPassword.getText().toString().trim();
                 showProgressDialog();
-                if(TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
-                    ToastUtil.showShort(getContext(),"Email và password không được rỗng");
+                if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
+                    ToastUtil.showShort(getContext(), "Email và password không được rỗng");
                     hideProgressDialog();
-                }
-                else {
+                } else {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            hideProgressDialog();
                             if (task.isSuccessful()) {
+                                hideProgressDialog();
                                 // get decentralization user
                                 mFirebaseDatabase.child(Contraint.FIREBASE_TREE_USER).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot userSnapshot: dataSnapshot.getChildren()) {
-                                            if(userSnapshot.child("email").getValue().equals(email)) {
+                                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                            if (userSnapshot.child("email").getValue().equals(email)) {
                                                 String permissionUser = userSnapshot.child(Contraint.FIREBASE_USERS_PERMISSION).getValue().toString();
 //                                            Log.d(Contraint.TAG, "onDataChange permission: " + permission);
                                                 SPManager.getInstance(getContext()).setDecentralization(permissionUser);
-                                                Bundle bundle = new Bundle();
-                                                bundle.putString(Contraint.CHECK_LOGIN,permissionUser);
-                                                bundle.putString(Contraint.PROFILE_EMAIL,email);
-                                                bundle.putString(Contraint.PROFILE_PASSWORD,password);
-                                                TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, bundle);
+                                                ToastUtil.showLong(getContext(), "Đăng nhập thành công!");
+                                                TemplateActivity.startActivity(getContext(), NavigationDrawerMainActivity.class, null);
                                                 finish();
                                                 break;
                                             }
@@ -187,11 +204,13 @@ public class LoginActivity extends TemplateActivity {
 
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
-                                        ToastUtil.showShort(getContext(),databaseError.getMessage());
+                                        hideProgressDialog();
+                                        ToastUtil.showShort(getContext(), databaseError.getMessage());
                                     }
                                 });
 
                             } else {
+                                hideProgressDialog();
                                 edtEmail.getText().clear();
                                 edtPassword.getText().clear();
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!\nError: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -200,10 +219,13 @@ public class LoginActivity extends TemplateActivity {
                     });
 
                 }
+            }
+        });
 
-
-
-
+        btnLoginFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginWithFacebook();
             }
         });
 
@@ -231,10 +253,10 @@ public class LoginActivity extends TemplateActivity {
     }
 
 
-
     public void showProgressDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Đang xử lý...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
     }
 
@@ -258,6 +280,10 @@ public class LoginActivity extends TemplateActivity {
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             SPManager.getInstance(getContext()).clear();
+                        } else {
+                            SPManager.getInstance(getContext()).setDecentralization(Contraint.DECENTRALIZATION_USER);
+                            TemplateActivity.startActivity(LoginActivity.this, NavigationDrawerMainActivity.class, null);
+                            finish();
                         }
 
                         // [START_EXCLUDE]
@@ -276,21 +302,21 @@ public class LoginActivity extends TemplateActivity {
     }
 
     // [START on_start_add_listener]
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-    // [END on_start_add_listener]
-
-    // [START on_stop_remove_listener]
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        mAuth.addAuthStateListener(mAuthListener);
+//    }
+//    // [END on_start_add_listener]
+//
+//    // [START on_stop_remove_listener]
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (mAuthListener != null) {
+//            mAuth.removeAuthStateListener(mAuthListener);
+//        }
+//    }
     // [END on_stop_remove_listener]
 
 
